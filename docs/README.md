@@ -1,0 +1,5 @@
+# my docs
+
+---
+sidebar: auto
+---
