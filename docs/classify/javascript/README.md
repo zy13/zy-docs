@@ -1,3 +1,0 @@
-# javscript
-
-## [a](./a.md)

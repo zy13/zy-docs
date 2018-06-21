@@ -25,12 +25,81 @@ module.exports = {
     sidebar: {
       '/classify/': [
         {
-          title: '分类',
-          collapsable: false,
+          title: 'lately',
+          collapsable: true,
           children: [
-            '',
-            'javascript/',
-            'plugins/'
+            ['lately/', 'lately']
+          ]
+        },
+        {
+          title: 'javascript',
+          collapsable: true,
+          children: [
+            ['javascript/a', 'a'],
+            ['javascript/b', 'b']
+          ]
+        }, 
+        {
+          title: 'html',
+          collapsable: true,
+          children: [
+            ['html/a', 'a']
+          ]
+        },
+        {
+          title: 'css',
+          collapsable: true,
+          children: []
+        },
+        {
+          title: 'plugins',
+          collapsable: true,
+          children: [
+            ['plugins/axios', 'axios'],
+            ['plugins/webuploader', 'webuploader'],
+            ['plugins/uedit', 'uedit']
+          ]
+        },
+        {
+          title: 'regexp',
+          collapsable: true,
+          children: [
+            ['regexp/a', 'a']
+          ]
+        },
+        {
+          title: 'node',
+          collapsable: true,
+          children: [
+            ['node/', '']
+          ]
+        },
+        {
+          title: 'webpack',
+          collapsable: true,
+          children: [
+            ['webpack/', '']
+          ]
+        },
+        {
+          title: 'tool',
+          collapsable: true,
+          children: [
+            ['tool/', '']
+          ]
+        },
+        {
+          title: 'vue',
+          collapsable: true,
+          children: [
+            ['vue/', '']
+          ]
+        },
+        {
+          title: 'react',
+          collapsable: true,
+          children: [
+            ['react/', '']
           ]
         }
       ],
@@ -39,7 +108,6 @@ module.exports = {
           title: '常用组件',
           collapsable: false,
           children: [
-            // '',
             ['loading', 'loading'],
             ['form', 'form']
           ]

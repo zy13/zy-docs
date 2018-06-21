@@ -1,5 +1,3 @@
-# webUploder
-
 ### 介绍
 
 <a href="http://fex.baidu.com/webuploader/doc/index.html" target='_blank'>webuploder.js</a>由百度前端团队开发的文件上传插件, 浏览器兼容性好，可运用于m端和pc端设备。
