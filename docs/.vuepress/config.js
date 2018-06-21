@@ -16,21 +16,32 @@ module.exports = {
       {
         text: '分类',
         link: '/classify/'
+      },
+      {
+        text: '常用组件',
+        link: '/components/'
       }
     ],
     sidebar: {
       '/classify/': [
-        '',
-        ['javascript/', 'javascript'],
-        ['html/', 'html'],
-        ['css/', 'css']
-      ],
-      '/guid/': [
         {
-          title: '',
+          title: '分类',
           collapsable: false,
           children: [
-            ['a/', 'a']
+            '',
+            'javascript/',
+            'plugins/'
+          ]
+        }
+      ],
+      '/components/': [
+        {
+          title: '常用组件',
+          collapsable: false,
+          children: [
+            '',
+            ['loading', 'loading'],
+            ['form', 'form']
           ]
         }
       ]
