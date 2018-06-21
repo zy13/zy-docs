@@ -39,7 +39,7 @@ module.exports = {
           title: '常用组件',
           collapsable: false,
           children: [
-            '',
+            // '',
             ['loading', 'loading'],
             ['form', 'form']
           ]
