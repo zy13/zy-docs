@@ -71,35 +71,35 @@ module.exports = {
           title: 'node',
           collapsable: true,
           children: [
-            ['node/', '']
+            ['node/demo', 'demo']
           ]
         },
         {
           title: 'webpack',
           collapsable: true,
           children: [
-            ['webpack/', '']
+            ['webpack/demo', 'demo']
           ]
         },
         {
           title: 'tool',
           collapsable: true,
           children: [
-            ['tool/', '']
+            ['tool/demo', 'demo']
           ]
         },
         {
           title: 'vue',
           collapsable: true,
           children: [
-            ['vue/', '']
+            ['vue/demo', 'demo']
           ]
         },
         {
           title: 'react',
           collapsable: true,
           children: [
-            ['react/', '']
+            ['react/demo', 'demo']
           ]
         }
       ],
