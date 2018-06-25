@@ -20,10 +20,10 @@ script:
   - npm run build
 
 after_script:
-  - rm -rf /docs
-  - mkdir /docs
+  - rm -rf /dist
+  - mkdir /dist
   - cd ./docs/.vuepress/dist
-  - cp -R ./* /docs
+  - cp -R ./* /dist
   - git init
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
