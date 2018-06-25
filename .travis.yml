@@ -35,8 +35,8 @@ after_script:
 #指定分支，只有指定的分支提交时才会运行脚本
 branches:
   only:
-    - master
+    - gh-pages
 env:
  global:
    # 我将其添加到了travis-ci的环境变量中
-   #- GH_REF: github.com/zy13/zy-docs.git
+   - GH_REF: github.com/zy13/zy-docs.git
