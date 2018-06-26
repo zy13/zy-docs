@@ -1,6 +1,7 @@
 module.exports = {
   title: "zy's note",
   description: "Welcome to zyuan's site",
+  base: '/zy-docs/',
   port: 9001,
   head: [
     ['limk', { rel: 'icon', href: `/logo.png`}],
