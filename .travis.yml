@@ -8,7 +8,6 @@ cache:
   directories:
     - node_modules
 
-
 # S: Build Lifecycle
 install:
   - npm install
@@ -20,23 +19,21 @@ script:
   - npm run build
 
 after_script:
-  - rm -rf /dist
-  - mkdir /dist
-  - cd ./docs/.vuepress/dist
-  - cp -R ./* /dist
+  - cd docs/.vuepress/dist
   - git init
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
   - git add .
-  - git commit -m "Update tools"
+  - git commit -m "Update docs"
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
 # E: Build LifeCycle
 
 #指定分支，只有指定的分支提交时才会运行脚本
 branches:
   only:
-    - gh-pages
+    - master
+
 env:
  global:
    # 我将其添加到了travis-ci的环境变量中
-   - GH_REF: github.com/zy13/zy-docs.git
+   # - GH_REF: github.com/zy13/zy-docs.git
