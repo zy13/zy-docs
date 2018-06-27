@@ -1,6 +1,6 @@
 module.exports = {
-  title: "zy's note",
-  description: "Welcome to zyuan's site",
+  title: "zy's docs",
+  description: "Welcome!",
   base: '/docs/',
   port: 9000,
   head: [
@@ -25,26 +25,27 @@ module.exports = {
     ],
     sidebar: {
       '/classify/': [
-        {
-          title: 'lately',
-          collapsable: true,
-          children: [
-            ['lately/', 'lately']
-          ]
-        },
+        // {
+        //   title: 'lately',
+        //   collapsable: false,
+        //   children: [
+        //     // '',
+        //     // ['lately/', '']
+        //   ]
+        // },
         {
           title: 'javascript',
           collapsable: true,
           children: [
-            ['javascript/a', 'a'],
-            ['javascript/b', 'b']
+            // ['javascript/a', 'a'],
+            // ['javascript/b', 'b']
           ]
         }, 
         {
           title: 'html',
           collapsable: true,
           children: [
-            ['html/a', 'a']
+            // ['html/a', 'a']
           ]
         },
         {
@@ -65,42 +66,49 @@ module.exports = {
           title: 'regexp',
           collapsable: true,
           children: [
-            ['regexp/a', 'a']
+            // ['regexp/a', 'a']
           ]
         },
         {
           title: 'node',
           collapsable: true,
           children: [
-            ['node/demo', 'demo']
+            // ['node/demo', 'demo']
           ]
         },
         {
           title: 'webpack',
           collapsable: true,
           children: [
-            ['webpack/demo', 'demo']
-          ]
-        },
-        {
-          title: 'tool',
-          collapsable: true,
-          children: [
-            ['tool/demo', 'demo']
+            // ['webpack/demo', 'demo']
           ]
         },
         {
           title: 'vue',
           collapsable: true,
           children: [
-            ['vue/demo', 'demo']
+            // ['vue/demo', 'demo']
           ]
         },
         {
           title: 'react',
           collapsable: true,
           children: [
-            ['react/demo', 'demo']
+            // ['react/demo', 'demo']
+          ]
+        },
+        {
+          title: 'weixin',
+          collapsable: true,
+          children: [
+            // ['tool/demo', 'demo']
+          ]
+        },
+        {
+          title: 'tool',
+          collapsable: true,
+          children: [
+            // ['tool/demo', 'demo']
           ]
         }
       ],
