@@ -11,11 +11,7 @@ module.exports = {
   themeConfig: {
     nav: [
       {
-        text: 'Home',
-        link: '/'
-      },
-      {
-        text: 'classifies',
+        text: 'classify',
         link: '/classify/'
       },
       {
@@ -23,8 +19,8 @@ module.exports = {
         link: '/components/'
       },
       {
-        text: 'profile',
-        link: '/profile/'
+        text: 'more',
+        link: '/more/'
       }
     ],
     sidebar: {
@@ -58,13 +54,6 @@ module.exports = {
             ['plugins/axios', 'axios'],
             ['plugins/uedit', 'uedit'],
             ['plugins/webuploader', 'webuploader']
-          ]
-        },
-        {
-          title: 'regexp',
-          collapsable: true,
-          children: [
-            // ['regexp/a', 'a']
           ]
         },
         {
@@ -110,13 +99,15 @@ module.exports = {
           title: 'tool',
           collapsable: true,
           children: [
-            
+            ['tool/vscode', 'vscode'],
+            ['tool/gitKraken', 'gitKraken'],
+            ['tool/Postman', 'postman'],
+            ['tool/more', 'more']
           ]
         }
       ],
       '/components/': [
         {
-          title: '',
           collapsable: false,
           children: [
             ['loading', 'loading'],
@@ -125,13 +116,9 @@ module.exports = {
           ]
         }
       ],
-      '/profile/': [
+      '/more/': [
         {
-          title: '',
-          collapsable: false,
-          children: [
-
-          ]
+          collapsable: false
         }
       ]
     }
