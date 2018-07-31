@@ -15,12 +15,16 @@ module.exports = {
         link: '/'
       },
       {
-        text: '分类',
+        text: 'classifies',
         link: '/classify/'
       },
       {
-        text: '常用组件',
+        text: 'components',
         link: '/components/'
+      },
+      {
+        text: 'profile',
+        link: '/profile/'
       }
     ],
     sidebar: {
@@ -112,12 +116,21 @@ module.exports = {
       ],
       '/components/': [
         {
-          title: '常用组件',
+          title: '',
           collapsable: false,
           children: [
             ['loading', 'loading'],
             ['form', 'form'],
             ['layout-flex', 'flex']
+          ]
+        }
+      ],
+      '/profile/': [
+        {
+          title: '',
+          collapsable: false,
+          children: [
+
           ]
         }
       ]
