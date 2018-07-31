@@ -25,14 +25,6 @@ module.exports = {
     ],
     sidebar: {
       '/classify/': [
-        // {
-        //   title: 'lately',
-        //   collapsable: false,
-        //   children: [
-        //     // '',
-        //     // ['lately/', '']
-        //   ]
-        // },
         {
           title: 'javascript',
           collapsable: true,
@@ -51,15 +43,17 @@ module.exports = {
         {
           title: 'css',
           collapsable: true,
-          children: []
+          children: [
+            ['css/flex', 'flex']
+          ]
         },
         {
           title: 'plugins',
           collapsable: true,
           children: [
             ['plugins/axios', 'axios'],
-            ['plugins/webuploader', 'webuploader'],
-            ['plugins/uedit', 'uedit']
+            ['plugins/uedit', 'uedit'],
+            ['plugins/webuploader', 'webuploader']
           ]
         },
         {
@@ -73,7 +67,11 @@ module.exports = {
           title: 'node',
           collapsable: true,
           children: [
-            // ['node/demo', 'demo']
+            ['node/core-modules', 'core-modules'],
+            ['node/svg-captcha-npm', 'svg-captcha'],
+            ['node/form-data-npm', 'form-data'],
+            ['node/koa-multer-npm', 'koa-multer'],
+            ['node/glob-npm', 'glob']
           ]
         },
         {
@@ -108,7 +106,7 @@ module.exports = {
           title: 'tool',
           collapsable: true,
           children: [
-            // ['tool/demo', 'demo']
+            
           ]
         }
       ],
@@ -118,7 +116,8 @@ module.exports = {
           collapsable: false,
           children: [
             ['loading', 'loading'],
-            ['form', 'form']
+            ['form', 'form'],
+            ['layout-flex', 'flex']
           ]
         }
       ]
