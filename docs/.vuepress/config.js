@@ -44,6 +44,7 @@ module.exports = {
           title: 'css',
           collapsable: true,
           children: [
+            ['css/css', 'css'],
             ['css/flex', 'flex']
           ]
         },
@@ -60,11 +61,13 @@ module.exports = {
           title: 'node',
           collapsable: true,
           children: [
-            ['node/core-modules', 'core-modules'],
+            ['node/node', 'node'],
             ['node/svg-captcha-npm', 'svg-captcha'],
             ['node/form-data-npm', 'form-data'],
             ['node/koa-multer-npm', 'koa-multer'],
-            ['node/glob-npm', 'glob']
+            ['node/glob-npm', 'glob'],
+            ['node/npm', 'npm'],
+            ['node/more-module', 'more']
           ]
         },
         {
