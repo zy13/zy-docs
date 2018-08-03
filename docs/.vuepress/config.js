@@ -29,8 +29,7 @@ module.exports = {
           title: 'javascript',
           collapsable: true,
           children: [
-            // ['javascript/a', 'a'],
-            // ['javascript/b', 'b']
+            ['javascript/event-delegate', 'event-delegate']
           ]
         }, 
         {
@@ -95,7 +94,9 @@ module.exports = {
           title: 'weixin',
           collapsable: true,
           children: [
-            // ['tool/demo', 'demo']
+            ['weixin/weixin', 'weixin'],
+            ['weixin/wxml', 'wxml']
+            ['weixin/wxss', 'wxss']
           ]
         },
         {
