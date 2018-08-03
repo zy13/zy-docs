@@ -2,7 +2,7 @@ module.exports = {
   title: "zy's docs",
   description: "Welcome!",
   base: '/docs/',
-  port: 9000,
+  port: 3000,
   head: [
     ['limk', { rel: 'icon', href: `/logo.png`}],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
@@ -11,8 +11,8 @@ module.exports = {
   themeConfig: {
     nav: [
       {
-        text: 'classify',
-        link: '/classify/'
+        text: 'categories',
+        link: '/categories/'
       },
       {
         text: 'components',
@@ -24,12 +24,12 @@ module.exports = {
       }
     ],
     sidebar: {
-      '/classify/': [
+      '/categories/': [
         {
           title: 'javascript',
           collapsable: true,
           children: [
-            ['javascript/event-delegate', 'event-delegate']
+            ['javascript/DOM', 'dom']
           ]
         }, 
         {
@@ -95,7 +95,7 @@ module.exports = {
           collapsable: true,
           children: [
             ['weixin/weixin', 'weixin'],
-            ['weixin/wxml', 'wxml']
+            ['weixin/wxml', 'wxml'],
             ['weixin/wxss', 'wxss']
           ]
         },
