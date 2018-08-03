@@ -100,6 +100,13 @@ module.exports = {
           ]
         },
         {
+          title: 'mongodb',
+          collapsable: true,
+          children: [
+            // ['weixin/mongodb', 'mongodb']
+          ]
+        },
+        {
           title: 'tool',
           collapsable: true,
           children: [
