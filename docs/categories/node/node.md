@@ -8,4 +8,19 @@
 
 * path
 
+* net
+
+* url
+
+  格式化域名
+  url.format({
+    host,
+    http,
+    hostname,
+    port
+  })
+
+* readline
+* pkgPath
+
 ### 中文版[nodejs-cn]api文档，版本为v10.7

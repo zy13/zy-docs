@@ -73,7 +73,7 @@ module.exports = {
           title: 'webpack',
           collapsable: true,
           children: [
-            // ['webpack/demo', 'demo']
+            ['webpack/webpack', 'webpack']
           ]
         },
         {
@@ -95,6 +95,7 @@ module.exports = {
           collapsable: true,
           children: [
             ['weixin/weixin', 'weixin'],
+            ['weixin/framework', 'framework'],
             ['weixin/wxml', 'wxml'],
             ['weixin/wxss', 'wxss']
           ]
