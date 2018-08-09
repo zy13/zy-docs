@@ -2,7 +2,7 @@ module.exports = {
   title: "zy's docs",
   description: "Welcome!",
   base: '/docs/',
-  port: 3000,
+  port: 8000,
   head: [
     ['limk', { rel: 'icon', href: `/logo.png`}],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
@@ -21,6 +21,10 @@ module.exports = {
       {
         text: 'more',
         link: '/more/'
+      },
+      {
+        text: 'album',
+        link: '/album/'
       }
     ],
     sidebar: {
@@ -80,7 +84,7 @@ module.exports = {
           title: 'vue',
           collapsable: true,
           children: [
-            // ['vue/demo', 'demo']
+            ['vue/vue-cli', 'vue-cli']
           ]
         },
         {
@@ -125,6 +129,14 @@ module.exports = {
             ['loading', 'loading'],
             ['form', 'form'],
             ['layout-flex', 'flex']
+          ]
+        }
+      ],
+      '/album/': [
+        {
+          collapsable: false,
+          children: [
+            ['person', 'person']
           ]
         }
       ],
