@@ -132,14 +132,6 @@ module.exports = {
           ]
         }
       ],
-      '/album/': [
-        {
-          collapsable: false,
-          children: [
-            ['person', 'person']
-          ]
-        }
-      ],
       '/more/': [
         {
           collapsable: false
