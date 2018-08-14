@@ -25,6 +25,10 @@ module.exports = {
       {
         text: 'album',
         link: '/album/'
+      },
+      {
+        text: 'book',
+        link: '/book/'
       }
     ],
     sidebar: {
@@ -135,6 +139,14 @@ module.exports = {
       '/more/': [
         {
           collapsable: false
+        }
+      ],
+      '/book/': [
+        {
+          collapsable: false,
+          children: [
+            ['human-weakness','人性的弱点']
+          ]
         }
       ]
     }
