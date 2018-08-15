@@ -1,5 +1,6 @@
 [nodejs-en]: https://nodejs.org/en/
 [nodejs-cn]:http://nodejs.cn/api/
+[nodejs入门教程](https://www.nodebeginner.org/index-zh-cn.html)
 
 
 ### [nodejs-en]的核心模块

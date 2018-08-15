@@ -52,7 +52,8 @@ module.exports = {
           collapsable: true,
           children: [
             ['css/css', 'css'],
-            ['css/flex', 'flex']
+            ['css/flex', 'flex'],
+            ['css/grid', 'grid']
           ]
         },
         {
@@ -82,6 +83,13 @@ module.exports = {
           collapsable: true,
           children: [
             ['webpack/webpack', 'webpack']
+          ]
+        },
+        {
+          title: 'gulp',
+          collapsable: true,
+          children: [
+            ['gulp/gulp', 'gulp']
           ]
         },
         {

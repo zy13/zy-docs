@@ -1,4 +1,4 @@
-### 弹性布局相关样式
+### [弹性布局](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
 
 [参考链接]: https://www.cnblogs.com/Renyi-Fan/p/8116310.html
 查看更多[参考链接]
@@ -76,3 +76,9 @@
 `flex-basis`：定义项目占据的主轴空间。(如果主轴为水平，则设置这个属性，相当于设置项目的宽度，原width会失效)<br>
 `flex`：属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。这个属性有两个快捷设置： auto=(1 1 auto)/none(0 0 auto)<br>
 `align-self`：定义单个项目自身在交叉轴上的排列方式，可以覆盖掉容器上的align-item属性。与align-items相同，默认值为auto，表示继承父容器的align-items属性值<br>
+
+#### 浏览器兼容性
+![avatar](./imgs/flex-1.png)
+
+* 适合兼容IE11及以上的浏览器的pc端应用
+* 适合M端应用
