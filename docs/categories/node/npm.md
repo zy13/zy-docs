@@ -19,3 +19,4 @@
 * `opn`: 服务端打开浏览器， 如打开百度opn('http://www.baidu.com')
 * `webpack-log`: 用于打印webpack日志
 * `child_process`: npm命令包
+* [nodemon](https://blog.csdn.net/Jensen_Yao/article/details/80354080)

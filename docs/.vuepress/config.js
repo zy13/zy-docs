@@ -37,16 +37,17 @@ module.exports = {
           title: 'javascript',
           collapsable: true,
           children: [
-            ['javascript/DOM', 'dom']
+            ['javascript/DOM', 'dom'],
+            ['javascript/apply-call', 'apply-call']
           ]
         }, 
-        {
-          title: 'html',
-          collapsable: true,
-          children: [
-            // ['html/a', 'a']
-          ]
-        },
+        // {
+        //   title: 'html',
+        //   collapsable: true,
+        //   children: [
+        //     // ['html/a', 'a']
+        //   ]
+        // },
         {
           title: 'css',
           collapsable: true,
@@ -99,13 +100,13 @@ module.exports = {
             ['vue/vue-cli', 'vue-cli']
           ]
         },
-        {
-          title: 'react',
-          collapsable: true,
-          children: [
-            // ['react/demo', 'demo']
-          ]
-        },
+        // {
+        //   title: 'react',
+        //   collapsable: true,
+        //   children: [
+        //     // ['react/demo', 'demo']
+        //   ]
+        // },
         {
           title: 'weixin',
           collapsable: true,
@@ -116,13 +117,13 @@ module.exports = {
             ['weixin/wxss', 'wxss']
           ]
         },
-        {
-          title: 'mongodb',
-          collapsable: true,
-          children: [
-            // ['weixin/mongodb', 'mongodb']
-          ]
-        },
+        // {
+        //   title: 'mongodb',
+        //   collapsable: true,
+        //   children: [
+        //     // ['weixin/mongodb', 'mongodb']
+        //   ]
+        // },
         {
           title: 'tool',
           collapsable: true,
@@ -131,6 +132,13 @@ module.exports = {
             ['tool/gitKraken', 'gitKraken'],
             ['tool/Postman', 'postman'],
             ['tool/more', 'more']
+          ]
+        },
+        {
+          title: 'seo',
+          collapsable: true,
+          children: [
+            ['seo/seo', 'seo']
           ]
         }
       ],

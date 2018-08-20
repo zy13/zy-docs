@@ -11,7 +11,7 @@
 * [YApi] api管理平台
 * [wechat_devtools] 微信小程序开发者工具
 
-##
+### 基于Chrome浏览器的扩展程序
 
 * ps
 * GitHub Desktop
@@ -22,3 +22,6 @@
 * EditThisCookie
 * QR Code generator
 * Octotree
+* 谷歌访问助手
+* node-inspector
+

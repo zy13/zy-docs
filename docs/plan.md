@@ -15,6 +15,17 @@
 >demo
 
 ---
+>#### 2018/8/16
+>9:30-21:00
+>基于前后端分离的底层框架搭建
+>koa框架的学习
+>从`package.json`开始
+>关键依赖包的学习使用：学以致用
+>demo
+>关键依赖的学习
+>[nodemon](https://www.npmjs.com/package/nodemon)
+
+---
 >#### node
 >13-17:30
 >* 安装配置：nodejs、npm
