@@ -40,3 +40,11 @@
 >18:00-21:00
 >* 基础配置：entry,output,loader,plugins
 >* webpack-dev-server
+   
+
+---
+>### 2018/9/3
+>9:00-12:00
+>* mockjs配置，使template能够使用假数据进行渲染
+>13:00-17:30
+>* axio.js的使用

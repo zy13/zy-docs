@@ -1,4 +1,4 @@
-## 人物相册
+## 混合
 
 ### 壁纸
 
@@ -12,6 +12,16 @@
     <img class='img-w' src='./imgs/cat-1.jpg'>
   </a>
 </div>
+
+* 手机
+
+<div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/lt-1.jpg'/>
+  </div>
+</div>
+
+* 
 
 ## 动画/漫画
 
@@ -63,8 +73,16 @@
 
 ## 不一样的素描
 
-<div class='ul-3'>
-  <!-- <img src='./imgs/dyht-1.jpg'/> -->
+<div>
+  <div class='img-w'>
+    <img src='./imgs/sm-1.jpg'/>
+  </div>
+  <div class='img-w'>
+    <img src='./imgs/sm-2.jpg'/>
+  </div>
+   <div class='img-w'>
+    <img src='./imgs/sm-3.jpg'/>
+  </div>
 </div>
 
 ## 创意摄影插图
@@ -73,10 +91,38 @@
 
 ![avatar](./imgs/st-demo.png)
 
+## LOGO
+
+* [谷歌logo](https://www.google.com/doodles?hl=zh-CN//lh3.googleusercontent.com/qgqTl7c-jity4KmWat3IAdF3ultwNNY_zoT1r7imhndVk_Si0WXt_39jsC93e1EZS9JKSsAzkSwl-x7V4J41D5YODU9f9wsvLjz7x3f6)
+
+<div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/google-1.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/google-4.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/google-2.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/google-3.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/google-5.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/google-6.gif'/>
+  </div>
+</div>
+
+
 <style>
   .img-w{width:50%;display:inline-block;}
-  .ul{max-height:505px;overflow:hidden;vertical-align:top;}
+  .ul{max-height:472px;overflow:hidden;vertical-align:top;}
   .li{display:inline-block;vertical-align:top;width:50%;padding-bottom:10px;}
+  .bd{border:1px solid #eee;}
+  .pd-m{padding-bottom: 30px;}
   @media screen and (max-width:739px) {
     .ul{max-height:208px;}
     .img-w{width:100%;}
