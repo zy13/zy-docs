@@ -2,6 +2,6 @@
 home: true
 heroImage: /hero.png
 actionText: start now→
-actionLink: /classify/
+actionLink: /categories/
 footer: Licensed | Copyright © 2018-present
 ---
