@@ -36,6 +36,28 @@
   </div>
 </div>
 
+<div style='margin-top: 30px;'>
+  <div class='img-w pd-m'>
+    <img src='./imgs/gqj-jdx-3.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/gqj-jdx-4.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/gqj-jdx-5.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/gqj-jdx-6.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/gqj-jdx-7.gif'/>
+  </div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/gqj-jdx-8.gif'/>
+  </div>
+</div>
+
+
 * 宫崎骏-千与千寻
 
 <div>
@@ -113,6 +135,15 @@
   </div>
   <div class='img-w pd-m'>
     <img src='./imgs/google-6.gif'/>
+  </div>
+</div>
+
+
+## cute
+
+<div>
+  <div class='img-w pd-m'>
+    <img src='./imgs/cute-1.jpg'/>
   </div>
 </div>
 
