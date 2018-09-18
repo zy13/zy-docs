@@ -47,3 +47,11 @@
 5、carpet
 6、broom、mop
 ```
+
+### 2018/9/17
+
+* confused
+* plan
+* system
+* what's your plan in the fucture
+* how to become a manager
