@@ -117,13 +117,13 @@ module.exports = {
             ['weixin/wxss', 'wxss']
           ]
         },
-        // {
-        //   title: 'mongodb',
-        //   collapsable: true,
-        //   children: [
-        //     // ['weixin/mongodb', 'mongodb']
-        //   ]
-        // },
+        {
+          title: 'mobile',
+          collapsable: true,
+          children: [
+            ['mobile/fontSize', 'fontSize']
+          ]
+        },
         {
           title: 'tool',
           collapsable: true,
