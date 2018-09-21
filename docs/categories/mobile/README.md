@@ -170,3 +170,26 @@ p{
 >当缩小屏幕时，字体也会随着变小：
 
 ![avatar](./imgs/demo-3.png)
+
+* 兼容性
+
+calc()和vm会存在兼容性问题，可以通过动态设置根元素html的字体大小解决：
+```js
+<script type="text/javascript">
+    //JS监听浏览器文字大小代码
+    "use strict";
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = (clientWidth / 3.75) + 'px';
+            };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+</script>
+```
