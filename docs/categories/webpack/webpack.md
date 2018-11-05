@@ -56,4 +56,5 @@
 
 参考链接：
 
-[webpack4.x入门配置](https://www.jianshu.com/p/6712e4e4b8fe)
+[webpack4.x入门配置](https://www.jianshu.com/p/6712e4e4b8fe)<br/>
+[webpack4.x 入门一篇足矣](https://juejin.im/post/5b2b9a00e51d45587b48075e)
