@@ -1,6 +1,8 @@
 ### webpack v4.16.4
 
-
+[webpack2/3最优化配置](https://developers.google.com/web/fundamentals/performance/webpack/)
+[webpack4最优化配置](https://medium.com/webpack/webpack-4-released-today-6cdb994702d4)
+[webpack使用指南](https://www.webpackjs.com/guides/)
 
 #### 环境准备
 

@@ -64,4 +64,9 @@ build/webpack.dev.conf.js =>
 * webpack-dev-server
 >`webpack -d --watch`用于在开发环境下编译静态文件，`webpack-dev-server`除了有此功能外。还有其他功能，比如在本地开启服务，打开浏览器等
 
-    
+* webpack配置字段解读
+```
+entry: 
+```
+
+
