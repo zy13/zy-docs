@@ -27,5 +27,6 @@
 
 * `File Peek` 快速定位文件
 * `ESLint` ESLint插件，高亮提示
-* `vscode-wechat` 支持微信小程序开发
+* `minapp` 标签、属性自动补全，.wxml、.wxss高亮显示
+* `vscode-icons` 显示文件图标
 
