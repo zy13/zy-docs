@@ -32,8 +32,7 @@ class Clock extends React.compoennt {
   }
   render() {
     return (
-      <div>
-      
+      <div>      
         <h1> Hello, world!</h1>
         <h2> It is {this.state.date.toLocalTimeString()}</h2>
       </div>
