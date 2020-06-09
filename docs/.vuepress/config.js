@@ -29,6 +29,14 @@ module.exports = {
       {
         text: 'book',
         link: '/book/'
+      },
+      {
+        text: 'gk',
+        link: '/gk/'
+      },
+      {
+        text: 'fdy',
+        link: '/fdy/'
       }
     ],
     sidebar: {
@@ -41,13 +49,6 @@ module.exports = {
             ['javascript/apply-call', 'apply-call']
           ]
         }, 
-        // {
-        //   title: 'html',
-        //   collapsable: true,
-        //   children: [
-        //     // ['html/a', 'a']
-        //   ]
-        // },
         {
           title: 'css',
           collapsable: true,
@@ -162,6 +163,38 @@ module.exports = {
           collapsable: false,
           children: [
             ['human-weakness','人性的弱点']
+          ]
+        }
+      ],
+      '/fdy/': [
+        {
+          collapsable: false,
+          children: [
+            ['00', '00考前须知'],
+            ['01', '01政策文件'],
+            ['02', '02重要讲话'],
+            ['03', '03最新真题'],
+            ['04', '04专业知识'],
+            ['05', '05案例分析'],
+            ['06', '06时政及党团知识'],
+            ['07', '07模拟试卷'],
+            ['08', '08应用写作'],
+            ['09', '09公共基础知识'],
+            ['10', '10高等教育学心理学法律法规'],
+            ['11', '11书籍推荐'],
+            ['12', '12行测申论'],
+            ['13', '13职业教育'],
+            ['14', '14其他内容'],
+            ['15', '15疫情应对']
+          ]
+        }
+      ],
+      '/gk/': [
+        {
+          collapsable: false,
+          children: [
+            ['a', 'a'],
+            ['00', '00'],
           ]
         }
       ]
