@@ -60,3 +60,15 @@ vue: beforeCreate, created, beforeMount, mounted, beforeUpdate, updated, beforeD
 1 js, font字体, images大小, rendering速度, css, html, http, client
 2 performance matters, improve performance, establish culture long-term
 ```
+
+
+## 驾考计划
+```js
+1、报名准备
+材料： 
+```
+
+## 高校就职计划
+
+## 辅导员计划
+
