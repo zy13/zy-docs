@@ -1,4 +1,4 @@
-* react-routerv5.0特性
+<!-- * react-routerv5.0特性
 
 1、在`<Route path=""/>`中使用了数组，简化了操作：
 ```js
@@ -34,4 +34,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('app')
 )
-```
+``` -->
