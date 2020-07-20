@@ -10,34 +10,15 @@ module.exports = {
   ],
   themeConfig: {
     nav: [
-      {
-        text: 'categories',
-        link: '/categories/'
-      },
-      {
-        text: 'components',
-        link: '/components/'
-      },
-      {
-        text: 'more',
-        link: '/more/'
-      },
-      {
-        text: 'album',
-        link: '/album/'
-      },
-      {
-        text: 'book',
-        link: '/book/'
-      },
-      {
-        text: 'gk',
-        link: '/gk/'
-      },
-      {
-        text: 'fdy',
-        link: '/fdy/'
-      }
+      {text: 'categories', link: '/categories/'},
+      {text: 'components', link: '/components/'},
+      {text: 'more', link: '/more/'},
+      {text: 'album', link: '/album/'},
+      {text: 'book', link: '/book/'},
+      {text: 'gk', link: '/gk/'},
+      {text: 'fdy', link: '/fdy/'},
+      {text: 'qd', link: '/qd/'},
+      {text: 'my', link: '/my/'},
     ],
     sidebar: {
       '/categories/': [
@@ -195,6 +176,33 @@ module.exports = {
           children: [
             ['a', 'a'],
             ['00', '00'],
+          ]
+        }
+      ],
+      '/qd/': [
+        {
+          collapsable: false,
+          children: [
+            ['vue', 'vue'],
+            ['react', 'react'],
+            // ['javascript', 'javascript'],
+            // ['node', 'node.js'],
+            // ['http', 'http'],
+            // ['ajax', 'ajax'],
+            // ['axio', 'axio'],
+            // ['jquery', 'jquery'],
+            // ['project', 'project'],
+            // ['performance', '性能优化.js'],
+          ]
+        }
+      ],
+      '/my/': [
+        {
+          collapsable: false,
+          children: [
+            ['performance', 'performance'],
+            ['projects', 'projects'],
+            ['bank', 'bank'],
           ]
         }
       ]

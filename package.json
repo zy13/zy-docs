@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "dependencies": {
+    "echarts": "^4.7.0",
     "es-checker": "^1.4.1",
     "vuepress": "^0.10.1"
   },
