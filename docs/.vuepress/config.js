@@ -19,6 +19,8 @@ module.exports = {
       {text: 'fdy', link: '/fdy/'},
       {text: 'qd', link: '/qd/'},
       {text: 'my', link: '/my/'},
+      {text: '框架', link: '/framework/'},
+      {text: '线上资源', link: '/resource/'},
     ],
     sidebar: {
       '/categories/': [
@@ -167,7 +169,8 @@ module.exports = {
             ['13', '13职业教育'],
             ['14', '14其他内容'],
             ['15', '15疫情应对'],
-            ['16', '16职业技能大赛']
+            ['16', '16中国共产党章程'],
+            ['17', '17职业技能大赛']
           ]
         }
       ],
@@ -204,6 +207,22 @@ module.exports = {
             ['performance', 'performance'],
             ['projects', 'projects'],
             ['bank', 'bank'],
+          ]
+        }
+      ],
+      '/framework/': [
+        {
+          collapsable: false,
+          children: [
+            ['npm', 'npm常用模块']
+          ]
+        }
+      ],
+      '/resource/': [
+        {
+          collapsable: false,
+          children: [
+            ['frontEnd', '前端线上资源']
           ]
         }
       ]
