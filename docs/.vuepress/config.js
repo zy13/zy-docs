@@ -17,10 +17,11 @@ module.exports = {
       {text: 'book', link: '/book/'},
       {text: 'gk', link: '/gk/'},
       {text: 'fdy', link: '/fdy/'},
-      {text: 'qd', link: '/qd/'},
+      {text: 'front', link: '/front/'},
       {text: 'my', link: '/my/'},
       {text: '框架', link: '/framework/'},
       {text: '线上资源', link: '/resource/'},
+      {text: '草稿', link: '/draf/'},
     ],
     sidebar: {
       '/categories/': [
@@ -178,25 +179,32 @@ module.exports = {
         {
           collapsable: false,
           children: [
-            ['a', 'a'],
-            ['00', '00'],
+            ['01', '01 数量关系'],
+            ['01_pratice', '01 数量关系_练习题'],
+            ['02', '02 言语理解与表达'],
+            ['02_pratice', '02 言语理解与表达_练习题'],
+            ['03', '03 判断推理'],
+            ['03_pratice', '03 判断推理_练习题'],
+            ['04', '04 资料分析'],
+            ['04_pratice', '04 资料分析_练习题'],
+            ['05', '05 常识判断'],
+            ['05_pratice', '05 常识判断_练习题']
           ]
         }
       ],
-      '/qd/': [
+      '/front/': [
         {
           collapsable: false,
           children: [
             ['vue', 'vue'],
             ['react', 'react'],
-            // ['javascript', 'javascript'],
-            // ['node', 'node.js'],
-            // ['http', 'http'],
-            // ['ajax', 'ajax'],
-            // ['axio', 'axio'],
-            // ['jquery', 'jquery'],
-            // ['project', 'project'],
-            // ['performance', '性能优化.js'],
+            ['javascript', 'javascript'],
+            ['node', 'node.js'],
+            ['http', 'http'],
+            ['projects', 'project'],
+            ['babel', 'babel'],
+            ['webpack', 'webpack'],
+            ['performance', 'performance']
           ]
         }
       ],
@@ -214,7 +222,10 @@ module.exports = {
         {
           collapsable: false,
           children: [
-            ['npm', 'npm常用模块']
+            ['base', '基础'],
+            ['vue-babel-webpack', 'vue-babel-webpack'],
+            ['react-babel-webpack', 'react-babel-webpack'],
+            ['wechat', 'wechat'],
           ]
         }
       ],
@@ -224,6 +235,12 @@ module.exports = {
           children: [
             ['frontEnd', '前端线上资源']
           ]
+        }
+      ],
+      '/draf/': [
+        {
+          collapsable: false,
+          children: []
         }
       ]
     }

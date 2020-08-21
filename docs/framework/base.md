@@ -30,7 +30,6 @@ li, li>a{
 * **重要字段解析**
 ```bash
 1、`scripts字段`
-
 指定了运行脚本命令的npm 命令行缩写，比如dev指定了`npm run dev`时，所要执行的命令。
 "scripts": {
   "dev": "cross-env NODE_ENV=development node ./build/devServer.js"
@@ -54,15 +53,10 @@ li, li>a{
 # latest：安装最新版本。
 
 3、`engines`
-
 指明了该项目运行的平台，比如node的某个版本或者浏览器。
-
 ```
 
 ## cross-env
-
-
-
 ```bash
 跨平台设置和使用环境变量。
 
@@ -73,4 +67,48 @@ li, li>a{
 用于package.json，项目启动前赋值
 ```
 
-## 
+## webpack
+
+* [webpack中文文档](https://www.webpackjs.com/concepts/)
+* [深入浅出webpack](http://webpack.wuhaolin.cn/)
+
+>webpack是一个打包模块化JavaScript的工具，在webpack里一切文件皆模块，通过Loader转换文件，通过Plugin注入钩子，最后输出由多个模块组合成的文件。Webpack专注于构建模块化项目。<br>
+
+>构建：源代码无法直接运行，必须通过转换后才可以正常运行。<br>
+
+>通过webpack构建，把源代码转换成发布到线上的可执行JavaScript、CSS、HTML代码，包括：<br>
+>1、代码转换：TypeScript编译成JavaScript、SCSS编译成CSS等<br>
+>2、文件优化：压缩JavaScript、CSS、HTML代码，压缩合并图片等<br>
+>3、代码分割：提取多个页面的公共代码、提取首屏不需要执行部分的代码让其异步加载。<br>
+>4、模块合并：在采用模块化的项目里会有很多个模块和文件，需要构建功能把模块分类合并成一个文件<br>
+>5、自动刷新：监听本地源代码的变化，自动重新构建、刷新浏览器<br>
+>6、代码校验：在代码被提交到仓库前需要校验代码是否符合规范，以及单元测试是否通过<br>
+>7、自定发布：更新完代码后，自动构建出线上发布代码并传输给发布系统<br>
+
+>一切文件：JavaScript、CSS、SCSS、图片、模板，在 Webpack 眼中都是一个个模块，这样的好处是能清晰的描述出各个模块之间的依赖关系，以方便 Webpack 对模块进行组合和打包。 经过 Webpack 的处理，最终会输出浏览器能使用的静态资源。
+
+webpack优点
+* 专注于处理模块化的项目，能做到开箱即用一步到位；
+* 通过plugin扩展，完整好用又不失灵活；
+* 通过场景不仅限于Web开发；
+* 开发体验良好
+
+webpack缺点
+* 只能用于采用模块化开发的项目
+
+### entry
+>webpack构建入口文件路径的配置，并递归解析所需要的依赖
+```js
+// webpack.config.js
+module.exports = {
+  entry: './src/main.js'
+}
+```
+
+### output
+```
+
+```
+
+>如何优化构建的速度和输出
+## webpack-dev-server
