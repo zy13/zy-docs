@@ -39,7 +39,7 @@ li, li>a{
 <style lang="less" scoped>
   .side-bar-container{
     position: fixed;
-    max-width: 145px;
+    max-width: 184px;
     right: 0;
     margin-right: 20px;
     padding: 10px 10px 10px 20px;
