@@ -28,3 +28,5 @@ url模式     "a.com/#/pageone"             "a.com/pageone"
 维护成本    低                              高
 
 ```
+
+## vue组件间通信

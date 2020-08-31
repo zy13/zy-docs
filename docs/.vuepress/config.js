@@ -197,15 +197,19 @@ module.exports = {
         {
           collapsable: false,
           children: [
+            ['css', 'css'],
+            ['html', 'html'],
+            ['javascript', 'javascript'],
             ['vue', 'vue'],
             ['react', 'react'],
-            ['javascript', 'javascript'],
             ['node', 'node.js'],
+            ['webpack', 'webpack'],
+            ['performance', 'performance'],
             ['http', 'http'],
             ['projects', 'project'],
             ['babel', 'babel'],
-            ['webpack', 'webpack'],
-            ['performance', 'performance']
+            ['advanced', 'advanced'],
+            ['view-questions', 'view-questions']
           ]
         }
       ],
