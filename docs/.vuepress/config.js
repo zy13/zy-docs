@@ -22,6 +22,7 @@ module.exports = {
       {text: '框架', link: '/framework/'},
       {text: '线上资源', link: '/resource/'},
       {text: '草稿', link: '/draf/'},
+      {text: 'math', link: '/math/'},
     ],
     sidebar: {
       '/categories/': [
@@ -184,12 +185,15 @@ module.exports = {
             ['02', '02 言语理解与表达'],
             ['02_pratice', '02 言语理解与表达_练习题'],
             ['03', '03 判断推理'],
+            ['03_other', '03 知识储备'],
             ['03_pratice', '03 判断推理_练习题'],
             ['04', '04 资料分析'],
             ['04_pratice', '04 资料分析_练习题'],
             ['05', '05 常识判断'],
             ['05_pratice', '05 常识判断_练习题'],
-            ['06', '06 结构化ms经典题型']
+            ['06', '06 结构化ms经典题型'],
+            ['07', '07 行测'],
+            ['08', '08 申论']
           ]
         }
       ],
@@ -243,6 +247,12 @@ module.exports = {
         }
       ],
       '/draf/': [
+        {
+          collapsable: false,
+          children: []
+        }
+      ],
+      '/math/': [
         {
           collapsable: false,
           children: []
