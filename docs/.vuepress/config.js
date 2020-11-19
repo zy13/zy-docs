@@ -14,7 +14,7 @@ module.exports = {
       {text: 'components', link: '/components/'},
       {text: 'more', link: '/more/'},
       {text: 'album', link: '/album/'},
-      {text: 'book', link: '/book/'},
+      {text: '图书', link: '/book/'},
       {text: 'gk', link: '/gk/'},
       {text: 'fdy', link: '/fdy/'},
       {text: 'front', link: '/front/'},
@@ -23,9 +23,17 @@ module.exports = {
       {text: '线上资源', link: '/resource/'},
       {text: '草稿', link: '/draf/'},
       {text: 'math', link: '/math/'},
+      {text: 'zygh', link: '/zygh/'}
     ],
     sidebar: {
       '/categories/': [
+        {
+          title: 'html',
+          collapsable: true,
+          children: [
+            ['html/input', 'input']
+          ]
+        }, 
         {
           title: 'javascript',
           collapsable: true,
@@ -145,9 +153,11 @@ module.exports = {
       ],
       '/book/': [
         {
-          collapsable: false,
+          title: '人物',
+          collapsable: true,
           children: [
-            ['human-weakness','人性的弱点']
+            ['persons/czz','蔡志忠'],
+            ['persons/gqj','宫崎骏'],
           ]
         }
       ],
@@ -249,13 +259,24 @@ module.exports = {
       '/draf/': [
         {
           collapsable: false,
-          children: []
+          children: [
+            ['songs', '一天一首儿歌']
+          ]
         }
       ],
       '/math/': [
         {
           collapsable: false,
           children: []
+        }
+      ],
+      '/zygh/': [
+        {
+          collapsable: false,
+          children: [
+            ['gwy', 'gwy_sk'],
+            ['zwb', 'zwb_sk'],
+          ]
         }
       ]
     }
