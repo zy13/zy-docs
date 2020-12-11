@@ -1,7 +1,7 @@
 <style scoped>
 blockquote{font-size:17px;color:#37373a;font-family:微软雅黑;}
 * {font-family: cursive;}
-.content:not(.custom){max-width:100%;}
+.content:not(.custom){max-width:100%;background: #fafafa;}
 </style>
 
 [蔡志忠-百度百科](https://baike.baidu.com/item/%E8%94%A1%E5%BF%97%E5%BF%A0/3403)

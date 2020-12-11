@@ -23,7 +23,8 @@ module.exports = {
       {text: '线上资源', link: '/resource/'},
       {text: '草稿', link: '/draf/'},
       {text: 'math', link: '/math/'},
-      {text: 'zygh', link: '/zygh/'}
+      {text: 'zygh', link: '/zygh/'},
+      {text: 'zgdx', link: '/zgdx/'}
     ],
     sidebar: {
       '/categories/': [
@@ -156,8 +157,29 @@ module.exports = {
           title: '人物',
           collapsable: true,
           children: [
+            ['persons/','推理小说家'],
             ['persons/czz','蔡志忠'],
+            ['persons/lwy','林薇因'],
+            ['persons/bx','冰心'],
+            ['persons/lx','鲁迅'],
+            ['persons/xzm','徐志摩'],
+            ['persons/gmr','郭沫若'],
             ['persons/gqj','宫崎骏'],
+            ['persons/dykw','东野奎吾'],
+          ]
+        },
+        {
+          title: '听书',
+          collapsable: true,
+          children: [
+            ['listen/test', 'test']
+          ]
+        },
+        {
+          title: '文学',
+          collapsable: true,
+          children: [
+            ['literature/writing', '写作']
           ]
         }
       ],
@@ -260,7 +282,7 @@ module.exports = {
         {
           collapsable: false,
           children: [
-            ['songs', '一天一首儿歌']
+            // ['songs', '一天一?首儿歌']
           ]
         }
       ],
@@ -276,6 +298,25 @@ module.exports = {
           children: [
             ['gwy', 'gwy_sk'],
             ['zwb', 'zwb_sk'],
+          ]
+        }
+      ],
+      '/zgdx/': [
+        {
+          collapsable: false,
+          children: [
+            ['vue', 'vue'],
+            ['javascript', 'javascript'],
+            ['es6', 'es6'],
+            ['html', 'html'],
+            ['css', 'css'],
+            ['jquery', 'jquery'],
+            ['ajax', 'ajax'],
+            ['http', 'http'],
+            ['webpack', 'webpack'],
+            ['node', 'node'],
+            ['ts', 'ts'],
+            ['web', 'web'],
           ]
         }
       ]

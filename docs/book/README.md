@@ -1,5 +1,6 @@
-<style scped>
-*{font-size: 14px;}
+<style scoped>
+*{font-size: 1.1rem;}
+.content:not(.custom){max-width:100%;background: #fafafa;}
 </style>
 
 <!-- ### 目录 -->

@@ -2,7 +2,7 @@
 blockquote{font-size:17px;color:#37373a;font-family:微软雅黑;}
 * {font-family: cursive;}
 .content:not(.custom){max-width:100%;}
-.page .para{max-height: 100px;overflow: auto;}
+.page .para{max-height: 100px;overflow: auto;background: #fafafa;}
 </style>
 
 [宫崎骏-百度百科](https://baike.baidu.com/item/%E5%AE%AB%E5%B4%8E%E9%AA%8F)
