@@ -16,3 +16,5 @@
 * [HTML 语义文本元素](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Advanced_text_formatting)
 
 * [HTML 元素参考](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element#%E5%86%85%E8%81%94%E6%96%87%E6%9C%AC%E8%AF%AD%E4%B9%89)
+
+[IFE-NOTE：页面结构语义化](https://rainylog.com/post/ife-note-1/)

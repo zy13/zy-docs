@@ -1,0 +1,1 @@
+[15分钟入门Typescript](https://juejin.cn/post/6883432548970545160)
