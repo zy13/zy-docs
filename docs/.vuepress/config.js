@@ -274,7 +274,7 @@ module.exports = {
         {
           collapsable: false,
           children: [
-            ['frontEnd', '前端线上资源']
+            ['frontEnd', '前端资源']
           ]
         }
       ],
@@ -317,6 +317,8 @@ module.exports = {
             ['node', 'node'],
             ['ts', 'ts'],
             ['web', 'web'],
+            ['babel', 'babel'],
+            ['nvm', 'nvm'],
           ]
         }
       ]
