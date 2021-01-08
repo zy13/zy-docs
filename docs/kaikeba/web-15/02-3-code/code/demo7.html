@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+  // 混入模式
+  class Yase{
+    constructor() {
+      this.name = '压缩'
+      // this.release = function() { // 放在类上
+      //   console.log('释放技能')
+      // }
+    }
+    // release() { --- 放在prototype上，更节约空间
+
+    // }
+  }
+
+  class Skills{
+    release(){
+        console.log("释放技能");
+    }
+    hurt(){
+        console.log("造成伤害");
+    }
+    run(){
+        console.log("跑");
+    }
+  }
+
+  // 混入
+  function mixin(receivingClass, givingClass) {
+    if (typeof arguments[2] !== 'undefined') {
+      for(let i = 2; i<arguments.length;i++) {
+        receivingClass.prototype[arguments[i]] = givingClass.prototype[arguments[i]]
+      }
+    }
+  }
+
+  mixin(Yase, Skills, 'release', 'run')
+
+  let newYase = new Yase
+
+  newYase.run()
+</script>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+// 类
+// ES5
+// function Person(name) {
+//   this.name = name
+//   this.age = 20
+// }
+// Person.prototype.fn = function() {
+//   console.log('fn...')
+// }
+
+// let zhangsan = new Person('张三')
+// console.log(zhangsan.fn())
+
+// ES6 类-语法糖
+// class Person{
+//   constructor(name) {
+//     this.name = name
+//     this.age = 20
+//   }
+//   fn() {
+//     console.log('fn...')
+//   }
+// }
+// console.log(typeof Person)
+// let zhangsan = new Person('张三')
+// console.log(zhangsan)
+
+// ES2020 私有成员 #
+// class Person{
+//   height = '178cm';
+//   #weight = "100kg"; //私有属性, 类内部调用
+//   constructor(name) {
+//     this.name = name
+//     this.age = 20
+//     this.#weight = "100kg";
+//   }
+//   // 公有方法调用私有变量
+//   getWeight() {
+//     return this.#weight
+//   }
+// }
+// let zhangsan = new Person('张三')
+// console.log(zhangsan.getWeight())
+
+// 静态成员, 属于类的（不是对象的）的特性：static
+// class Person{
+//   static num = 10;
+//   constructor(name) {
+//     this.name = name
+//   }
+//   fn() {
+//     console.log('fn...')
+//   }
+// }
+// Person.age = 20
+// console.dir(Person)
+// let zhangsan = new Person('张三')
+
+// 单例模式 保证一个类只有一个实例：window，document
+// let instance // 保存实例化状态
+// class Person{
+//   static instance;
+//   constructor(name) {
+//     this.name = name
+//     this.age = 20
+//     if(instance) {
+//       return instance
+//     }
+//     instance = this
+//   }
+// }
+// let zhangsan = new Person('张三')
+// let lisi = new Person('李四')
+// console.log(zhangsan===lisi)
+// console.log(instance)
+
+// 继承
+// class Dad{
+//   constructor(name) {
+//     this.name = name
+//   }
+//   fn() {
+//     console.log('父类fn方法')
+//   }
+// }
+// class Son extends Dad{
+//   constructor(name) {
+//     super(name);
+//   }
+//   fn(){
+//     console.log('子类fn方法')
+//   }
+// }
+// let zhangsan = new Son('张三')
+// console.log(zhangsan.fn())
+
+// ES2020
+// 合并空运算符??
+// function test(myname) {
+//   // let name = myname || '张三'
+//   let name = myname ?? '张三'
+//   console.log(name)
+// }
+// test('')
+
+// 可选链式操作
+// let obj = {
+//   hobbies: {
+//     one: 'football'
+//   }
+// }
+// let hobby = obj.hobbies && obj.hobbies.one
+// console.log(hobby)
+// console.log(obj.hobbies.one)
+// console.log(obj?.hobbies?.one)
+</script>
+</html>

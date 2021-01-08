@@ -10,6 +10,7 @@ module.exports = {
   ],
   themeConfig: {
     nav: [
+      {text: 'kaikeba', link: '/kaikeba/'},
       {text: 'categories', link: '/categories/'},
       {text: 'components', link: '/components/'},
       {text: 'more', link: '/more/'},
@@ -18,15 +19,29 @@ module.exports = {
       {text: 'gk', link: '/gk/'},
       {text: 'fdy', link: '/fdy/'},
       {text: 'front', link: '/front/'},
-      {text: 'my', link: '/my/'},
+      {text: '常用-前端', link: '/often/'},
       {text: '框架', link: '/framework/'},
       {text: '线上资源', link: '/resource/'},
+      // {text: '常用-前端', link: '/often/'},
       {text: '草稿', link: '/draf/'},
       {text: 'math', link: '/math/'},
       {text: 'zygh', link: '/zygh/'},
       {text: 'zgdx', link: '/zgdx/'}
     ],
     sidebar: {
+      '/kaikeba/': [
+        {
+          title: 'web前端-第15期',
+          collapsable: true,
+          children: [
+            ['web-15/01', '第一章 ECMAScript 6基础'],
+            ['web-15/02-1', '第二章 1_面向对象基础'],
+            ['web-15/02-2', '第二章 2_面向对象-1'],
+            ['web-15/02-3', '第二章 3_面向对象-2'],
+            ['web-15/02-4', '第二章 4_面向对象-3'],
+          ]
+        }
+      ],
       '/categories/': [
         {
           title: 'html',
@@ -249,13 +264,11 @@ module.exports = {
           ]
         }
       ],
-      '/my/': [
+      '/often/': [
         {
           collapsable: false,
           children: [
-            ['performance', 'performance'],
-            ['projects', 'projects'],
-            ['bank', 'bank'],
+            ['javascript', 'javascript'],
           ]
         }
       ],

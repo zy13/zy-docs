@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="module">
+// 模块化  防止变量污染 ； AMD require.js  CMD sea.js
+// ESM 浏览器  服务器环境  type="module"
+// 导出 export /export default  导入 import (as);
+// import a,{b,c as d} from  "./a.js";
+// import * as obj from './a.js';
+// // let a = 20;
+// // console.log(a);
+// // console.log(a,b,c);
+// console.log(obj);
+
+// 按需加载；
+document.onclick = function(){
+    // console.log("document");
+    // import * as obj from './a.js';
+    // 返还一个promise对象
+    import("./a.js").then(res=>{
+        console.log(res);
+    })
+}
+
+
+
+
+</script>
+</html>

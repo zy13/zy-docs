@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+// 工厂模式
+class P1{
+  constructor() {
+    this.name = '手机'
+  }
+}
+class P2{
+  constructor() {
+    this.name = '电脑'
+  }
+}
+// 告诉我需要什么产品（产品名），工厂模式帮你生产
+function Factory(pName){
+  switch(pName){
+    case 'xiaomi':
+      return new P1()
+      break
+    case 'mac':
+      return new P2()
+      break
+    default:
+      console.log('没有产品')
+      break
+  }
+}
+let xiaomi = Factory('xiaomi')
+console.log(xiaomi)
+</script>
+</html>
