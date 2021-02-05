@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="btn1">获取数据</button>
+  <button class="btn2">点击我</button>
+  <hr>
+  <input type="text" id="newName" /> 
+  <button class="btn3">提交</button>
+  <hr>
+
+  <ul id="users"></ul>
+</body>
+<script>
+  // 1.获取数据
+  document.querySelector('.btn1').onclick = function() {
+    const xhr = new XMLHttpRequest()
+    xhr.open('get', '/users', true)
+    xhr.send()
+    xhr.onload = function () {
+      let users = JSON.parse(xhr.responseText)
+      let lis = []
+      users.map(user => {
+        const li = `<li>${user.name}</li>`
+        lis.push(li)
+      })
+      document.querySelector('#users').innerHTML = lis.join('')
+    }
+  }
+
+  // 2.提交数据
+  document.querySelector('.btn3').onclick = function () {
+    const xhr = new XMLHttpRequest()
+    const name = document.querySelector('#newName').value
+    xhr.open('post', '/users', true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.send(`{"name":"${name}"}`)
+    xhr.onload = function() {
+      if(this.status==200) {
+        alert('添加成功')
+      } else {
+        alert('添加失败')
+      }
+      // const res = JSON.parse(xhr.responseText)
+      // alert('添加成功')
+      // console.log(typeof xhr.responseText, res)
+    }
+  }
+</script>
+</html>

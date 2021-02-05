@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <button>按钮</button>
+  </div>
+</body>
+<script>
+  document.querySelector('button').onclick = async function () {
+    // fetch方法
+    // Request
+    // Headers
+    // Response
+    // 以面向对象的方式来处理请求和响应
+    // 问题:浏览器兼容性；进度问题
+    // const req = new Request('/users', {
+    //   method: 'post',
+    //   body: '{"name":"bar"}'
+    // })
+    const res = await fetch('/users')
+    // const res = await fetch(req)
+    const data = await res.json()
+    console.log(123, data)
+  }
+</script>
+</html>

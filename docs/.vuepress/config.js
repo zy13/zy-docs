@@ -10,35 +10,52 @@ module.exports = {
   ],
   themeConfig: {
     nav: [
-      {text: 'kaikeba', link: '/kaikeba/'},
-      {text: 'categories', link: '/categories/'},
-      {text: 'components', link: '/components/'},
-      {text: 'more', link: '/more/'},
-      {text: 'album', link: '/album/'},
-      {text: '图书', link: '/book/'},
-      {text: 'gk', link: '/gk/'},
-      {text: 'fdy', link: '/fdy/'},
-      {text: 'front', link: '/front/'},
-      {text: '常用-前端', link: '/often/'},
-      {text: '框架', link: '/framework/'},
+      {text: '高级前端', link: '/seniorFrontEnd/'},
+      // {text: 'categories', link: '/categories/'},
+      // {text: 'components', link: '/components/'},
+      // {text: 'more', link: '/more/'},
+      // {text: 'album', link: '/album/'},
+      // {text: '图书', link: '/book/'},
+      // {text: 'gk', link: '/gk/'},
+      // {text: 'fdy', link: '/fdy/'},
+      {text: '前端', link: '/front/'},
+      // {text: '常用-前端', link: '/often/'},
+      // {text: '框架', link: '/framework/'},
       {text: '线上资源', link: '/resource/'},
       // {text: '常用-前端', link: '/often/'},
-      {text: '草稿', link: '/draf/'},
-      {text: 'math', link: '/math/'},
-      {text: 'zygh', link: '/zygh/'},
-      {text: 'zgdx', link: '/zgdx/'}
+      // {text: '草稿', link: '/draf/'},
+      // {text: 'math', link: '/math/'},
+      // {text: 'zygh', link: '/zygh/'},
+      // {text: 'zgdx', link: '/zgdx/'}
     ],
     sidebar: {
-      '/kaikeba/': [
+      '/seniorFrontEnd/': [
+        // {
+        //   title: 'web前端-第15期',
+        //   collapsable: true,
+        //   children: [
+        //     ['web-15/01', '第一章 ECMAScript 6基础'],
+        //     ['web-15/02-1', '第二章 1_面向对象基础'],
+        //     ['web-15/02-2', '第二章 2_面向对象-1'],
+        //     ['web-15/02-3', '第二章 3_面向对象-2'],
+        //     ['web-15/02-4', '第二章 4_面向对象-3'],
+        //     ['web-15/02-5', '第二章 5_面向对象-5'],
+        //     ['web-15/04', '第四章 4_正则表达式'],
+        //     ['web-15/05-1', '第五章 1_ES6高阶(扩展)'],
+        //     ['web-15/05-2', '第五章 2_ES6高阶-异步专题'],
+        //     ['web-15/05-3', '第五章 3_ES6高阶'],
+        //     ['web-15/05-4', '第五章 4_Promise原理解析与实现'],
+        //     ['web-15/07-1', '第七章 1_函数式编程'],
+        //     ['web-15/08-1', '第八章 1_node基础'],
+        //   ]
+        // }
         {
-          title: 'web前端-第15期',
+          title: '第八章 node.js',
           collapsable: true,
           children: [
-            ['web-15/01', '第一章 ECMAScript 6基础'],
-            ['web-15/02-1', '第二章 1_面向对象基础'],
-            ['web-15/02-2', '第二章 2_面向对象-1'],
-            ['web-15/02-3', '第二章 3_面向对象-2'],
-            ['web-15/02-4', '第二章 4_面向对象-3'],
+            ['8-nodejs/08-1','第1节 nodejs基础'],
+            ['8-nodejs/08-2','第2节 koa框架'],
+            // ['8-nodejs/08-3','第三节 mysql'],
           ]
         }
       ],
@@ -287,7 +304,8 @@ module.exports = {
         {
           collapsable: false,
           children: [
-            ['frontEnd', '前端资源']
+            ['frontEnd', '前端资源'],
+            ['search','查找']
           ]
         }
       ],

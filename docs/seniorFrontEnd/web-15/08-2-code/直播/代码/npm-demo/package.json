@@ -1,0 +1,19 @@
+{
+    "name": "npm-demo",
+    "version": "1.0.0",
+    "description": "NPM : Node Package Manager，Node （应用程序）包管理器 => AppStore",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "./node_modules/.bin/nodemon app.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    },
+    "dependencies": {
+        "koa": "^2.13.1"
+    }
+}

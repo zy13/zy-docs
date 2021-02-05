@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 同步阻塞
+    // 异步非阻塞
+    // js 单线程 
+    function asyncFn(cb) {
+        setTimeout(function () {
+            console.log(222);
+            cb && cb()
+        },10000)
+    }
+
+    // 处理异步；callback 回调
+    console.log(111);
+    // asyncFn(function(){})
+    asyncFn(function(){
+        console.log(333);
+        console.log(444);
+    })
+    
+    
+    
+    
+
+
+
+
+
+
+
+</script>
+
+</html>

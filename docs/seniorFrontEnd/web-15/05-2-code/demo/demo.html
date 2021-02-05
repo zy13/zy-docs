@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box{
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+<script>
+// 同步 异步 一种消息通知机制 是否有消息通知机制
+// 单线程 js是单线程 http 浏览器是多线程
+// 同步队列 放同步任务，先执行同步队列任务
+// 异步队列 放异步任务，后执行异步队列任务
+// 处理异步任务 回调函数
+// 异步任务 setTimeout ajax
+// console.log(111)
+// function asyncFn(cb) {
+//   setTimeout(() => {
+//     console.log(222)
+//     cb && cb()
+//   }, 1000)
+// }
+// asyncFn()
+// asyncFn(function(){
+//   console.log(333)
+//   console.log(444)
+// })
+// console.log(333)
+// console.log(444)
+// function move(el, dir, target, cb) {
+//   let start = parseInt(getComputedStyle(el)[dir])
+//   let speed = 5*(target-start>0?1:-1)
+//   setTimeout(() => {
+//     start += speed
+//     el.style[dir] = start + 'px'
+//     if (Math.abs(target-start)<5) {
+//       cb && cb()
+//     } else {
+//       move(el, dir, target, cb)
+//     }
+//   },100)
+// }
+// let el = document.querySelector('.box')
+// 回调地域
+// move(el, 'left', 100, function() {
+//   move(el, 'top', 100, function() {
+//     move(el, 'left', 0, function() {
+//       move(el, 'top', 0, function() {
+//         console.log('运动完毕。。。')
+//       })
+//     })
+//   })
+// })
+// 
+// 如何解决回调地域
+// 1. 使用自定义事件解决回调地域
+// let eventObj = new EventTarget()
+// let num = 1
+// function move(el, dir, target) {
+//   let start = parseInt(getComputedStyle(el)[dir])
+//   let speed = 5 * (target-start>0?1:-1)
+//   setTimeout(() => {
+//     start+=speed
+//     el.style[dir] = start + 'px'
+//     if(Math.abs(target-start)<5) {
+//       eventObj.dispatchEvent(new CustomEvent('event'+num))
+//       num++
+//     } else {
+//       move(el, dir, target)
+//     }
+//   },100)
+// }
+// let el = document.querySelector('.box')
+// move(el,"left", 100)
+// eventObj.addEventListener('event1',function(){
+//   move(el, 'top', 100)
+// })
+// eventObj.addEventListener('event2',function(){
+//   move(el, 'left', 0)
+// })
+// eventObj.addEventListener('event3',function(){
+//   move(el, 'top', 0)
+//   console.log('运动完成333')
+// })
+
+// 图片加载
+
+
+// 1.promise 类
+// let p = new Promise((resolve,reject) => {
+//   resolve('success')
+//   // reject('fail')
+// })
+// console.log(p)
+// // 2.每个promise对象都有then方法 每个回调有两个回调 onResoled onReject
+// p.then(res => {
+//   console.log('onResolved', res)
+// },err=>{
+//   console.log('onReject',err) // 捕获上一个错误
+// }).catch(err => {
+//   console.log("err",err); // 捕获整个错误
+// })
+
+// 3. then 3种返回值 普通值、promise对象 无限链式返回
+// let p2 = p.then(() => {
+//   // return 'res'
+//   return new Promise(resolve => {
+//     resolve('新的值')
+//   })
+// })
+// console.log(p2)
+
+
+// 优雅解决解决回调地域方案
+function move(el, dir, target) {
+  return new Promise(resolve => {
+    function fn() {
+      let start = parseInt(getComputedStyle(el)[dir])
+      let speed = 5 * (target-start>0?1:-1)
+      setTimeout(() => {
+        start += speed
+        el.style[dir] = start + 'px'
+        if (Math.abs(target-start)<5) {
+          resolve('完毕')
+        }else{
+          fn()
+        }
+      },100)
+    }
+    fn()
+  })
+}
+let el = document.querySelector('.box')
+move(el,'left',100).then(res=> {
+  return move(el,'top',100)
+}).then(res => {
+  return move(el,'left',0)
+}).then(res => {
+  return move(el,'top',0)
+}).then(res => {
+  console.log(res)
+})
+
+// 最有解决方案
+// 2.async await
+
+</script>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+// 非纯函数
+// let total = 2
+// let sum = num => num * total
+// console.log(sum(3))
+
+// 1.纯函数
+// let total = (a,b) => a+b
+// let res = total(2,3)
+// console.log(res)
+
+// 2.高阶函数：1）声明式编程 2）命令式编程
+
+// 1）命令式
+// let arr = ['张三','李四','王五']
+// for(let i=0;i<arr.length;i++) {
+//   console.log(i,arr[i])
+// }
+
+// 2）声明式：抽象过程 复用性提高
+
+// forEach()
+// let arr = ['张三','李四','王五']
+// const forEach = function(arr, fn) {
+//   for(let i=0;i<arr.length;i++){
+//     fn && fn(arr[i],i)
+//   }
+// }
+// forEach(arr, (item, i) => {
+//   console.log(item, i)
+// })
+
+// map()
+// let arr = [{
+//   name: '张三',
+//   age: 20
+// },{
+//   name: '李四',
+//   age: 30
+// },{
+//   name: '王五',
+//   age: 22
+// }]
+// let map = function(arr, fn) {
+//   let resArr = []
+//   for(let val of arr) {
+//     resArr.push(fn(val))
+//   }
+//   return resArr
+// }
+// let res = map(arr, item => {
+//   item.check = true
+//   return item
+// })
+// console.log(res)
+
+// 3.结合闭包 缓存特性 惰性执行
+// 一个函数，只能执行一次 单例模式
+// let once = function(fn) {
+//   let done = false
+//   return function() {
+//     if(!done) {
+//       fn && fn();
+//       done = true
+//     } else {
+//       console.log('函数已执行！')
+//     }
+//   }
+// } 
+// function test() {
+//   console.log('test')
+// }
+// let myTest = once(test())
+// myTest()
+// myTest()
+// myTest()
+
+// 4.柯里化：将多元函数转化为一元函数
+
+// 两个参数的柯里化
+// let fn = (x,y) => x + y
+// let curry = function(fn) {
+//   return function(x) {
+//     return function(y) {
+//       return fn(x,y)
+//     }
+//   }
+// }
+// let curryFn = curry(fn)
+// let res = curryFn(2)(3)
+// console.log(res)
+
+// 多个参数的柯里化
+// let fn = (x,y,z,m) => x * y * z;
+// const curry = function (fn) {
+//   return function curryFn(...args) {
+//     console.log(...args,args.length)
+//     if (args.length < fn.length) {
+//       return function() {
+//         return curryFn(...args, ...arguments) // ?
+//       }
+//     }
+//     console.log('执行完成',...args)
+//     return fn(...args);
+//   }  
+// }
+// let curryFn = curry(fn)
+// let res = curryFn(3)(2)(3)(4);
+// console.log(res)
+
+// 组合（compose）和管道（pipe），管道符“|”
+// 组合
+// const fn1 = function(a) {
+//   return a*2
+// }
+// const fn2 = function(b) {
+//   return b + 3
+// }
+// const compose = function(fn1,fn2) {
+//   return function(arg) {
+//     return fn1(fn2(arg))
+//   }
+// }
+// let res = compose(fn1,fn2)(3)
+// console.log(res)
+
+const curry = function (fn) {
+  return function curryFn(...args) {
+    console.log(...args,args.length)
+    if (args.length < fn.length) {
+      return function() {
+        return curryFn(...args, ...arguments) // ?
+      }
+    }
+    console.log('执行完成',...args)
+    return fn(...args);
+  }  
+}
+
+// map()
+const map = function(fn,arr) {
+  let resArr = []
+  for(let val of arr) {
+    resArr.push(fn(val))
+  }
+  return resArr
+}
+
+// filter()
+const filter = function(fn,arr) {
+  let resArr = []
+  for(let val of arr) {
+    if(fn && fn(val)) {
+      resArr.push(val)
+    }
+  }
+  return resArr
+}
+
+const compose = function(fn1,fn2) {
+  return function(arg) {
+    return fn1(fn2(arg))
+  }
+}
+
+const curryMap = curry(map)(function(item) {
+  item.checked = true
+  return item
+})
+
+const curryFilter = curry(filter)(function(item) {
+  return item.age > 20
+})
+
+const newMapFilter = compose(curryMap, curryFilter)
+let arr = [{
+  name: '张三',
+  age: 20
+},{
+  name: '李四',
+  age: 30
+},{
+  name: '王五',
+  age: 22
+}]
+let res = newMapFilter(arr)
+console.log(res)
+</script>
+</html>

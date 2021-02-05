@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block headlink %}
+<link rel="stylesheet" href="/public/static/css/list.css" />
+{% endblock %}
+
+{% block main %}
+<div class="main">
+        <div class="container">
+          <div class="list-box">
+            <div class="h">
+              <h2 class="title">列表</h2>
+            </div>
+            <div class="c clearfix">
+              <ul class="list clearfix">
+                {% for item in items %}
+                <li class="item">
+                  <div class="figure">
+                    <a href="/detail/{{item.id}}">
+                      <img
+                        src="/public/images/{{item.cover}}"
+                        alt=""
+                      />
+                    </a>
+                  </div>
+                  <h3 class="title">
+                    <a href=""> {{item.name}} </a>
+                  </h3>
+                  <p class="price"><span class="num">{{(item.price/100).toFixed(2)}}</span>元</p>
+                </li>
+                {% endfor %}
+              </ul>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="pagination">
+                <a href="">首页</a>
+                <a href="">&lt;</a>
+                <a href="" class="current">1</a>
+                <a href="">2</a>
+                <a href="">3</a>
+                <a href="">4</a>
+                <a href="">&gt;</a>
+                <a href="">尾页</a>
+              </div>
+            </div>
+        </div>
+      </div>
+{% endblock %}
+

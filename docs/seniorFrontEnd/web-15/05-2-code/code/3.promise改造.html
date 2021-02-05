@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+
+    function move(ele, target, direction) {
+        return new Promise((resolve) => {
+            function fn() {
+                let start = parseInt(getComputedStyle(ele, null)[direction]);
+                let speed = 5 * (target - start > 0 ? 1 : -1);
+                setTimeout(() => {
+                    start += speed;
+                    ele.style[direction] = start + "px";
+                    if (Math.abs(target - start) < 5) {
+                        // console.log("运动完成");
+                        // cb && cb();
+                        resolve("完毕");
+                    } else {
+                        fn()
+                    }
+                }, 10)
+            }
+            fn();
+        })
+
+    }
+    let ele = document.querySelector(".box");
+    // move(ele,300,"top");
+    // move(ele,0,"left");
+    // move(ele,300,"top");
+    move(ele, 300, "left").then(res=>{
+       return move(ele, 300, "top")
+    }).then(res=>{
+        return move(ele, 0, "left")
+    }).then(res=>{
+        return  move(ele, 0, "top")
+    }).then(res=>{
+        console.log(res);
+    }).catch(err=>{
+        console.log(err);
+    })
+
+    // 回调地狱
+    // move(ele, 300, "left", function () {
+    //     move(ele, 300, "top", function () {
+    //         // console.log("运动完成");
+    //         move(ele, 0, "left", function () {
+    //             move(ele, 0, "top", function () {
+    //                 console.log("所有运动完毕 ");
+    //             })
+    //         })
+    //     })
+    // });
+
+
+
+
+</script>
+
+</html>

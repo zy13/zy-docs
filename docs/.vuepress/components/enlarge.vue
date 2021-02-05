@@ -30,8 +30,10 @@ export default {
       position: fixed;
       left: 0; 
       right: 0;
+      overflow: auto;
       top: 0;
       bottom: 0;
+      width: 100%;
       background: #000;
       z-index: 999;
       img{

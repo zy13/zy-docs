@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// Promise
+// 1.三种状态 pendding  fullfilled rejected
+// let p = new Promise((resolve,reject)=>{
+//     resolve("success");
+//     // reject("err");
+// })
+// console.log(p);
+// 2.then 方法 2个回调；onResolved 、onRejected
+// p.then((res)=>{
+//     console.log("onResolved",res);
+// }).catch(err=>{
+//     console.log("err",err);
+// })
+// 3.then  3种返还值；1.返还普遍值 2.没有返还值 3.返还promise对象(原样返还);  --》返还promise对象（无限链式调用）；
+// let p2 =  p.then(()=>{
+//     // return "res";
+//     return new Promise(resolve=>{
+//         resolve("新promise值");
+//     })
+// })
+// console.log(p2);
+
+// promise 涉及到的方法；
+// let p = new Promise((resolve,reject)=>{
+//     resolve("success");
+// })
+
+// let p =  Promise.resolve("success");
+// let p = Promise.reject("err");
+// console.log(p);
+// all /race;
+// 一定要所有p对象 都是fulfilled
+let p1 = new Promise((reslove,reject)=>{
+    setTimeout(()=>{
+        // reslove(111);
+        reject("err")
+    },500)
+})
+let p2 = new Promise((reslove,reject)=>{
+    setTimeout(()=>{
+        // reslove(222);
+        // reject("err");
+    },100)
+})
+
+p1.then(res=>{
+    console.log(res);
+}).finally(()=>{
+    console.log("promise执行完毕")
+})
+// 都是成功才可以拿到
+// Promise.all([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+// Promise.race([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+// 成功失败结果都可以拿到；
+// Promise.allSettled([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+
+
+
+
+</script>
+</html>

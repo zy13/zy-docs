@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>员工列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body a {
+            text-decoration: none;
+            color: #0d3a4b;
+        }
+
+        .active {
+            color: #ffffff;
+        }
+
+        .wrap {
+            width: 700px;
+            height: 500px;
+            background-image: url(./images/bg.png);
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .wrap #table {
+            width: 460px;
+            border-radius: 12px;
+            position: absolute;
+            left: 50%;
+            top: 150px;
+            transform: translateX(-50%);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .wrap #table thead {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            color: #fff;
+            background: #4cbfe5;
+        }
+
+        .wrap #table thead a {
+            color: #fff;
+        }
+
+        .wrap #table tbody {
+            color: #19c2ff;
+        }
+
+        .wrap #table tbody a {
+            color: #19c2ff;
+        }
+
+        .wrap #table tbody tr {
+            background: #fff;
+        }
+
+        .ctrl {
+            position: absolute;
+            left: 125px;
+            top: 100px;
+        }
+
+        .ctrl div {
+            width: 450px;
+            line-height: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    </style>
+    <script src="./node_modules/ramda/dist/ramda.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="ctrl">
+            <div class="age_sort nu">
+                性别：
+                <select>
+                    <option value="0">默认</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+                是否及格：
+                <select>
+                    <option value="0">默认</option>
+                    <option value="true">及格</option>
+                    <option value="false">不及格</option>
+                </select>
+                年龄：
+                <select>
+                    <option value="0">默认</option>
+                    <option value="true">有小到大</option>
+                    <option value="false">由大到小</option>
+                </select>
+                <button>查询</button>
+            </div>
+        </div>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>分数</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 要清空原始的dom -->
+                <tr>
+                    <th>0</th>
+                    <th>小明</th>
+                    <th>24</th>
+                    <th>男</th>
+                    <th>90</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        let dataJson = '[{"id":1,"name":"小明","age":24,"gender":"男","score":56},{"id":2,"name":"小芳","age":30,"gender":"女","score":84},{"id":3,"name":"小美","age":31,"gender":"女","score":76},{"id":4,"name":"小刚","age":21,"gender":"男","score": 73},{"id":5,"name":"小琪","age":18,"gender":"女","score": 58}]';
+
+        const renderData = function (data) {
+            // data = JSON.parse(data);
+            let tbody = document.querySelector("tbody");
+            tbody.innerHTML = "";
+            data.forEach(item => {
+                let tr = document.createElement("tr");
+                tr.innerHTML = ` <th>${item.id}</th>
+                    <th>${item.name}</th>
+                    <th>${item.age}</th>
+                    <th>${item.gender}</th>
+                    <th>${item.score}</th>`;
+                tbody.appendChild(tr);
+            })
+        }
+        renderData(JSON.parse(dataJson));
+
+        // 过滤性别
+        const filterGender = R.curry((gender, data) => {
+            return data.filter(item => item.gender === gender);
+        })
+        // 是否及格
+        const isPass = R.curry((type, data) => {
+            if (type) {
+                return data.filter(item => item.score >= 60);
+            } else {
+                return data.filter(item => item.score < 60);
+            }
+        })
+        // 年龄排列
+        const ageSort = R.curry((type, data) => {
+            return data.sort((r1, r2) => type ? (r1.age - r2.age) : (r2.age - r1.age));
+        })
+        // 处理布尔
+        const filterBol = judge => {
+            if (judge === 'true') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        //    let res =  filterGender("男",JSON.parse(dataJson))
+        // let res =  isPass(false,JSON.parse(dataJson))
+        // let res =  ageSort(false,JSON.parse(dataJson))
+        //    console.log(res);
+        document.querySelector("button").onclick = function () {
+            let selects = document.querySelectorAll("select");
+            // console.log(selects)
+            let fnArr = [];
+            selects.forEach((select, key) => {
+                if (key === 0) {
+                    console.log(select.value);
+                    if (select.value != 0) {
+                        console.log(select.value)
+                        fnArr.push(filterGender(select.value));
+                    }
+                } else if (key == 1) {
+                    console.log(select.value);
+                    if (select.value != 0) {
+                        fnArr.push(isPass(filterBol(select.value)));
+                    }
+                } else {
+                    console.log(select.value);
+                    if (select.value != 0) {
+                        fnArr.push(ageSort(filterBol(select.value)))
+                    }
+                }
+            })
+            console.log(fnArr);
+            // 组合功能函数
+            if (fnArr.length > 1) {
+                let newfilterFn = R.pipe(...fnArr);
+                let res = newfilterFn(JSON.parse(dataJson));
+                console.log(res);
+                renderData(res);
+            }
+
+        }
+
+        // 作业 通过高阶函数 模拟一个every方法
+        let fn = () => {
+            console.log(this)
+        }
+        fn()
+    </script>
+</body>
+
+</html>

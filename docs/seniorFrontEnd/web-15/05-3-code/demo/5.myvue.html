@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5.myvue</title>
+</head>
+<body>
+  <div id="app">
+    <!-- aafasgfsf{{message}}afhasu
+    <div>
+      2423{{message}}9078
+      <div>
+        {{message}}
+      </div>
+    </div>
+    <span></span>
+    <img src="" alt=""> -->
+    <input type="text" v-model="message">
+    <div v-html="message"></div>
+  </div>
+</body>
+<script src="./5.myvue.js"></script>
+<script>
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      message: '数据666',
+      htmlData: '<h1>666</h1>'
+    }
+  })
+  setTimeout(() => {
+    vm._data.message = '修改的数据'
+  },1000)
+  // 核心：数据响应式怎么实现？
+  // 1、实现初次渲染：把data里的属性，根据表达式渲染到视图？
+    // 先到视图里找到大胡子语法(两对花括号)，例如有变量message -- message在data里查找 --> 将找到的数据替换到视图
+  // 2、数据响应?
+    // 1）如何知道数据改变了？数据劫持 Observer
+    // 2）拿到新的值去渲染视图 （观察者模式/发布订阅）
+  // 3、v-model指令
+</script>
+</html>

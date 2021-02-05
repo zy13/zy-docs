@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function asyncFn1() {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve("1111")
+            }, 1000)
+        })
+    }
+
+    function asyncFn2() {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve("2222")
+            }, 1000)
+        })
+    }
+    // asyncFn1().then((res)=>{
+    //     console.log(res);
+    //     return asyncFn2();
+    // }).then(res=>{
+    //     console.log(res);
+    // })
+    // async关键字
+    // async function fn() {
+    //     try {
+    //         let res1 = await asyncFn1();
+    //         console.log(res1)
+    //         let res2 = await asyncFn2();
+    //         console.log(res2)
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
+    // fn()
+
+    let fnArr  = [asyncFn1,asyncFn2];
+
+    // 2个async函数  
+// fnArr.forEach(async (item)=>{
+//   let res =   await item();
+//   console.log(res);
+// })
+
+async function  asyncFn() {
+    for(let i=0;i<fnArr.length;i++){
+       let res =   await fnArr[i]();
+       console.log(res);
+    }
+}
+asyncFn();
+
+// 作业 ：通过async/await 改写案例  
+
+
+
+</script>
+
+</html>

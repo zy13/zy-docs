@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    canvas {
+        border: 1px solid red;
+    }
+</style>
+</head>
+<body>
+  <canvas id="mycanvas" width="500" height="500"></canvas>
+</body>
+<script>
+  // let mycanvas = document.querySelector('#mycanvas')
+  // let context = mycanvas.getContext("2d")
+  // let fn = (resolve, reject) => {
+  //   let img = new Image()
+  //   img.src = 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1819216937,2118754409&fm=26&gp=0.jpg'
+  //   img.onload = function() {
+  //     resolve(this)
+  //   }
+  //   img.onerror=function(){
+  //     reject('err')
+  //   }
+  // }
+  // function loadImg() {
+  //   return new Promise(fn)
+  // }
+  // loadImg().then(res => {
+  //   context.drawImage(res,0,0)
+  // }).catch(err=>{
+  //     console.log(err);
+  // })
+  // let p = new Promise((resolve,reject) => {
+  //   console.dir(resolve)
+  // })
+  // function promise(fn){
+  //   console.log(fn)
+  // }
+  class Promise{
+    constructor() {
+      
+    }
+  }
+ 
+  let p = new Promise(11)
+  p.then(res => {
+    console.log(res)
+  })
+  
+  // console.log(new Promise((resolve,reject) => {console.log(resolve)}))
+</script>
+</html>

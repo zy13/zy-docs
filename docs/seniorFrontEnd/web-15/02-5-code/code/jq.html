@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.min.js"></script>
+    <style>
+        .box1{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <button>点击</button>
+</body>
+<script>
+// document.querySelector(".box1").onclick = function(){
+//     console.log(111);
+// }
+
+// $(".box1").click(()=>{
+//     console.log(111);
+// })
+
+//1 类名  id名 标签名  
+// $(".box1").click(()=>{
+//     console.log(111);
+// })
+// 2. 传入对象
+// $(document.querySelector(".box1")).click(()=>{
+//     console.log(111);
+// })
+// 3.
+// $(function(){
+//     console.log("加载完毕..");
+// })
+
+// 多个节点
+
+// $("div").click(()=>{
+//     console.log(111);
+// })
+// let eles = $("div");
+// console.log(eles);
+
+// 四 、多个节点 和 多个事件 多层循环；on方法
+
+// $("div").on("mousedown mousemove",()=>{
+//     console.log(1112);
+// })
+
+// 五、链式操作
+// $(".box1").on("click",()=>{
+//     console.log(111);
+// }).click(()=>{
+//     console.log(222);
+// })
+
+// promise
+// p.then().then().then()....
+
+// $("div").eq(1).click(()=>{
+//     console.log(111);
+// })
+// $(document.querySelector(".box1")).on("click",function(){
+//     console.log(111);
+// })
+// $("div").eq(1).end().on("click",()=>{
+//     console.log(111);
+// })
+// let res = $("div").eq(0);
+// console.log(res);
+
+// css  
+// 1.获取样式:只会获取第一个元素  字符串
+// let res =  $("div").css("background");
+// console.log(res);
+// 2.设置样式  2个参数
+//  $(".box1").css("background","yellow");
+// 3.设置样式  一个对象
+// $("div").css({"background":"yellow","width":300})
+
+// wh -->即设置高度 也可以设置宽度；
+// $.cssHooks.wh = {
+//     get(ele){
+//         // 获取
+//         console.log(ele);
+//         return getComputedStyle(ele,null)['width'] + "-" + getComputedStyle(ele,null)['height']
+//     },
+//     set(ele,styeValue){
+//         // 设置
+//         // console.log(ele,styeValue);
+//         ele.style['width'] = styeValue;
+//         ele.style['height'] = styeValue;
+//     }
+// }
+// // let res =  $(".box1").css("wh"); 
+// // console.log(res);
+
+// $(".box1").css("wh",300)
+
+// 作业  ：实现一个 animate方法(不基于库或框架)
+// $("button").on("click",()=>{
+//     $(".box1").animate({width:300});
+// })
+
+// 扩充：
+
+// $("button").on("click",()=>{
+//     $(".box1").animate({width:300},1000,function(){
+//         console.log("运动完成");
+//     });
+// })
+
+
+
+</script>
+</html>

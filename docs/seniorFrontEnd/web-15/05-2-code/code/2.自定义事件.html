@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        let eventObj = new EventTarget();
+        let num = 1;
+        function move(ele, target, direction) {
+            let start = parseInt(getComputedStyle(ele, null)[direction]);
+            let speed = 5 * (target - start > 0 ? 1 : -1);
+            setTimeout(() => {
+                start += speed;
+                ele.style[direction] = start + "px";
+                if (Math.abs(target - start) < 5) {
+                    // console.log("运动完成");
+                    // cb && cb();
+                    eventObj.dispatchEvent(new CustomEvent("myevent"+num));
+                    num++;
+                } else {
+                    move(ele, target, direction)
+                }
+            }, 10)
+        }
+        let ele = document.querySelector(".box");
+        move(ele,300,"left");
+        
+        eventObj.addEventListener("myevent1",()=>{
+            console.log("运动完成11");
+            move(ele,300,"top");
+        })
+        eventObj.addEventListener("myevent2",()=>{
+            console.log("运动完成22");
+            move(ele,0,"left");
+        })
+        eventObj.addEventListener("myevent3",()=>{
+            console.log("运动完成333");
+            move(ele,0,"top");
+        })
+        eventObj.addEventListener("myevent4",()=>{
+            console.log("运动完成444");
+        })
+
+        // promise  ---> async/await
+
+
+
+    </script>
+</body>
+
+</html>

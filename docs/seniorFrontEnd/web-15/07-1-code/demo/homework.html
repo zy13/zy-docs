@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  const every = function(arr, fn) {
+    let isEvryTrue = true
+    for(let val of arr) {
+      if(!fn(val)) {
+        isEvryTrue = false
+      }
+    }
+    return isEvryTrue
+  }
+  let arr = [1,2,3,4,5]
+  let res1 = every(arr, function(item) {
+    return item > 1
+  })
+  let res2 = every(arr, function(item) {
+    return item > 0
+  })
+  console.log(`数组${arr},元素均大于2:`, res1)
+  console.log(`数组${arr},元素均大于0:`, res2)
+</script>
+</html>

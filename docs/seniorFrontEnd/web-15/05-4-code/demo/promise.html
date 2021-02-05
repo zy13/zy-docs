@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>promise</title>
+</head>
+<body>
+  
+</body>
+<script>
+let p1 = new Promise((resolve,reject )=>{
+  resolve('p1')
+})
+
+// let p2 = new Promise((resolve,reject )=>{
+//   reject('p2')
+// })
+// Promise.all() 所有的promise中，有一个异步操作失败，就返回失败；只有所有异步操作成功才返回成功
+// let p = Promise.all([p1,p2,p1])
+// p.then(res => {
+//   console.log('all', res)
+// },err=>{
+//   console.log('all-err', err)
+// })
+
+// Promise.race 所有promise异步操作状态不一致时,则返回第一个异步操作状态
+// let race = Promise.race([p2,p1,p1])
+// race.then(res => {
+//   console.log('race',res)
+// }, err => {
+//   console.log('race-err',err)
+// })
+
+// let allSettled = Promise.allSettled([p1,p2])
+// allSettled.then(res => {
+//   console.log('allSettled',res)
+// }, err => {
+//   console.log('allSettled-err',err)
+// })
+p1.then(res => {
+  console.log(11)
+}).then(res => {
+  console.log(22)
+}).finally(() => {
+  console.log('执行完成')
+}).then(res => {
+  console.log(33)
+}).then(res => {
+  console.log(44)
+})
+</script>
+</html>
