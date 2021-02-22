@@ -26,6 +26,13 @@ module.exports = {
           ]
         }, 
         {
+          title: '第六章 git',
+          collapsable: true,
+          children: [
+            ['6-git/1-base', '第1节 git基础']
+          ]
+        }, 
+        {
           title: '第八章 node.js',
           collapsable: true,
           children: [
