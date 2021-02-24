@@ -1,20 +1,5 @@
-# 目录
-## 第一章 ECMAScript6基础
+### 第二阶段课表
+<enlarge :isZoom='true'><img src="./course-2.png"></enlarge>
 
-  ### 目标
-   - 掌握es6基本使用
-   - 了解数据驱动视图模式
-   - 完成员工列表案例
-   - 完成百度音乐案例
-
-## 第二章 面向对象编程
-
-
-## 第三章 贪吃蛇实战项目
-## 第四章 正则表达式
-## 第五章 es6高阶
-## 第六章 git
-## 第七章 函数式编程
-## 第八章 node.js
-## 第九章 前后端交互
-## 第十章 客户端存储
+### 第三阶段课表
+<enlarge :isZoom='true'><img src="./course-3.png"></enlarge>

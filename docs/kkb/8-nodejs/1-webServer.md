@@ -1,3 +1,8 @@
+**代码**
+
+github源码地址：[https://github.com/zy13/node-note](https://github.com/zy13/node-note)<br>
+github仓库地址：[https://github.com/zy13/node-note.git](https://github.com/zy13/node-note.git)
+
 ## 1、为什么要搭建webServer?
 一切的一切都是为了：共享资源。让所有人都能访问页面、图片、文档等资源。比如，如何让别人访问自己电脑上的图片
 
@@ -140,6 +145,10 @@ server.on('request',(req,res) => {
 })
 ```
 
+### 5-7、代码
+
+[https://github.com/zy13/node-note/blob/dev-webServer/1-app-http模块.js](https://github.com/zy13/node-note/blob/dev-webServer/1-app-http%E6%A8%A1%E5%9D%97.js)
+
 
 
 ## 6、静态资源VS动态资源
@@ -161,6 +170,9 @@ server.on('request',(req,res) => {
 ### 6-2、规范高效的静态资源解析与响应
 
 通常，我们的webServer会提供各种静态资源（html代码、css代码、js代码、图片、视频、音频...），而这些资源我们又通常会通过文件的方式存储在某个地方。为了批量处理这种资源与URL的对应关系，我们会根据某种规则（规则自己定义，或者说由实现webServer的各种软件和框架）来自动映射。
+
+### 6-3、代码
+[https://github.com/zy13/node-note/blob/dev-webServer/4-app-区分动静态资源访问规则.js](https://github.com/zy13/node-note/blob/dev-webServer/4-app-%E5%8C%BA%E5%88%86%E5%8A%A8%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE%E8%A7%84%E5%88%99.js)
 
 
 ## 7、HTTP协议
@@ -209,6 +221,13 @@ HTTP 消息头用于描述资源或服务器或客户端的行为。可以使用
 [https://baike.baidu.com/item/MIME/2900607](https://baike.baidu.com/item/MIME/2900607)<br>
 [https://www.iana.org/assignments/media-types/media-types.xhtml](https://www.iana.org/assignments/media-types/media-types.xhtml)
 
+
+### 7-6、代码
+
+[https://github.com/zy13/node-note/blob/dev-webServer/3-app-http协议.js](https://github.com/zy13/node-note/blob/dev-webServer/3-app-http%E5%8D%8F%E8%AE%AE.js)
+
+
+
 ## 8、数据与视图结构分离
 
 许多时候，动态资源的处理相对复杂，有时候会根据业务需求产生一些数据，同时又会对数据进行包装再呈现，如果只通过字符串拼接的方式进行处理，会导致工作量庞大以及代码难以维护。
@@ -224,6 +243,11 @@ HTTP 消息头用于描述资源或服务器或客户端的行为。可以使用
 **Nunjucks**
 
 官方文档：[https://mozilla.github.io/nunjucks/](https://mozilla.github.io/nunjucks/)
+
+
+### 8-2、代码
+
+[https://github.com/zy13/node-note/blob/dev-webServer/5-app-nunjucks模板引擎.js](https://github.com/zy13/node-note/blob/dev-webServer/5-app-nunjucks%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E.js)
 
 
 ## 9、练习
@@ -254,3 +278,7 @@ const quotes = [
 '世上无难事 只要肯放弃。',
 
 '加油，你是最胖的！' ];
+
+### 9-3、代码
+
+github地址：[https://github.com/zy13/node-note/blob/dev-webServer/app.js](https://github.com/zy13/node-note/blob/dev-webServer/app.js)

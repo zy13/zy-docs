@@ -36,7 +36,9 @@ module.exports = {
           title: '第八章 node.js',
           collapsable: true,
           children: [
-            ['8-nodejs/1-http', '第1节 搭建webServer']
+            ['8-nodejs/1-webServer', '第1节 搭建webServer'],
+            ['8-nodejs/2-koa', '第2节 koa框架'],
+            ['8-nodejs/3-mysql', '第3节 mysql'],
           ]
         }, 
       ],
