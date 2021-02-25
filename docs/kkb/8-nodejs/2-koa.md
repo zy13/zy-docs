@@ -1,5 +1,5 @@
 
-代码：[https://github.com/zy13/koa-demo/tree/1-server-by-koa](https://github.com/zy13/koa-demo/tree/1-server-by-koa)
+github代码：[https://github.com/zy13/koa-demo/tree/1-server-by-koa](https://github.com/zy13/koa-demo/tree/1-server-by-koa)
 
 ## 1、NPM
 
@@ -213,6 +213,12 @@ router.get('/quote', async ctx=> {
 app.use(router.routes())
 app.listen(8888)
 ```
+
+## 6、直播课件
+
+- 有道云笔记：[直播课件1-上课课件](https://note.youdao.com/web/#/file/WEB624c465530da7690b7974a1d4f65933f/markdown/WEB68753789aaeca2c2e679770f752b2983/)
+
+- 有道云笔记：[直播课件2-koa框架介绍](https://note.youdao.com/web/#/file/WEB624c465530da7690b7974a1d4f65933f/markdown/WEB9d898e99808390b58fada774a6f1e242/)
 
 
 

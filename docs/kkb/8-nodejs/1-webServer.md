@@ -1,7 +1,4 @@
-**代码**
-
-github源码地址：[https://github.com/zy13/node-note](https://github.com/zy13/node-note)<br>
-github仓库地址：[https://github.com/zy13/node-note.git](https://github.com/zy13/node-note.git)
+github代码：[https://github.com/zy13/node-note](https://github.com/zy13/node-note)<br>
 
 ## 1、为什么要搭建webServer?
 一切的一切都是为了：共享资源。让所有人都能访问页面、图片、文档等资源。比如，如何让别人访问自己电脑上的图片
@@ -282,3 +279,11 @@ const quotes = [
 ### 9-3、代码
 
 github地址：[https://github.com/zy13/node-note/blob/dev-webServer/app.js](https://github.com/zy13/node-note/blob/dev-webServer/app.js)
+
+
+
+
+
+## 10、直播课件
+
+有道云笔记：[基于nodejs的webServer搭建](https://note.youdao.com/web/#/file/WEB06724c98e41217392803777b72b1e0d2/markdown/WEB04532a6499c9186ba2b3be09bab8c097/)
