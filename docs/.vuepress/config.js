@@ -39,6 +39,14 @@ module.exports = {
             ['8-nodejs/1-webServer', '第1节 搭建webServer'],
             ['8-nodejs/2-koa', '第2节 koa框架'],
             ['8-nodejs/3-mysql', '第3节 koa连接mysql'],
+            ['8-nodejs/4-authorization', '第4节 文件上传与用户鉴权'],
+          ]
+        }, 
+        {
+          title: '第九章 前后端交互',
+          collapsable: true,
+          children: [
+            ['9-ajax/1-ajax.md', '第1节 ajax'],
           ]
         }, 
       ],

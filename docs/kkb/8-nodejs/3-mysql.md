@@ -229,7 +229,6 @@ router.post('/comment', koaBody(), async ctx => {
 
 ## 5、练习
 
-
 - 1、创建一个数据库kkb 
 - 2、在kkb数据库中创建一个表users 
 - 3、在users表中添加至少下面两个字段： 
@@ -238,6 +237,8 @@ router.post('/comment', koaBody(), async ctx => {
 - 5、提供一个get方式接口localhost:8888/register访问注册页面（form表单） 
 - 6、提供一个post方式接口localhost:8888/register处理提交的数据，并返回操作结果（注册失败 or 注册成功） 
 - 7、提交注册的数据保存到数据库users表中 通过标准：完成以上所有任务及要求，方可通过。
+
+
 
 
 
