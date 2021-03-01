@@ -46,7 +46,9 @@ module.exports = {
           title: '第九章 前后端交互',
           collapsable: true,
           children: [
-            ['9-ajax/1-ajax.md', '第1节 ajax'],
+            ['9-ajax/1-ajax.md', '第1节 ajax之XMLHttpRequest和Fetch'],
+            ['9-ajax/2-cors-jwt.md', '第2节 ajax跨域和jwt'],
+            ['9-ajax/3-axios.md', '第2节 axios.js'],
           ]
         }, 
       ],
