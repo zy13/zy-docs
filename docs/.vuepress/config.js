@@ -12,7 +12,9 @@ module.exports = {
     nav: [
       {text: '高级前端', link: '/kkb/'},
       {text: '线上资源', link: '/resource/'},
-      // {text: '高级前端', link: '/seniorFrontEnd/'},
+      {text: '全栈进阶', link: '/full-stack/'},
+      {text: '算法', link: '/algorithm/'},
+      {text: 'JavaScript深入简出', link: '/javascript/'},
       // {text: 'categories', link: '/categories/'},
       // {text: 'components', link: '/components/'},
     ],
@@ -23,6 +25,29 @@ module.exports = {
           collapsable: true,
           children: [
             ['1-ECMAScript6/1-es6', 'ECMAScript6基础']
+          ]
+        },
+        {
+          title: '第二章 面向对象编程',
+          collapsable: true,
+          children: [
+            ['2-object-oriented/1-object.md', '第1节 面向对象-1']
+          ]
+        },
+        {
+          title: '第四章 正则表达式',
+          collapsable: true,
+          children: [
+            ['4-reg-exp/reg-exp.md', '正则表达式']
+          ]
+        },
+        {
+          title: '第五章 es6高阶',
+          collapsable: true,
+          children: [
+            ['5-es6-higher/1-async.md', '第1节 异步专题'],
+            ['5-es6-higher/2-data-responsive.md', '第2节 数据响应式'],
+            ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
           ]
         }, 
         {
@@ -48,9 +73,40 @@ module.exports = {
           children: [
             ['9-ajax/1-ajax.md', '第1节 ajax之XMLHttpRequest和Fetch'],
             ['9-ajax/2-cors-jwt.md', '第2节 ajax跨域和jwt'],
-            ['9-ajax/3-axios.md', '第2节 axios.js'],
+            ['9-ajax/3-axios.md', '第3节 axios.js库'],
+            ['9-ajax/4-websocket.md', '第4节 websocket实现即时聊天系统'],
           ]
         }, 
+        {
+          title: '第十章 客户端存储',
+          collapsable: true,
+          children: [
+            ['10-client-store/client-store.md', '客户端存储']
+          ]
+        },
+        {
+          title: '第十一章 webpack',
+          collapsable: true,
+          children: [
+            ['11-webpack/1-webpack.md', '第1节 webpack-1'],
+            ['11-webpack/2-webpack.md', '第2节 webpack-2']
+          ]
+        },
+        {
+          title: '第十二章 Typescript',
+          collapsable: true,
+          children: [
+            ['12-typescript/ts.md', 'Typescript'],
+          ]
+        },
+        {
+          title: '第十三章 Vue',
+          collapsable: true,
+          children: [
+            ['13-vue/1-vue2.0-1.md', '第1节 Vue2.0-1'],
+            ['13-vue/1-vue2.0-2.md', '第2节 Vue2.0-2'],
+          ]
+        },
       ],
       '/resource/': [
         {
@@ -60,6 +116,9 @@ module.exports = {
           ]
         }
       ],
+      '/full-stack': [],
+      '/algorithm': [],
+      '/javascript': []
       // '/categories/': [
       //   {
       //     title: 'html',
