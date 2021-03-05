@@ -323,3 +323,17 @@ if (module.hot) {//如果开启 HMR
 - https://github.com/vuejs/vue-loader
 - vue 脚手架中也有集成
 
+## 6、直播课件
+
+https://note.youdao.com/web/#/file/WEB83602a49073fe650870661a0cd9fffe7/markdown/WEB59279a586d590c0084c2c5853b042dcd/
+
+## 7、练习
+
+```
+
+1、使用 devServer 配置一个 webserver （端口不限）。 
+2、使用 HtmlWebpackPlugin 插件构建 HTML，并在模板html页面中添加一个按钮。 
+3、使用 mini-css-extract-plugin 插件提取 css 到单独的文件中。 
+4、在入口文件中通过js获取页面中的按钮并绑定click事件函数，当按钮被点击的时候通过console.log("开课吧-${你的名字}")，其中${你的名字}对应你的真实姓名。
+```
+

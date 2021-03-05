@@ -379,3 +379,7 @@ webpack --config ./configs/my_webpack.config.js
 ```
 
 [github代码](https://github.com/zy13/webpack-demo/tree/2-webpack-base)
+
+## 10、直播课件
+
+https://note.youdao.com/web/#/file/WEB83602a49073fe650870661a0cd9fffe7/markdown/WEB59279a586d590c0084c2c5853b042dcd/
