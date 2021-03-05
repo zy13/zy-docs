@@ -1,5 +1,3 @@
-github代码：[https://github.com/zy13/koa-demo/tree/7-koa-polling](https://github.com/zy13/koa-demo/tree/7-koa-polling)
-
 ## 1、HTTP协议
 
 ### 1-1、请求/响应模式
@@ -7,6 +5,8 @@ github代码：[https://github.com/zy13/koa-demo/tree/7-koa-polling](https://git
 ### 1-2、无状态模式
 
 ## 2、轮询
+
+github代码：[https://github.com/zy13/koa-demo/tree/7-koa-polling](https://github.com/zy13/koa-demo/tree/7-koa-polling)
 
 客户端定时向服务器发送Ajax请求，服务器接到请求后无论是否有响应的数据，都马上返回响应信息并关闭连接。
 
@@ -110,11 +110,13 @@ router.get('/users', koaBody(), async ctx => {
       ctx.body = users
       resolve()
     }, 2000);
-  })  
+  })
 })
 ```
 
 ## 4、SSE服务器推送: 长轮询标准化
+
+
 
 [SSE - Server Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
 
@@ -157,6 +159,8 @@ ctx.body = `event: ping\ndata: {"time": "${new Date()}"}\n\n`
 
 ## 5、websocket
 
+[gitbub代码](https://github.com/zy13/websocket-demo.git)
+
 ### 5-1、websocket介绍
 
 - WebSocket 是 HTML5 开始提供的一种在单个连接上进行全双工通讯的协议。
@@ -174,3 +178,10 @@ ctx.body = `event: ping\ndata: {"time": "${new Date()}"}\n\n`
 
 ## 8、直播课件
 [有道云笔记](https://note.youdao.com/web/#/file/WEBb99053024aed1853e614cae91295f0fc/markdown/WEB1da3600e089c1c9857ff2ed628934895/)
+
+## 10、练习
+
+
+- 1、聊天室功能实现 
+  - 1、实时聊天
+  - 2、显示每条记录的（服务器）时间，格式参考：'2020-09-24 22:51:02' 

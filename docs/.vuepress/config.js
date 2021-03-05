@@ -11,7 +11,7 @@ module.exports = {
   themeConfig: {
     nav: [
       {text: '高级前端', link: '/kkb/'},
-      {text: '线上资源', link: '/resource/'},
+      {text: '前端资源', link: '/resource/'},
       {text: '全栈进阶', link: '/full-stack/'},
       {text: '算法', link: '/algorithm/'},
       {text: 'JavaScript深入简出', link: '/javascript/'},
@@ -88,8 +88,9 @@ module.exports = {
           title: '第十一章 webpack',
           collapsable: true,
           children: [
-            ['11-webpack/1-webpack.md', '第1节 webpack-1'],
-            ['11-webpack/2-webpack.md', '第2节 webpack-2']
+            ['11-webpack/1-modules.md', '第1节 模块化'],
+            ['11-webpack/2-webpack-base.md', '第2节 webpack核心配置'],
+            ['11-webpack/3-webpack-plugins.md', '第3节 webpack之pugins配置'],
           ]
         },
         {
