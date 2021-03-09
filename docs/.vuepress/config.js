@@ -31,7 +31,7 @@ module.exports = {
           title: '第二章 面向对象编程',
           collapsable: true,
           children: [
-            ['2-object-oriented/1-object.md', '第1节 面向对象-1']
+            ['2-object-oriented/1-object.md', '第1节 面向对象-基础']
           ]
         },
         {
