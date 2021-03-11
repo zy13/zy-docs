@@ -31,8 +31,11 @@ module.exports = {
           title: '第二章 面向对象编程',
           collapsable: true,
           children: [
-            ['2-object-oriented/1-object.md', '第1节 面向对象-ES5'],
-            ['2-object-oriented/2-object.md', '第2节 面向对象-ES6']
+            ['2-object-oriented/1-object.md', '第1节 对象、构造函数、原型-ES5'],
+            ['2-object-oriented/2-object.md', '第2节 类及其继承、模块化-ES6'],
+            ['2-object-oriented/3-design-mode.md', '第3节 设计模式'],
+            ['2-object-oriented/4-components.md', '第4节 组件'],
+            ['2-object-oriented/5-jquery.md', '第4节 jquery插件'],
           ]
         },
         {
