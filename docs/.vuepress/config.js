@@ -4,23 +4,45 @@ module.exports = {
   base: '/docs/',
   port: 8000,
   head: [
-    ['limk', { rel: 'icon', href: `/logo.png`}],
-    ['link', { rel: 'manifest', href: '/manifest.json' }],
-    ['meta', { name: 'theme-color', content: '#ccc' }]
+    ['limk', {
+      rel: 'icon',
+      href: `/logo.png`
+    }],
+    ['link', {
+      rel: 'manifest',
+      href: '/manifest.json'
+    }],
+    ['meta', {
+      name: 'theme-color',
+      content: '#ccc'
+    }]
   ],
   themeConfig: {
-    nav: [
-      {text: '高级前端', link: '/kkb/'},
-      {text: '前端资源', link: '/resource/'},
-      {text: '全栈进阶', link: '/full-stack/'},
-      {text: '算法', link: '/algorithm/'},
-      {text: 'JavaScript深入简出', link: '/javascript/'},
+    nav: [{
+        text: '高级前端',
+        link: '/kkb/'
+      },
+      {
+        text: '前端资源',
+        link: '/resource/'
+      },
+      {
+        text: '全栈进阶',
+        link: '/full-stack/'
+      },
+      {
+        text: '算法',
+        link: '/algorithm/'
+      },
+      {
+        text: 'JavaScript深入简出',
+        link: '/javascript/'
+      },
       // {text: 'categories', link: '/categories/'},
       // {text: 'components', link: '/components/'},
     ],
     sidebar: {
-      '/kkb/': [
-        {
+      '/kkb/': [{
           title: '第一章 ECMAScript6基础',
           collapsable: true,
           children: [
@@ -35,7 +57,7 @@ module.exports = {
             ['2-object-oriented/2-object.md', '第2节 类及其继承、模块化-ES6'],
             ['2-object-oriented/3-design-mode.md', '第3节 设计模式'],
             ['2-object-oriented/4-components.md', '第4节 组件'],
-            ['2-object-oriented/5-jquery.md', '第4节 jquery插件'],
+            ['2-object-oriented/5-jquery.md', '第5节 jquery插件'],
           ]
         },
         {
@@ -53,14 +75,14 @@ module.exports = {
             ['5-es6-higher/2-data-responsive.md', '第2节 数据响应式'],
             ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
           ]
-        }, 
+        },
         {
           title: '第六章 git',
           collapsable: true,
           children: [
             ['6-git/1-base', '第1节 git基础']
           ]
-        }, 
+        },
         {
           title: '第八章 node.js',
           collapsable: true,
@@ -70,7 +92,7 @@ module.exports = {
             ['8-nodejs/3-mysql', '第3节 koa连接mysql'],
             ['8-nodejs/4-authorization', '第4节 文件上传与用户鉴权'],
           ]
-        }, 
+        },
         {
           title: '第九章 前后端交互',
           collapsable: true,
@@ -80,7 +102,7 @@ module.exports = {
             ['9-ajax/3-axios.md', '第3节 axios.js库'],
             ['9-ajax/4-websocket.md', '第4节 websocket实现即时聊天系统'],
           ]
-        }, 
+        },
         {
           title: '第十章 客户端存储',
           collapsable: true,
@@ -108,19 +130,19 @@ module.exports = {
           title: '第十三章 Vue',
           collapsable: true,
           children: [
-            ['13-vue/1-vue2.0-1.md', '第1节 Vue2.0-1'],
-            ['13-vue/1-vue2.0-2.md', '第2节 Vue2.0-2'],
+            ['13-vue/1-vue2.0-1.md', '第1节 vue基础'],
+            ['13-vue/1-vue2.0-2.md', '第2节 组件&生命周期'],
+            // ['13-vue/1-vue2.0-1.md', '第1节 vue基础'],
+            // ['13-vue/1-vue2.0-2.md', '第2节 Vue2.0-2'],
           ]
         },
       ],
-      '/resource/': [
-        {
-          collapsable: false,
-          children: [
-            ['frontEnd', '前端资源']
-          ]
-        }
-      ],
+      '/resource/': [{
+        collapsable: false,
+        children: [
+          ['frontEnd', '前端资源']
+        ]
+      }],
       '/full-stack': [],
       '/algorithm': [],
       '/javascript': []
