@@ -650,3 +650,40 @@ const app = new Vue({
   })
 </script>
 ```
+
+## 10、练习
+
+- 实现组件 PhotoItem 封装展示图片的逻辑
+ - 可通过 props 传入图片路径 imgUrl
+ - 可通过 props 传入图片名称 imgName
+
+```js
+const PhotoItem = {
+  props: ['imgUrl', 'imgName'],
+  mounted() {
+    this.showImg()
+  },
+  methods: {
+    showImg() {
+      const img = document.createElement('img')
+      img.src = this.imgUrl
+      img.alt = this.imgName
+      img.onload = function () {
+        document.querySelector('.img-container').appendChild(img)
+      }
+    }
+  },
+  template: `
+    <div class="img-container"></div>
+  `
+}
+Vue.component('PhotoItem', PhotoItem)
+const app = new Vue({
+  el: '#app',
+  data: {
+    imgUrl: './avatar.jpg',
+    imgName: 'avatar.jpg'
+  },
+  template: `<PhotoItem :imgUrl="imgUrl" :imgName="imgName"></PhotoItem>`
+})
+```

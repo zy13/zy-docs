@@ -131,8 +131,8 @@ module.exports = {
           collapsable: true,
           children: [
             ['13-vue/1-vue2.0-1.md', '第1节 vue基础'],
-            ['13-vue/1-vue2.0-2.md', '第2节 组件&生命周期'],
-            // ['13-vue/1-vue2.0-1.md', '第1节 vue基础'],
+            ['13-vue/1-vue2.0-2.md', '第2节 组件基础 & 生命周期'],
+            ['13-vue/1-vue2.0-3.md', '第3节 vue-cli & 单文件组件 & 组件测试'],
             // ['13-vue/1-vue2.0-2.md', '第2节 Vue2.0-2'],
           ]
         },
