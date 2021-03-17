@@ -130,10 +130,13 @@ module.exports = {
           title: '第十三章 Vue',
           collapsable: true,
           children: [
-            ['13-vue/1-vue2.0-1.md', '第1节 vue基础'],
-            ['13-vue/1-vue2.0-2.md', '第2节 组件基础 & 生命周期'],
-            ['13-vue/1-vue2.0-3.md', '第3节 vue-cli & 单文件组件 & 组件测试'],
-            // ['13-vue/1-vue2.0-2.md', '第2节 Vue2.0-2'],
+            ['13-vue/1-vue2.x-1.md', '第1节 vue基础'],
+            ['13-vue/2-components-lifecycle.md', '第2节 组件基础-生命周期'],
+            ['13-vue/3-vueCli-SFC-CT.md', '第3节 vue-cli-单文件组件-组件测试'],
+            ['13-vue/4-vue-router.md', '第4节 vue-router'],
+            ['13-vue/5-vuex.md', '第5节 vuex'],
+            ['13-vue/6-project-vue-vueRouter-vuex.md', '第6节 项目应用-vue-vuerouter-vuex'],
+            ['13-vue/7-vue3.x.md', '第7节 vue3.x基础'],
           ]
         },
       ],
