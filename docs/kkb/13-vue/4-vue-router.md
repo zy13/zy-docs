@@ -449,7 +449,7 @@ watch: {
 -	`router.back()`
 -	`router.go(n)`
 
-## 9、操作`History`
+### 操作`History`
 
 
 Vue的History操作与[浏览器的History的API](https://developer.mozilla.org/en-US/docs/Web/API/History)是很像的:
@@ -473,69 +473,390 @@ Vue的History操作与[浏览器的History的API](https://developer.mozilla.org/
 
 ### 全局前置守卫
 
+[全局前置守卫](https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB)`router.beforEach`
+
+当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 resolve 完之前一直处于 等待中。
+
+```js
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+  console.log('all-router beforeEach')
+  // to and from are Route Object,next() must be called to resolve the hook+
+  // next()之前无法渲染App.vue中<router-view></router-view>的组件
+  console.log('to', to) // 目标路由对象
+  console.log('from', from) // 正要离开的路由
+  next() // 
+})
+```
+
+确保 next 函数在任何给定的导航守卫中都被严格调用一次。它可以出现多于一次，但是只能在所有的逻辑路径都不重叠的情况下，否则钩子永远都不会被解析或报错。
+
+在用户未能验证身份时重定向到 `/login`
+
+- `to`目标路由对象，与`route`具有一样的属性
+- `from`当前要离开的路由对象，，与`route`具有一样的属性
+- `next()`函数，该方法用来`resolve`当前的`beforeEach`钩子，其执行效果依赖调用的参数：
+  - `next()`，进入管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 `confirmed` (确认的)。
+  - `next(false)`，中断当前导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 from 路由对应的地址。
+  - `next('/') 或者 next({ path: '/' })`，跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。
+  - `next(error)`，导航会被终止且该错误会被传递给 router.onError() 注册过的回调。
+
+```js
+// BAD
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  // 如果用户未能验证身份，则 `next` 会被调用两次
+  next()
+})
+```
+
+```js
+router.beforeEach((to, from, next) => {
+  console.log('all-router beforeEach')
+  // to and from are Route Object,next() must be called to resolve the hook+
+  // next()之前无法渲染App.vue中<router-view></router-view>的组件
+  // next()函数和push函数的参数一致
+  console.log('to', to) // 目标路由对象
+  console.log('from', from) // 正要离开的路由
+  // 如果用户未能验证身份，则 `next` 会被调用两次
+  if (to.name !== 'login' && !isAuthenticated) {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
+})
+```
+
+### 全局解析守卫
+
+[全局解析守卫](https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E8%A7%A3%E6%9E%90%E5%AE%88%E5%8D%AB)`router.beforeResolve`，和`router.beforeEach`类似，区别在于：
+在导航被确认之前，同时在**所有组件内守卫**和**异步路由组件**被解析之后，解析守卫就被调用。
+
+### 全局后置钩子
+
+全局后置钩子钩子不会接受 `next` 函数也不会改变导航本身：
+
+- 所有路由钩子（包括全局前置、路由独享、组件内的守卫钩子）执行完成后才调用
+全局后置钩子钩子
+```js
+router.afterEach((to, from) => {
+  // ...
+})
+```
+
+### 路由独享的守卫
+
+在路由配置上直接定义 `beforeEnter` 守卫：
+```js
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/foo',
+      component: Foo,
+      beforeEnter: (to, from, next) => {
+        console.log('login-beforeEnter')
+        next({ name: 'user' })
+      }
+    }
+  ]
+})
+```
+
+### 组件内的守卫
+
+在路由组件内直接定义以下[组件路由导航守卫](https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E7%BB%84%E4%BB%B6%E5%86%85%E7%9A%84%E5%AE%88%E5%8D%AB)：
+
+- `beforeRouteEnter`
+  - 路由被confirm前调用
+  - 不能获取组件实例`this`
+  - 因为当守卫执行前，组件实例还没被创建
+  - `beforeRouteEnter`先调用，再调用`beforeCreate`和`created`
+- `beforeRouteUpdate` (2.2 新增)
+  - 该组件被复用时调用, 比如/login到/login?type=1时
+  - 以访问组件实例 `this`
+  - `beforeRouteUpdate`先调用，再调用`beforeUpdate`和`updated`
+  - 接口请求
+- `beforeRouteLeave`
+  - 导航离开该组件的对应路由时调用
+  - 可以访问组件实例 `this`
+  - `beforeRouteLeave`先调用，再调用`beforeDestroyed`和`destroyed`
+
+- 总结：组件内的路由守卫钩子都是先调用，再调用组件内的生命周期钩子
 
 ### 完整的导航解析流程
-导航被触发。
-在失活的组件里调用 `beforeRouteLeave` 守卫。
-调用全局的 `beforeEach` 守卫。
-在重用的组件里调用 `beforeRouteUpdate` 守卫 (2.2+)。
-在路由配置里调用 `beforeEnter`。
-解析异步路由组件。
-在被激活的组件里调用 `beforeRouteEnter`。
-调用全局的 `beforeResolve` 守卫 (2.5+)。
-导航被确认。
-调用全局的 `afterEach` 钩子。
-触发 `DOM` 更新。
-调用 `beforeRouteEnter` 守卫中传给 `next` 的回调函数，创建好的组件实例会作为回调函数的参数传入。
-
-
-路由导航**本质**就是钩子hook，包括：<br>
-`beforeEach、afterEach、beforeEnter、beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave`
-
-- 1、全局前置守卫`beforeEach`
-  ```js
-  router.beforeEach((to, from, next => {
-    // to目标
-    // from来源
-    // next() 执行下一步
-  })) 
-  ```
-- 2、全局后置钩子`afterEach`
-  ```js
-  router.afterEach((to, from => {
-    // to目标
-    // from来源
-  })) 
-  ```
-- 3、路由独享的守卫 `beforeEnter`
-      
-- 4、组件内的守卫
-  - beforeRouteEnter
-  - beforeRouteUpdate: 接口请求
-  - beforeRouteLeave
-### 整体流程
-- 导航被触发。
-- 在失活的组件里调用 beforeRouteLeave 守卫。
-- 调用全局的 beforeEach 守卫。
-- 在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。
-- 在路由配置里调用 beforeEnter。
-- 解析异步路由组件。
-- 在被激活的组件里调用 beforeRouteEnter。
-- 调用全局的 beforeResolve 守卫 (2.5+)。
-- 导航被确认。
-- 调用全局的 afterEach 钩子。
-- 触发 DOM 更新。
-- 调用 beforeRouteEnter 守卫中传给 next 的回调函数，创建好的组件实例会作为回调函数的参数传入。
-
+- （1）导航被触发。路由跳转，路由改变，路由访问等情况
+- （2）在失活的组件里调用 `beforeRouteLeave` 守卫。即当前路由跳转到其他路由。
+- （3）调用全局的 `beforeEach` 守卫。
+- （4）在重用的组件里调用 `beforeRouteUpdate` 守卫 (2.2+)。
+- （5）在路由配置里调用 `beforeEnter`。
+- （6）解析异步路由组件调用。
+- （7）在被激活的组件里调用 `beforeRouteEnter`。
+- （8）调用全局的 `beforeResolve` 守卫 (2.5+)。
+- （9）导航被确认`comfirm`。
+- （10）调用全局的 `afterEach` 钩子。
+- （11）触发 `DOM` 更新。
+- （12）调用 `beforeRouteEnter` 守卫中传给 `next` 的回调函数，创建好的组件实例会作为回调函数的参数传入。
 
 ## 10、路由元信息 meta
 
-[路由元信息](https://router.vuejs.org/zh/guide/advanced/meta.html)通过配置 `meta` 字段。
+[路由元信息](https://router.vuejs.org/zh/guide/advanced/meta.html)是路由记录的一部分，用于记录路由的特定状态，比如是否需要授权等。配置 `meta` 字段来记录路由的特殊状态。
 
-## 10、路由模式
+一个路由匹配到的所有路由记录会暴露为`$route`对象的`$route.matched` 数组，因此需要遍历`$route.matched`来检查路由记录中的`meta`字段
+```js
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+  // 数组中的some函数，只要元素中有一个元素为true，some()函数就返回true
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if(true) {
+      next({
+        name: 'login'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // 确保一定要调用 next()
+  }
+})
+```
+
+## 11、路由模式
+
+路由模式分为哈希模式`hash`和历史模式`history`: 
 
 - hash # 
 - history
   - https://developer.mozilla.org/zh-CN/docs/Web/API/History_API
   - 后端设置
+
+## 12、滚动行为
+
+页面的[滚动行为](https://router.vuejs.org/zh/guide/advanced/scroll-behavior.html#%E5%BC%82%E6%AD%A5%E6%BB%9A%E5%8A%A8)，就是使用前端路由，当切换到新路由时，想要页面滚到顶部，或者是保持原先的滚动位置，就像重新加载页面那样。
+
+注意: 这个功能只在支持 `history.pushState` 的浏览器中可用。
+
+当创建一个 Router 实例，你可以提供一个 `scrollBehavior` 方法
+```js
+const router = new VueRouter({
+  routes: [...],
+  scrollBehavior (to, from, savedPosition) {
+    // savedPosition 当且仅当 popstate 导航 (通过浏览器的 前进/后退 按钮触发) 时才可用。
+    // return 期望滚动到哪个的位置--位置信息   
+    if (savedPosition) {
+      return savedPosition
+    } else { // 滚动到顶部
+      return { x: 0, y: 0 }
+    }
+  }
+})
+```
+
+滚动到锚点:
+```js
+scrollBehavior (to, from, savedPosition) {
+  if (to.hash) {
+    return {
+      selector: to.hash
+    }
+  }
+}
+```
+
+### 异步滚动
+
+[异步滚动](https://router.vuejs.org/zh/guide/advanced/scroll-behavior.html#%E5%BC%82%E6%AD%A5%E6%BB%9A%E5%8A%A8)返回一个 Promise 来得出预期的位置描述
+
+```js
+scrollBehavior (to, from, savedPosition) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ x: 0, y: 0 })
+    }, 500)
+  })
+}
+```
+
+将其挂载到从页面级别的过渡组件的事件上，令其滚动行为和页面过渡一起良好运行是可能的
+### 平滑滚动
+
+[平滑滚动](https://router.vuejs.org/zh/guide/advanced/scroll-behavior.html#%E5%BC%82%E6%AD%A5%E6%BB%9A%E5%8A%A8)只需将 `behavior` 选项添加到 `scrollBehavior` 内部返回的对象中，就可以为支持它的浏览器启用原生平滑滚动：
+```js
+scrollBehavior (to, from, savedPosition) {
+  if (to.hash) {
+    return {
+      selector: to.hash,
+      behavior: 'smooth',
+    }
+  }
+}
+```
+
+注意：IE浏览器不支持,
+查看[支持的浏览器](https://developer.mozilla.org/en-US/docs/Web/API/ScrollToOptions/behavior)
+
+## 13、数据获取
+
+数据获取[data-fetch](https://router.vuejs.org/zh/guide/advanced/data-fetching.html)
+
+### 导航完成后获取数据
+- 在`created`钩子获取数据
+
+```html
+<template>
+  <div class="post">
+    <div v-if="loading" class="loading">
+      Loading...
+    </div>
+
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
+
+    <div v-if="post" class="content">
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.body }}</p>
+    </div>
+  </div>
+</template>
+```
+
+```js
+export default {
+  data () {
+    return {
+      loading: false,
+      post: null,
+      error: null
+    }
+  },
+  created () {
+    // 组件创建完后获取数据，
+    // 此时 data 已经被 observed 了
+    this.fetchData()
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData () {
+      this.error = this.post = null
+      this.loading = true
+      // replace getPost with your data fetching util / API wrapper
+      getPost(this.$route.params.id, (err, post) => {
+        this.loading = false
+        if (err) {
+          this.error = err.toString()
+        } else {
+          this.post = post
+        }
+      })
+    }
+  }
+}
+```
+
+### 在导航完成前获取数据
+
+通过这种方式，我们在导航转入新的路由前获取数据。我们可以在接下来的组件的 `beforeRouteEnter `守卫中获取数据，当数据获取成功后只调用 `next` 方法。
+
+```js
+export default {
+  data () {
+    return {
+      post: null,
+      error: null
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    getPost(to.params.id, (err, post) => {
+      next(vm => vm.setData(err, post))
+    })
+  },
+  // 路由改变前，组件就已经渲染完了
+  // 逻辑稍稍不同
+  beforeRouteUpdate (to, from, next) {
+    this.post = null
+    getPost(to.params.id, (err, post) => {
+      this.setData(err, post)
+      next()
+    })
+  },
+  methods: {
+    setData (err, post) {
+      if (err) {
+        this.error = err.toString()
+      } else {
+        this.post = post
+      }
+    }
+  }
+}
+```
+
+在为后面的视图获取数据时，用户会停留在当前的界面，因此建议在数据获取期间，显示一些进度条或者别的指示。如果数据获取失败，同样有必要展示一些全局的错误提醒。
+
+## 14、过渡动效
+
+[过渡动效](https://router.vuejs.org/zh/guide/advanced/transitions.html):
+
+`<router-view> `是基本的动态组件，所以我们可以用 `<transition> `组件给它添加一些过渡效果：
+
+```html
+<transition>
+  <router-view></router-view>
+</transition>
+```
+
+[`Transition`](https://cn.vuejs.org/v2/guide/transitions.html) 的所有功能 在这里同样适用。
+
+
+- [单个路由的过渡](https://router.vuejs.org/zh/guide/advanced/transitions.html#%E5%8D%95%E4%B8%AA%E8%B7%AF%E7%94%B1%E7%9A%84%E8%BF%87%E6%B8%A1)
+
+动效类型可以通过name命名：
+- slide
+- fade
+
+```html
+
+const Foo = {
+  template: `
+    <transition name="slide">
+      <div class="foo">...</div>
+    </transition>
+  `
+}
+
+const Bar = {
+  template: `
+    <transition name="fade">
+      <div class="bar">...</div>
+    </transition>
+  `
+}
+```
+
+
+- 基于路由的动态过渡
+
+```html
+<!-- 使用动态的 transition name -->
+<transition :name="transitionName">
+  <router-view></router-view>
+</transition>
+```
+
+```js
+// 接着在父组件内
+// watch $route 决定使用哪种过渡
+watch: {
+  '$route' (to, from) {
+    const toDepth = to.path.split('/').length
+    const fromDepth = from.path.split('/').length
+    this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+  }
+}
+```
+
+完整例子[点击](https://github.com/vuejs/vue-router/blob/dev/examples/transitions/app.js)
 
