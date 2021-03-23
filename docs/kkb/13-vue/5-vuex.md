@@ -204,7 +204,7 @@
 
 ###	多层级父子组件间的通信
 
-####	provide/inject：依赖注入
+#### （1）provide/inject：依赖注入
 
 [依赖注入](https://cn.vuejs.org/v2/guide/components-edge-cases.html#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5)是单向数据流，只能父组件给子孙组件传递数据，
 [`provide/inject`](https://cn.vuejs.org/v2/api/#provide-inject)这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在其上下游关系成立的时间里始终生效
@@ -234,22 +234,94 @@ provide ()  {
   inject: ['compATitle', 'compA']
   ```
 
-####	$attrs/$listeners
+####	（2）$attrs/$listeners
 
-- 子组件搭配 `inheritAttrs: false `使用
+-	**`$attrs`：通信的本质**
 
--	`$attrs`：通信的本质
+    `$attrs`包含了父作用域中不作为 props 被识别获取的属性 (`class` 和 `style` 除外)绑定
 
-  包含了父作用域中不作为 prop 被识别 (且获取) 的 attribute 绑定 (class 和 style 除外)
+    当一个组件没有声明任何 props 时，`$attrs`会包含所有父作用域的绑定 (`class` 和 `style` 除外)，并且可以通过 `v-bind="$attrs"` 传入内部组件
 
-  当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定 (class 和 style 除外)，并且可以通过 `v-bind="$attrs"` 传入内部组件
+    - **`inheritAttrs`**
+      - 内部组件使用，用于组件属性的显示与否
+      - 只对当前组件有效
+      - 默认为`true`, `$attrs`容器中的属性显示在标签中
+      - 为`false`时，内部组件上`$attrs`容器中的属性不显示
+    ```html
+    <template>
+      <div>
+        <h2>CompA</h2>
+        <comp-b title="this is a message from comA"></comp-b>
+      </div>
+    </template>
+    ```
+    ```html
+    <template>
+      <div>
+        <h2>CompB</h2>
+        <!-- props外，父组件传过来的属性 -->
+        <comp-c v-bind="$attrs"></comp-c>
+      </div>
+    </template>
+    <script>
+    import CompC from './CompC'
+    export default {
+      components: {
+        CompC,
+      },
+      inheritAttrs: false, // 不显示props外，父组件传过来的属性
+      created() {
+        console.log(this.$attrs)
+        // {title: "this is a message from comA"}
+      },
+    }
+    </script>
+    ```
 
-- `$listeners`
+- **`$listeners`**
   
   - 包含了父作用域中的 (不含 .native 修饰器的) `v-on` 事件监听器
   - 它可以通过 `v-on="$listeners"` 传入内部组件
   - 一般运用与组件库的逻辑，普通的业务逻辑不需要用到
-
+  ```html
+  <template>
+    <div>
+      <h2>CompA</h2>
+      <comp-b title="this is a message from comA" @a="handleA" @b="handleB" @click="handleClick"></comp-b>
+    </div>
+  </template>
+  ```
+  ```HTML
+  <template>
+    <div>
+      <h2>CompB</h2>
+      <comp-c v-on="$listeners"></comp-c>
+      <button @click="getListeners">getListeners</button>
+    </div>
+  </template>
+  ```
+  ```html
+  <template>
+    <div>
+      <h2>CompC</h2>
+      <div>{{compATitle}}</div>
+      <comp-d></comp-d>
+    </div>
+  </template>
+  <script>
+  import CompD from './CompD'
+  export default {
+    inject: ['compATitle'],
+    inheritAttrs: false,
+    components: {
+      CompD,
+    },
+    created() {
+      console.log(666, this.$listeners);
+    },
+  }
+  </script>
+  ```
 
 ###	非关系组件通信
 
@@ -259,9 +331,64 @@ provide ()  {
   - $off
   - $emit
   - $once
+  ```js
+  import Vue from "vue";
+
+  // off emit once on
+  // vue3 
+  export const eventBus = new Vue();
+  ```
+
+  ```html
+  <script>
+  import { eventBus } from "../eventBus";
+  export default {
+    mounted() {
+      eventBus.$on("forComC", this.handleForComC);
+    },
+    methods: {
+      handleForComC() {
+        console.log("handleForComC");
+      },
+    }
+  }
+  </script>
+  ```
+
+  ```html
+  <template>
+    <div>
+      CompC
+      <button @click="handlebyEventBug">byEventBug</button>
+    </div>
+  </template>
+
+  <script>
+  import { eventBus } from "../eventBus";
+  export default {
+    methods: {
+      handlebyEventBug() {
+        eventBus.$emit("forComC");
+      }
+    },
+  };
+  </script>
+  ```
 
 ## 2、vuex
 
+官网：[https://vuex.vuejs.org/zh/](https://vuex.vuejs.org/zh/)
+
+- **state**，驱动应用的数据源；
+- **view**，以声明方式将 **state** 映射到视图；
+- **actions**，响应在 **view** 上的用户输入导致的状态变化。
+
+![img](./imgs/vuex.drawio.png)
+
+应用遇到多个组件共享状态时，单向数据流的简洁性很容易被破坏：
+
+- 多个视图依赖于同一状态。
+- 来自不同视图的行为需要变更同一状态。
 ### 概念
 
 - **what（是什么）?**<br>
@@ -282,15 +409,110 @@ provide ()  {
 - **什么时候用**？<br>
 	Flux 架构就像眼镜：您自会知道什么时候需要它。
 
+  
+
 ### 安装
 
 `npm install vuex --save`
 
 ## 3、全局状态 state
 
-在 vue 组件中获取**计算属性**和**mapState**
+[state](https://vuex.vuejs.org/zh/guide/state.html)为Vue实例的全局单例管理状态，在 vue 组件中通过**计算属性**获取state值，为简化组件的重复和冗余的计算属性，**mapState**辅助函数简化了组件生成计算属性的操作。
 
-### mapState
+```js
+// store/index.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex) // 注册vuex
+
+console.log(Vuex); // 一个对象 Store是一个类/构造函数
+
+const strore = new Vuex.Store({
+  state: {
+    user: {
+      age: 18,
+      name: 'xiaohei'
+    }
+  }
+})
+
+export default strore
+```
+
+```js
+// main.js
+import Vue from 'vue'
+import App from './App.vue'
+import store from './store'
+
+Vue.config.productionTip = false
+
+new Vue({
+  // 挂载到Vue实例中，通过this.$store访问
+  store, 
+  render: h => h(App)
+}).$mount('#app')
+
+```
+
+```html
+// Foo.vue
+<template>
+  <div>
+    <h2>Foo</h2>
+    <div>名字：{{user.name}} 年龄：{{user.age}}</div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      // user: this.$store.state.user
+    }
+  },
+  mounted() {
+    console.log(this.$store.state);
+  },
+  computed: {
+    // state属于全局计算属性，在Bar组件改变它时，Foo组件可以共享改变后的值
+    user() {
+      return this.$store.state.user
+    }
+  },
+}
+</script>
+```
+
+```html
+//Bar.vue
+<template>
+  <div>
+    <h2>Bar</h2>
+    <div>姓名：{{user.name}} 年龄: {{user.age}}</div>
+    <button @click="handleChange">change</button>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      user: this.$store.state.user
+    }
+  },
+  methods: {
+    handleChange() {
+      this.$store.state.user.age = 30
+    }
+  },
+}
+</script>
+<style lang="">
+  
+</style>
+```
+
+### mapState辅助函数
 - 动机<br>
 	当一个组件需要获取多个状态的时候，将这些状态都声明为计算属性会有些重复和冗余。
 - 形式<br>
@@ -298,9 +520,61 @@ provide ()  {
 - 与局部计算属性混合使用<br>
   展开运算符
 
-## 4、getter
+  ```html
+  <template>
+    <div>
+      <h2>Foo</h2>
+      <div>名字：{{user.name}} 年龄：{{user.age}}</div>
+      <button @click="handleChange">change</button>
+    </div>
+  </template>
+  <script>
+  import { mapState } from 'vuex'
+  export default {
+    mounted() {
+      console.log(this.$store.state);
+    },
+    computed: {
+      // 对象展开运算符
+      ...mapState(['user','token']),
+      // user() {
+      //   return this.$store.state.user
+      // },
+      // token() {
+      //   return this.$store.state.user.token
+      // }
+    },
+    methods: {
+      handleChange() {
+        this.$store.state.user.name = 'xiaohong'
+      }
+    },
+  }
+  </script>
+  ```
+
+## 4、全局计算属性 getters
 
 ### 概述
+
+[getters](https://vuex.vuejs.org/zh/guide/getters.html)属于Store的计算属性，getter 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。Getter 接受 state 作为其第一个参数：
+```js
+const strore = new Vuex.Store({
+  state: {
+    user: {
+      age: 18,
+      name: 'xiaohei'
+    },
+    totken: ''
+  },
+  // 全局的计算属性，依赖state属性
+  getters: {
+    tenYearsOld(state) {
+      return state.user.age + 10
+    }
+  }
+})
+```
 
 - 动机<br>
   需要从 store 中的 state 中派生出一些状态，例如对列表进行过滤并计数
@@ -309,40 +583,139 @@ provide ()  {
 
 - 和计算属性一样，会缓存
 
-### 使用
 
-- 通过属性访问<br>
-  store.getters.xxx
+### 访问全局属性getters方式：
 
-- 通过函数访问<br>
-  返回一个函数，来实现给 getter 传参
+- （1）通过属性访问<br>
+  `this.$store.getters.xxx`
 
-- mapGetters<br>
-  将 store 中的 getter 映射到局部计算属性  
 
-## 5、mutation
+- （2）通过方法访问<br>
+  返回一个函数，来实现给 `getter` 传参: 不同组件传入不同参数，获得不同的值
+
+- （3）mapGetters辅助函数<br>
+  将 `store` 中的 `getter` 映射到局部计算属性: `...mapGetters(['tenYearsOld'])`
+
+## 5、状态提交方法 mutations
 
 ###	概述
 
-- 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
--	必须是同步的<br>
-	方便追踪状态的改变
+
+ [mutations](https://vuex.vuejs.org/zh/guide/mutations.html) 是提交store中状态的唯一方法，每个mutation都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler):
+
+- state 作为第一个参数
+- 回调函数就是我们实际进行状态更改的地方
+-	必须是同步的, 方便追踪状态的改变
+  - 实质上任何在回调函数中进行的状态的改变都是不可追踪的
 
 ###	使用
-- 调用<br>
-  `store.commit("")`
-- 提交负荷<br>
-  传参
-- mapMutation<br>
-  扩展到 methods
+- 调用`store.commit`
+- 提交负荷payload（传入的传参）
+- mapMutation辅助函数：将组件中的 methods 映射为 store.commit 调用
+- 对象风格的提交方式
+  ```js
+  const strore = new Vuex.Store({
+    // 全局状态
+    state: {
+      user: {
+        age: 18,
+        name: 'xiaohei'
+      },
+      totken: ''
+    },
+    // 全局的计算属性，依赖state属性
+    getters: {
+      tenYearsOld(state) {
+        return state.user.age + 10
+      }
+    },
+    // 提交状态：类似自定义的事件类型
+    mutations: {
+      // payload是载荷：传入的额外参数
+      changeName(state, payload) {
+        state.user.name = payload
+      },
+      changeAge(state, payload) {
+        state.user.age = payload.age
+        // 同时多个组件触发时会有问题
+        // setTimeout(() => {
+        //   state.user.age = payload.age
+        // }, 1000);
+      },
+
+    }
+  })
+
+  ```
+  ```js
+  // 1、store.commit()传入参数
+  export default {
+    methods: {
+      handleChangeName(){
+        // 第二个参数为载荷payload
+        console.log(this.$store);
+        this.$store.commit('changeName', 'zy')
+      },
+      handleChangeAge() {
+        // 整个对象都作为载荷payload传给 mutation 函数
+        this.$store.commit({
+          type: 'changeAge',
+          age: 22
+        })
+      }
+    }
+  }
+  ```
+
+  ```html
+  <template>
+    <div>
+      <button @click="changeAge({age: 80})">changeAge</button>
+    </div>
+  </template>
+  <script>
+    // mapMutations
+    export default {
+      methods: {
+        ...mapMutations([
+          'changeAge'
+        ]),
+      },
+    }
+  </script>
+  ```
 
 
-## 6、action
-###	概述
--  异步操作解决方案
--  提交的是 mutation，而不是直接变更状态
- - 可以包含任意异步操作
+
+## 6、触发状态提交 actions
+
+[Actions](https://vuex.vuejs.org/zh/guide/actions.html) 类似于 mutations，不同在于：
+  - Action 提交的是 mutation，而不是直接变更状态。
+  - Action 可以包含任意异步操作。
+  - 异步操作解决方案。
 ###	使用
 - store.dispatch
-- mapActions: 扩展到 methods
+- mapActions: 与mapMutations一样用法
 - 组合 Action: 可返回 promise
+
+```html
+<template>
+  <div>
+    <button @click="handleFetchData">Fetch Data</button>
+    <button @click="changeName('zy')">handleChangeName</button>
+  </div>
+</template>
+<script>
+import { mapActions } from 'vuex'
+export default {
+  methods: {
+    ...mapActions([
+      'changeName'
+    ]),
+    handleFetchData() {
+      this.$store.dispatch('changeName', 'zy')
+    }
+  },
+}
+</script>
+```
