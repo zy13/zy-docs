@@ -4,24 +4,203 @@
 
 ## 1、组件通信
 
-组件通信的本质，需要通信的两个组件可以说上话
+通信的本质就是数据共享，组件间能够进行数据交互：
+- 父子组件通信
+- 多层级父子组件通信
+- 非关系组件通信
 
 ###	父子组件间的通信
 
-- `props/$emit`<br>
+- **（1）`props/$emit`**（推荐）<br>
   - `props: parent -> child`
   - `$emit: child -> parant`
-  - 推荐使用这种形式进行父子组件间的通信，解耦度高
+  - 解耦度高
+  ```html
+    // Home.vue
+    <template>
+      <div class="home">
+        <h1>home page</h1>
+        <div>get emit data from child: <span v-show="childData">{{childData}}</span></div>
+        <br>
+        <HomeChild title="home" @getChildData="getChildData"></HomeChild>    
+      </div>
+    </template>
 
-- `$refs/ref`<br>
-  - `ref`：给元素或子组件注册引用信息
+    <script>
+    // @ is an alias to /src
+    import HomeChild from '@/components/HomeChild.vue'
+
+    export default {
+      name: 'Home',
+      components: {
+        HomeChild
+      },
+      data() {
+        return {
+          childData: ''
+        }
+      },
+      methods: {
+        getChildData(txt) {
+          this.childData = txt
+          console.log(txt);
+        }
+      },
+    }
+    </script>  
+  ```
+
+  ```html
+  // HomeChild.vue
+  <template>
+    <div>
+      <h2>child-component</h2>
+      props data : <strong>{{title}}</strong>
+      <div @click="handleClick"><button>$emit</button></div>
+    </div>
+  </template>
+  <script>
+  export default {
+    props: ['title'],
+    methods: {
+      handleClick() {
+        let rendomDatas = [
+          'my data is getting from child',
+          'data get from home child',
+          'my name is homechild'
+        ]
+        this.$emit('getChildData', rendomDatas[Math.floor(Math.random()*rendomDatas.length)])
+      }
+    },
+  }
+  </script>  
+  ```
+
+- **（2）`$refs/ref`**<br>
+  - `ref`：给元素或子组件**注册引用信息**
   - `$refs`：获取通过 ref 注册的引用
-  - 挂载到自定义组件：获取当前VueComponent的实例；挂载到普通元素，获取原生元素的实例
+  - 不同情况获取到的引用信息不一样：
+    - 挂载到自定义组件：获取当前VueComponent的实例；
+    - 挂载到普通元素，获取原生元素的实例
+  ```html
+  // About.vue
+  <template>
+    <div class="about">
+      <h1>This is an about page</h1>
+      <button @click="sayHi">say hi to aboutChild</button> <span>:{{txt}}</span>
+      <AboutChild ref="aboutChild"></AboutChild>
+    </div>
+  </template>
+
+  <script>
+  import AboutChild from '@/components/AboutChild.vue'
+  export default {
+    components: {
+      AboutChild,
+    },
+    data() {
+      return {
+        txt: ''
+      }
+    },
+    methods: {
+      sayHi() {
+        const { aboutChild } = this.$refs
+        console.log(aboutChild);
+        aboutChild.sayHello()
+        this.txt = aboutChild.txt
+      }
+    },
+  }
+  </script>
+  ```
+  ```html
+  // AboutChild.vue
+  <template>
+    <div>
+      <h2>About-child</h2>
+      <div>。。。</div>
+      <button @click="handleChange">change</button>
+    </div>
+  </template>
+  <script>
+  export default {
+    data() {
+      return {
+        txt: 'hello about'
+      }
+    },
+    methods: {
+      sayHello() {
+        console.log(this.txt);
+      },
+      handleChange() {
+        this.txt = 'hi about'
+        console.log(this);
+      }
+    },
+  }
+  </script>
+  ```
   
--	`$parent/$children`<br>
-  - `$parent`：获取当前组件的父组件实例
-  - `$children`：获取当前组件的所有子组件实例
-  - 强依赖：不推荐使用
+-	**（3）`$parent/$children`**（组件复杂多变情况下不推荐）<br>
+    - `$parent`：获取当前组件的父组件实例
+    - `$children`：获取当前组件的所有子组件实例
+    - 强依赖，脆弱，容错性差。
+    ```html
+    // Parent.vue
+    <template>
+      <div>
+        <h1>This is a Parent Page</h1>
+        <button @click="handleClick">get Child</button><span>{{txt}}</span>
+        <ParentChild></ParentChild>
+      </div>
+    </template>
+    <script>
+    import ParentChild from '@/components/ParentChild.vue'
+    export default {
+      components: {
+        ParentChild,
+      },
+      data() {
+        return {
+          txt: ''
+        }
+      },
+      methods: {
+        handleClick() {
+          this.txt = this.$children[0].txt
+        },
+        changeTxt() {
+          this.txt = 'change from child'
+        }
+      },
+    }
+    </script>
+    ```
+    ```html
+    // ParentChild.vue
+    <template>
+      <div>
+        <h2>parent--child</h2>
+        <button @click="handleChange">change</button>
+      </div>
+    </template>
+    <script>
+    export default {
+      data() {
+        return {
+          txt: 'hello parent'
+        }
+      },
+      methods: {
+        handleChange() {
+          this.$parent.changeTxt()
+        }
+      },
+    }
+    </script>
+    ```
 
 ###	多层级父子组件间的通信
 

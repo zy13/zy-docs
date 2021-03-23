@@ -405,6 +405,13 @@ watch: {
   export default router
   ```
 
+  ```html
+  <router-view></router-view>
+  <!-- 命名视图的name值与配置路由的组件属性一致 -->
+  <router-view name="foo"></router-view>
+  <router-view name="bar"></router-view>
+  ```
+
 ## 8、编程式导航
 
 
@@ -571,17 +578,47 @@ const router = new VueRouter({
   - 不能获取组件实例`this`
   - 因为当守卫执行前，组件实例还没被创建
   - `beforeRouteEnter`先调用，再调用`beforeCreate`和`created`
+  ```js
+  beforeRouteEnter (to, from, next) {
+    // 所有钩子执行完，与login映射的路由才被comfirm
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 组件创建前调用
+    // 无法获取组件实例this，因为守卫执行前，组件实例还没有被创建
+    console.log('beforeRouteEnter')
+    next(vm => {})
+  },
+  ```
 - `beforeRouteUpdate` (2.2 新增)
   - 该组件被复用时调用, 比如/login到/login?type=1时
   - 以访问组件实例 `this`
   - `beforeRouteUpdate`先调用，再调用`beforeUpdate`和`updated`
   - 接口请求
+  ```js
+  beforeRouteUpdate (to, from, next) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 比如/login到/login?type=1时
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用
+    // 这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+    console.log('beforeRouteUpdate')
+    next()
+  },
+  ```
 - `beforeRouteLeave`
   - 导航离开该组件的对应路由时调用
   - 可以访问组件实例 `this`
   - `beforeRouteLeave`先调用，再调用`beforeDestroyed`和`destroyed`
+  ```js
+  beforeRouteLeave (to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+    console.log('beforeRouteLeave')
+    next()
+  },
+  ```
 
 - 总结：组件内的路由守卫钩子都是先调用，再调用组件内的生命周期钩子
+  - **路由守卫钩子** -> **生命周期钩子**
 
 ### 完整的导航解析流程
 - （1）导航被触发。路由跳转，路由改变，路由访问等情况
@@ -860,3 +897,57 @@ watch: {
 
 完整例子[点击](https://github.com/vuejs/vue-router/blob/dev/examples/transitions/app.js)
 
+
+## 15、练习
+
+
+- 通过 `vue-router` 完成如下两个路由以及组件
+  - 实现 `Login` 页面组件
+  - 实现 `Home` 页面组件
+  - 访问 `/` 目录会自动跳转到 `login` 页面
+  - `login` 页面点击 `login` 按钮的时候，跳转到 `home` 页面
+
+```js
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+const Home = () => import('../views/Home.vue')
+const Login = () => import('../views/Login.vue')
+
+Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/',
+    redirect: 'login'
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  }
+]
+
+const router = new VueRouter({
+  routes
+})
+
+export default router
+
+```
+
+```html
+<template>
+  <div>
+    <div>login</div>
+    <router-link :to="{name: 'home'}">
+      <button>login</button>
+    </router-link>
+  </div>
+</template>
+```
