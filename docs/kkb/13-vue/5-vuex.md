@@ -325,7 +325,7 @@ provide ()  {
 
 ###	非关系组件通信
 
-
+- `Vuex`：状态管理机制
 - [`EventBus`](https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95-%E4%BA%8B%E4%BB%B6)：Vue的实例对象
   - $on
   - $off

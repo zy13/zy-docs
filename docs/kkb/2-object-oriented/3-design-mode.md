@@ -177,7 +177,7 @@ console.log(xiaoli);
 - 2.和父类耦合性强
 - 3.没有装饰者链
 
-### 装饰着模式
+### 装饰者模式
 ```js
 class Yase {
   constructor() {

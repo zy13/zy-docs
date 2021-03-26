@@ -122,6 +122,26 @@ router.put('/users', koaBody({
 })
 ```
 
+### 原生nodejs的http模块处理跨域
+
+```js
+const http = require('http')
+const server = http.createServer()
+const fs = require('fs')
+
+server.on('request', (req, res) => {
+  console.log(2222);
+  const tpl = fs.readFileSync('./index.html', 'utf-8')
+  // 处理跨域的预检请求
+  res.setHeader('Access-Control-Allow-Methods', 'PUT');
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.write(tpl)
+  res.end()
+})
+
+server.listen(7777)
+```
+
 ## 3、后端代理：跨域解决方案二
 ### 3-1、 跨域是浏览器规范，通过同服务器(都是nodejs服务器)请求数据，也能解决浏览器限制
 - **客户端发送请求**

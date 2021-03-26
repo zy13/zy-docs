@@ -204,11 +204,24 @@ server.on('request',(req,res) => {
 
 [https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods)
 
+[get和post请求的区别](https://www.w3school.com.cn/tags/html_ref_httpmethods.asp)
+
 ### 7-3、响应状态码
 
 HTTP 状态码用来表示特定的 HTTP 请求是否已成功完成。响应分为五类：消息/信息响应(1xx)，成功响应(2xx)，重定向(3xx)，客户端错误(4xx)和服务器错误(5xx)。<br>
 [https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
 
+- 200 请求成功
+- 400 Bad Request
+- 401 Unauthorized
+- 403 Forbidden
+- 404 Not Found
+- 405 Method Not Allowed
+- 414 URI Too Long
+- 500 Internal Server Error
+- 502 Bad Gateway
+- 503 Service Unavailable
+- 505 HTTP Version Not Supported
 ### 7-4、头信息
 HTTP 消息头用于描述资源或服务器或客户端的行为。可以使用 X- 前缀添加自定义专有头<br>
 [https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers)

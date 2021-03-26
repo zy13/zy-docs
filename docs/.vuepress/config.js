@@ -71,9 +71,10 @@ module.exports = {
           title: '第五章 es6高阶',
           collapsable: true,
           children: [
-            ['5-es6-higher/1-async.md', '第1节 异步专题'],
-            ['5-es6-higher/2-data-responsive.md', '第2节 数据响应式'],
-            ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
+            ['5-es6-higher/1-base.md', '第1节 异步基础'],
+            // ['5-es6-higher/1-async.md', '第1节 异步专题'],
+            // ['5-es6-higher/2-data-responsive.md', '第2节 数据响应式'],
+            // ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
           ]
         },
         {
@@ -117,6 +118,7 @@ module.exports = {
             ['11-webpack/1-modules.md', '第1节 模块化'],
             ['11-webpack/2-webpack-base.md', '第2节 webpack核心配置'],
             ['11-webpack/3-webpack-plugins.md', '第3节 webpack之pugins配置'],
+            ['11-webpack/problems.md', 'Webpack 问题集锦'],
           ]
         },
         {
@@ -137,6 +139,14 @@ module.exports = {
             ['13-vue/5-vuex.md', '第5节 vuex'],
             ['13-vue/6-project-vue-vueRouter-vuex.md', '第6节 项目应用-vue-vuerouter-vuex'],
             ['13-vue/7-vue3.x.md', '第7节 vue3.x基础'],
+            ['13-vue/problems.md', 'vue 问题集锦'],
+          ]
+        },
+        {
+          title: '第十四章 React',
+          collapsable: true,
+          children: [
+            ['14-react/1-react-base.md', '第1节 react基础'],
           ]
         },
       ],

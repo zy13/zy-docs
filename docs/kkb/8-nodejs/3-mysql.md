@@ -191,7 +191,7 @@ router.get('/list/:categoryId', async ctx => {
 ### 4-1、客户端
 
 客户端请求的数据量大的情况下，使用post请求，通过表单形式提交给后端
-```js
+```html
 <form method="post" action="/comment" enctype="application/x-www-form-urlencoded">
   <p>
     <textarea name="content" class="input" rows="5"></textarea>
@@ -201,8 +201,8 @@ router.get('/list/:categoryId', async ctx => {
     <button class="btn btn-primary">提交</button>
   </p>
 </form> 
-// 浏览器会自动收集form表单里name属性的字段名称和值，并提交给`/comment`接口
-// 点击form表单中的button按钮，浏览器会自动提交响应数据给后端
+<!-- 浏览器会自动收集form表单里name属性的字段名称和值，并提交给`/comment`接口 -->
+<!-- 点击form表单中的button按钮，浏览器会自动提交响应数据给后端 -->
 ```
 
 ### 4-2、服务端

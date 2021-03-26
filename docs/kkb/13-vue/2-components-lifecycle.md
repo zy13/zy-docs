@@ -8,6 +8,8 @@
 - data必须是一个函数
   - 每个实例可以维护一份被返回对象的独立的拷贝
   - 对象的数据类型为引用类型，若使用对象，多个实例会共享一个对象，会导致赋值问题
+
+  注意：一个组件被复用多次的话，也就会创建多个实例。本质上，这些实例用的都是同一个构造函数。如果data是对象的话，对象属于引用类型，会影响到所有的实例。所以为了保证组件不同的实例之间data不冲突，data必须是一个函数。
 - 注册组件
   - 全局`Vue.component('Foo', Foo)`
   - 局部`components: {Bar}`
@@ -112,7 +114,21 @@
 
 组件在条件隐藏`<Bar v-if="false"></Bar>`情况下，组件销毁。
 
-### 四个阶段间各钩子的执行顺序
+### 各组件生命周期的执行顺序
+
+- 组件的创建（调用）顺序：先父后子；
+- 组件的挂载（渲染）顺序：先子后父；
+- 组件的销毁操作：先父后子；
+- 销毁完成：先子后父。
+
+- 加载渲染过程
+  `父beforeCreate->父created->父beforeMount->子beforeCreate->子created->子beforeMount- >子mounted->父mounted`
+- 子组件更新过程
+  `父beforeUpdate->子beforeUpdate->子updated->父updated`
+- 父组件更新过程
+  `父 beforeUpdate -> 父 updated`
+- 销毁过程
+  `父beforeDestroy->子beforeDestroy->子destroyed->父destroyed`
 
 - 单个组件
 ```js
