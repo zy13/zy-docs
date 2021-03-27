@@ -38,7 +38,7 @@ Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统
 
 ### 安装
 
-`npm i @vue/cli -g`
+`npm i @vue/cli -g` 或者 `npm i -g '@vue/cli'`
 
 - 查看vue指令 `vue`
 - 查看安装版本  `vue -V`
