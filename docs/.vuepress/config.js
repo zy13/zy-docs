@@ -72,8 +72,8 @@ module.exports = {
           collapsable: true,
           children: [
             ['5-es6-higher/1-async.md', '第1节 异步专题'],
-            // ['5-es6-higher/2-data-responsive.md', '第2节 数据响应式'],
-            // ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
+            ['5-es6-higher/2-promise.md', '第2节 Promise原理'],
+            ['5-es6-higher/3-responsive.md', '第3节 数据响应式原理'],
           ]
         },
         {
