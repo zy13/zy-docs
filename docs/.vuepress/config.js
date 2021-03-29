@@ -22,22 +22,22 @@ module.exports = {
         text: '高级前端',
         link: '/kkb/'
       },
-      {
-        text: '前端资源',
-        link: '/resource/'
-      },
-      {
-        text: '全栈进阶',
-        link: '/full-stack/'
-      },
-      {
-        text: '算法',
-        link: '/algorithm/'
-      },
-      {
-        text: 'JavaScript深入简出',
-        link: '/javascript/'
-      },
+      // {
+      //   text: '前端资源',
+      //   link: '/resource/'
+      // },
+      // {
+      //   text: '全栈进阶',
+      //   link: '/full-stack/'
+      // },
+      // {
+      //   text: '算法',
+      //   link: '/algorithm/'
+      // },
+      // {
+      //   text: 'JavaScript深入简出',
+      //   link: '/javascript/'
+      // },
       // {text: 'categories', link: '/categories/'},
       // {text: 'components', link: '/components/'},
     ],
@@ -46,7 +46,7 @@ module.exports = {
           title: '第一章 ECMAScript6基础',
           collapsable: true,
           children: [
-            ['1-ECMAScript6/1-es6', 'ECMAScript6基础']
+            // ['1-ECMAScript6/1-es6', 'ECMAScript6基础']
           ]
         },
         {
@@ -64,28 +64,28 @@ module.exports = {
           title: '第四章 正则表达式',
           collapsable: true,
           children: [
-            ['4-reg-exp/reg-exp.md', '正则表达式']
+            // ['4-reg-exp/reg-exp.md', '正则表达式']
           ]
         },
         {
-          title: '第五章 es6高阶',
+          title: '第五章 ES6高阶函数',
           collapsable: true,
           children: [
-            ['5-es6-higher/1-base.md', '第1节 异步基础'],
+            // ['5-es6-higher/1-base.md', '第1节 异步基础'],
             // ['5-es6-higher/1-async.md', '第1节 异步专题'],
             // ['5-es6-higher/2-data-responsive.md', '第2节 数据响应式'],
             // ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
           ]
         },
         {
-          title: '第六章 git',
+          title: '第六章 Git',
           collapsable: true,
           children: [
             ['6-git/1-base', '第1节 git基础']
           ]
         },
         {
-          title: '第八章 node.js',
+          title: '第八章 Node.js',
           collapsable: true,
           children: [
             ['8-nodejs/1-webServer', '第1节 搭建webServer'],
@@ -122,7 +122,7 @@ module.exports = {
           ]
         },
         {
-          title: '第十二章 Typescript',
+          title: '第十二章 TypeScript',
           collapsable: true,
           children: [
             ['12-typescript/ts.md', 'Typescript'],
