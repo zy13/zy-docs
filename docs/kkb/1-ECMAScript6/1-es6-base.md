@@ -582,48 +582,48 @@ console.log(merged.get(3)); // three
 ```
   
 ## 12、函数新增扩展
-- 箭头函数
-  - 箭头函数的各种写法
-  - 箭头函数的 this 问题
-  - 箭头函数的不定参问题
-  - [手册地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
-- rest 参数设置
-- 参数默认值设置
+
+### 箭头函数 
+[手册地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+- 适用于需要匿名函数的地方
+- 没有自己的`this`，`arguments`，`super`或`new.target`
+- 不能用作构造函数
+- 通过 call 或 apply 调用
+
+### this的指向问题
+
+- 构造函数，this指针该实例化对象
+- 在严格模式下的函数调用下，this指向undefined
+- 如果是该函数是一个对象的方法，则它的this指针指向这个对象
+- ...
   
 ## 13、新增数组扩展
-    - Array.from()、Array.of()
-    - find()、findIndex()、includes()
-    - flat()、flatMap()
-    - [手册地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)
+数组扩展 - [手册地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)
+- Array.from()、Array.of()
+- find()、findIndex()、includes()
+- flat()、flatMap()
   
 ## 14、新增字符串扩展
-    - includes(), startsWith(), endsWith()
-    - repeat()
-    - 模版字符串
-    - [手册地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)
+字符串扩展 - [手册地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)
+- includes(), startsWith(), endsWith()
+- repeat()
+- 模版字符串
   
 ## 15、新增对象扩展
-    - 属性简洁表示法
-    - 属性名表达式
-    - [手册地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)
+对象扩展 - [手册地址](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)
+- 属性简洁表示法
+- 属性名表达式
   
 ## 16、babel 使用
-    - Babel 是一个 JavaScript 编译器
-    - Babel 基本使用方法
-    - [手册地址](https://www.babeljs.cn/)
+babel - [手册地址](https://www.babeljs.cn/)
+- Babel 是一个 JavaScript 编译器
+- Babel 基本使用方法
 
 ## 17、员工列表
-  - 数据驱动视图
-  - 员工列表筛选
+- 数据驱动视图
+- 员工列表筛选
 
 ## 18、百度音乐全选列表
-  - 实现添加功能
-  - 实现全选功能
-  - 实现删除功能
-
-## 总结
-  - ES6基本使用
-  - let、const、解构赋值、展开运算符...
-  - 数据驱动视图
-  - ES6员工列表案例
-  - ES6百度音乐全选案例
+- 实现添加功能
+- 实现全选功能
+- 实现删除功能
