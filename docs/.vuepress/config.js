@@ -71,8 +71,7 @@ module.exports = {
           title: '第五章 ES6高阶函数',
           collapsable: true,
           children: [
-            // ['5-es6-higher/1-base.md', '第1节 异步基础'],
-            // ['5-es6-higher/1-async.md', '第1节 异步专题'],
+            ['5-es6-higher/1-async.md', '第1节 异步专题'],
             // ['5-es6-higher/2-data-responsive.md', '第2节 数据响应式'],
             // ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
           ]
