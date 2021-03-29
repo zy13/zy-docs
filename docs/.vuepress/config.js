@@ -46,7 +46,7 @@ module.exports = {
           title: '第一章 ECMAScript6基础',
           collapsable: true,
           children: [
-            // ['1-ECMAScript6/1-es6', 'ECMAScript6基础']
+            ['1-ECMAScript6/1-es6-base.md', '第1节 ECMAScript6基础']
           ]
         },
         {
@@ -80,8 +80,15 @@ module.exports = {
         {
           title: '第六章 Git',
           collapsable: true,
+          // children: [
+          //   ['6-git/1-base', '第1节 git基础']
+          // ]
+        },
+        {
+          title: '第七章 函数式编程',
+          collapsable: true,
           children: [
-            ['6-git/1-base', '第1节 git基础']
+            // ['7-function-coding/1-base', '第1节 git基础']
           ]
         },
         {
@@ -125,7 +132,7 @@ module.exports = {
           title: '第十二章 TypeScript',
           collapsable: true,
           children: [
-            ['12-typescript/ts.md', 'Typescript'],
+            // ['12-typescript/ts.md', 'Typescript'],
           ]
         },
         {
