@@ -154,6 +154,7 @@ module.exports = {
           collapsable: true,
           children: [
             ['14-react/1-react-base.md', '第1节 react基础'],
+            ['14-react/2-component-lifecycle.md', '第2节 组件通信和生命周'],
           ]
         },
       ],

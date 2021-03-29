@@ -79,13 +79,16 @@
 - ES5
 - DOM
 - BOM
-
 ## 课表
 
 - 第一阶段课表
 <enlarge :isZoom='true'><img src="./course-1.png"></enlarge>
 
 - 第二阶段课表
+### 第一阶段课表
+<enlarge :isZoom='true'><img src="./course-1.png"></enlarge>
+
+### 第二阶段课表
 <enlarge :isZoom='true'><img src="./course-2.png"></enlarge>
 
 - 第三阶段课表
