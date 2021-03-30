@@ -30,8 +30,8 @@
 ## 2、设计模式
 ​`设计模式`是软件开发人员在软件开发过程中面临的一些具有代表性问题的**解决方案**。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的；
 
-- 函数+类+组件：代码复用
-- 经验复用：提高复用性可维护性...
+**设计模式特点：**
+- 经验复用，提高复用性可维护：不像函数、类、组件是简单的代码复用
 - 状态共享: 多组件状态统一管理
 - 高内聚 ，低耦合
 
@@ -40,8 +40,8 @@
 **单例模式**（Singleton Pattern）又称为**单体模式**，保证一个类只有一个实例，并提供一个访问它的全局访问点。也就是说，第二次使用同一个类创建新对象的时候，应该得到与第一次创建的对象完全相同的对象。
 
 ### 单例模式优缺点
-- 优点：单例模式`节约内存`开支和实例化时的性能开支，`节约性能`；
-- 缺点：单例模式`扩展性不强`
+- 优点：单例模式**节约内存**开支和实例化时的性能开支，**节约性能**；
+- 缺点：单例模式**扩展性不强**
 
 ### 单例创建方式
 - 通过`静态属性`创建单例
@@ -57,7 +57,7 @@ let obj = {
 }
 ```
 
-- **通过静态属性创建单例**
+- **通过类的静态属性创建单例**
 ```js
 class Person {
   static Instance;
@@ -86,14 +86,14 @@ function getSingle(Fn) {
   }
 }
 const silgelPerson = getSingle(PersonA);
-let zhangsan1 = new silgelPerson("张三");
-let lisi1 = new silgelPerson("李四");
+let zhangsan1 = silgelPerson("张三");
+let lisi1 = silgelPerson("李四");
 console.log(zhangsan1 === lisi1);
 ```
 
 - **实现单个模态框**
 ```js
-// 一个弹框例子
+// 单例
 function getSingle(Fn) {
   let instance;
   return function (...args) {
@@ -104,7 +104,7 @@ function getSingle(Fn) {
   }
 }
 
-
+// 创建弹框
 class CreateDailog {
   constructor(html) {
     this.html = html;
@@ -120,12 +120,12 @@ class CreateDailog {
 let singleDailog = getSingle(CreateDailog);
 singleDailog("div1");
 singleDailog("div2");
-console.log(singleDailog("div1"),singleDailog("div1"));
+console.log(singleDailog("div1"),singleDailog("div2"));
 ```
 
 ## 4、工厂模式
 
-- **工厂模式** （Factory Pattern），封装具体实例创建逻辑和过程，外部只需要根据不同条件返回不同的实例。
+**工厂模式** （Factory Pattern），封装了具体实例的创建逻辑和过程，外部只需要根据不同条件返回不同的实例。
 - 优点：实现代码复用性，封装良好，抽象逻辑；
 - 缺点：增加了代码复杂程度；
 
@@ -166,16 +166,15 @@ let xiaoli  = Factory("mac");
 console.log(xiaoli);
 ```
 
-## 5、装饰者模式-添加额外信息(扩展)
+## 5、装饰者模式 - 扩展
 
 **装饰者模式** （Decorator Pattern）使用一种更为灵活的方式来动态给一个对象/函数等添加额外信息
 - 扩展功能和继承类似：extends
-- 扩展不同类的功能，和原始类并无关联；
-
-### 继承
-- 1.可能会扩展多个子类出来
-- 2.和父类耦合性强
-- 3.没有装饰者链
+- 耦合性低，扩展不同类的功能，和原始类并无关联；
+### 继承的特点
+- 1. 可能会扩展多个子类出来
+- 2. 和父类耦合性强：子类对父类有很高的依赖性
+- 3. 没有装饰者链
 
 ### 装饰者模式
 ```js
@@ -203,7 +202,12 @@ yase.fire();
 yase.fire.decoratorFn(hurt);
 ```
 
-### 装饰者链
+### 装饰者链及其应用
+
+- 管道符`|`：代码依次从左至右执行。
+- `after`: 参数提交，参数合并
+- `before`：用于鉴权、校验
+- Axios库中请求拦截器和响应拦截器
 
 ```js
 // 装饰者链；
@@ -229,12 +233,7 @@ let yase  = new Yase();
 yase.fire.after(fn1).after(fn2).after(fn3)("hello");
 ```
 
-- 管道符`|`：代码依次从左至右执行。
-- `after`: 参数提交
-- `before`：参数合并
-- 用于鉴权、校验
-
-## 6、观察者模式 (自定义事件)
+## 6、观察者模式 - 自定义事件
 
 **观察者模式** （Observer Pattern） 定义一个对象`addEvent`与其他对象`trigger`之间的一种依赖关系，当对象`addEvent`发生某种变化的时候，依赖它的其它对象`trigger`都会得到更新
 - 自定义事件绑定addEvent
@@ -242,7 +241,7 @@ yase.fire.after(fn1).after(fn2).after(fn3)("hello");
 - 自定义事件移除removeEvent
 
 ### 特点
-- 1.统一管理事件（解耦）
+- 1.统一管理事件（解耦）；
 - 2.惰性执行，延迟执行；
 
 ```js
@@ -287,9 +286,10 @@ trigger("event1");
 
 ```
 
-## 7、代理模式-控制访问
+## 7、代理模式 - 控制访问
 
 **代理模式** 为其他对象提供一种代理以控制对这个对象的访问，类似于生活中的中介。
+- 应用：图片的懒加载原理？
 
 ### 代理 - 中介
 ```js
@@ -348,7 +348,7 @@ proxyImg(src);
 
 ## 8、适配器模式-提高兼容性
 
-两个不兼容的接口之间的桥梁，将一个类的接口转换成客户希望的另外一个接口。**适配器模式**使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
+两个**不兼容的接口**之间的**桥梁**，将一个类的接口转换成客户希望的另外一个接口。**适配器模式**使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
 
 ```js
 function getUsers() {
@@ -363,9 +363,7 @@ function getUsers() {
     }
   ]
 }
-
 // 得到 ---> [ {zhangsan: 20}, {lisi: 21} ];
-
 function Adaptor(users) {
   let arr = [];
   for (let i = 0; i < users.length; i++) {
@@ -383,7 +381,7 @@ console.log(res);
 
 ## 9、混入模式
 
-将一个对象中的方法属性或者方法混入到另一个对象中，使另一个对象也具有相应的属性或者方法
+将一个对象中的**属性**或者**方法**混入到另一个对象中，使另一个对象也具有相应的属性或者方法
 - `vue`中的`mixins`
 - `Object.assign(obj1, obj2)`
 ```js
@@ -422,8 +420,10 @@ newYase.release();
 newYase.run();
 ```
 
+## 10、发布订阅模式
 
-## 10、课件
+**发布-订阅**是一种[消息](https://zh.wikipedia.org/wiki/消息)[范式](https://zh.wikipedia.org/wiki/范式)，消息的发送者（称为发布者）不会将消息**直接**发送给特定的接收者（称为订阅者）。而是将发布的消息分为不同的类别，无需了解哪些订阅者（如果有的话）可能存在。同样的，订阅者可以表达对一个或多个类别的兴趣，只接收感兴趣的消息，无需了解哪些发布者（如果有的话）存在。
+## 11、课件
 
 [有道云笔记](https://note.youdao.com/web/#/file/WEB46441cd2c6744d98fbd9cb7c5f72834c/markdown/WEBb6fbb2ecfad4970e50db607ce531070b/)
 [github代码]()
