@@ -542,6 +542,8 @@ ReactDOM.render(
 - 更新阶段
 - 卸载阶段
 
+<enlarge :isZoom='true'><img src="./imgs/2-9.png"></enlarge>
+
 **render** 函数其实就是组件生命周期**渲染阶段**执行的函数
 
 - 生命周期演变

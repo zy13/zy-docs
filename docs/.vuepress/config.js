@@ -146,8 +146,9 @@ module.exports = {
           title: '第十四章 React',
           collapsable: true,
           children: [
-            ['14-react/1-react-base.md', '第1节 react基础'],
+            ['14-react/1-react-base.md', '第1节 react基础'], 
             ['14-react/2-component-lifecycle.md', '第2节 组件通信和生命周'],
+            ['14-react/3-fun-compoennt.md', '第3节 函数组件'],
           ]
         },
       ],
