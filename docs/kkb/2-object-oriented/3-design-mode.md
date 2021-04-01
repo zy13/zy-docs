@@ -423,6 +423,8 @@ newYase.run();
 ## 10、发布订阅模式
 
 **发布-订阅**是一种[消息](https://zh.wikipedia.org/wiki/消息)[范式](https://zh.wikipedia.org/wiki/范式)，消息的发送者（称为发布者）不会将消息**直接**发送给特定的接收者（称为订阅者）。而是将发布的消息分为不同的类别，无需了解哪些订阅者（如果有的话）可能存在。同样的，订阅者可以表达对一个或多个类别的兴趣，只接收感兴趣的消息，无需了解哪些发布者（如果有的话）存在。
+
+[移步 第五章ES6高阶函数-数据响应式原理-发布订阅模式](/kkb/5-es6-higher/2-data.html#_5、发布订阅模式-渲染新数据)
 ## 11、课件
 
 [有道云笔记](https://note.youdao.com/web/#/file/WEB46441cd2c6744d98fbd9cb7c5f72834c/markdown/WEBb6fbb2ecfad4970e50db607ce531070b/)
