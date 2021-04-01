@@ -1,82 +1,62 @@
 # Promise原理解析与实现
-
-
-
-## 知识要点
-
+### 要点
 - Promise 类
 - Promise 状态
 - promise.resolve 方法实现
 - promise.reject 方法实现
 - promise.then 方法实现
 - promise.catch 方法实现
-
-
-
-## 学习目标
-
+### 目标
 - 了解 `Promise` 基本实现原理
 - 深入掌握 `Promise` 的使用细节
 - 了解 `Promise` 未来新标准新特性
-
-
-
-## 学前须知
-
-
-
+### 学前须知
 本次 `Promise` 源码课程中会涉及到面向对象的使用，所以如果您能知道一些面向对象的知识（基础即可），会更加有利于您的理解
 
-
-
-## 介绍
+## 1、Promise介绍
 
 `Promise` 是 `JavaScript` 异步编程的一种流行解决方案，掌握 `Promise` 的使用是我们不可或缺的一项基本技能。但是要想熟练掌握并深入的理解它，还是必须要知道它的实现原理的。这节课就是从具体使用角度出发，使用原生手写方式一步一步的带你实现 `Promise` 库，而且不仅仅只是包含了 `Promise` 目前通用的功能，还有 `Promise` 的一些新的特性和未来即将支持的特性的介绍与实现
 
-
-
-## Promise 类
+## 2、Promise 类
 
 `Promise` 的构造函数必须接收一个函数参数（也就是需要执行异步任务的函数），该函数将在传入以后立即调用，并传入 `Promise` 对象下的两个方法 `resolve` 和 `reject` 
+- Promose接受一个函数，函数会立即执行，函数传入两个参数为Promise对象下的
+  - **Promise.resolve**方法
+  - **Promise.reject**方法
 
+## 3、Promise 状态
 
+### 三种状态
 
-## Promise 状态
-
-每一个 `Promise` 对象都存在以下三种状态：
+每一个 `Promise` 对象都存在以下**三种状态**：
 
 - PENDING : 进行中，`Promise` 对象的初始状态
 - FULFILLED : 已成功
 - REJECTED : 已失败
 
-> 每一个 `Promise` 对象只能由 `PENDING` 状态变成 `FULFILLED` 或 `REJECTED`，且状态发生变化以后就能再改变了 ---- 记住这个特性
+**注意**：
 
-一个 `Promise` 对象状态的变化并不由 `Promise` 对象本身来决定，而应该是由我们传入的异步任务完成情况来决定的，`Promise` 提供了两个用来改变状态的方法
+- 每一个 `Promise` 对象只能由 `PENDING` 状态变成 `FULFILLED` 或 `REJECTED`，且状态发生变化以后就不能再改变了 ---- 记住这个特性
+- 一个 `Promise` 对象状态的变化并不由 `Promise` 对象本身来决定，而应该是由我们传入的异步任务完成情况来决定的，`Promise` 提供了两个用来改变状态的方法
 
-
-
-## promise.#resolve 方法
+## 4、promise.resolve 方法
 
 将 `Promise` 对象的状态从 `PENDING` 变为 `FULFILLED`，并执行成功后的注册任务
 
-> 注意：如果当前状态已经改变过了，则直接 `return`
+- 注意：如果当前状态已经改变过了，则直接 `return`
 
 
-
-## promise.#reject 方法
+## 5、promise.reject 方法
 
 将 `Promise` 对象的状态从 `PENDING` 变为 `REJECTED`，并执行失败后的注册任务
 
-> 注意：如果当前状态已经改变过了，则直接 `return`
+- 注意：如果当前状态已经改变过了，则直接 `return`
 
-
-
-## promise.then 方法
+## 6、promise.then 方法
 
 `then` 是 `Promise` 对象提供的一个方法，它接收两个函数作为参数，分别注册到 `resolve` 和 `reject`  方法执行后的任务队列中，我们需要在 `Promise` 中维护两个队列
-
-- fulfilledQueues
-- rejectedQueues
+- **fulfilledQueues**
+- **rejectedQueues**
 
 ### 添加任务
 
@@ -88,18 +68,46 @@
 
 ### 宏任务 & 微任务
 
-<!-- ![image-20190902175947399](./assets/event-loop.png)
+![image](./imgs/event-loop.png)
 
-![image-20190902175947399](./assets/2.jpg) -->
+![image](./imgs/2.jpg)
 
 - 异步任务
   - 微任务：一个需要异步执行的函数，执行时机是在主函数执行结束之后、当前宏任务结束之前。
+   - 宏任务之后创建微任务，所有微任务执行之后才会执行下一个宏任务
   - 宏任务：宏任务的时间粒度比较大，执行的时间间隔是不能精确控制的，对一些高实时性的需求就不太符合。
+    - 插入异步任务
+    - script是一个宏任务
+     - 同步队列中的同步任务 - 一个大的宏任务
+     - 异步队列的异步任务
+    - 宏任务尾部可以有微任务队列
+    - 所有宏任务之后的微任务执行完后才会执行下一个微任务
+    - setTimeout是一个宏任务
+  - 微任务先执行，宏任务后执行
+  - 事件循环
 
-`then` 方法是一个微任务
+`then` 方法是一个微任务: 宏任务微任务执行顺序问题
+  - setTimeout(fn, 0);（模拟宏任务）
+  - MutationObserver（模拟微任务）
+```js
+setTimeout(function(){
+    console.log("setTimeout");
+})
+let box = document.querySelector(".box");
+let mo = new MutationObserver(function(){
+  console.log("MutationObserver");
+})
+mo.observe(box,{
+    attributes:true
+})
+box.setAttribute("kkb","kkb");
+```
 
-- setTimeout(fn, 0);
-- MutationObserver
+任务执行顺序：
+- 同步队列的任务先执行，异步的任务后执行
+- 微任务在宏任务之前
+- 每个宏任务后面都有微任务
+- 微任务颗粒度小，宏任务颗粒度大
 
 ### 结果传递
 
@@ -133,41 +141,19 @@
 > - 如果then中的回调函数返回一个已经是拒绝状态的Promise，那么then返回的Promise也会成为拒绝状态，并且将那个Promise的拒绝状态的回调函数的参数值作为该被返回的Promise的拒绝状态回调函数的参数值。
 > - 如果then中的回调函数返回一个未定状态（pending）的Promise，那么then返回Promise的状态也是未定的，并且它的终态与那个Promise的终态相同；同时，它变为终态时调用的回调函数参数与那个Promise变为终态时的回调函数的参数是相同的。
 
+## 7、promise.catch 方法
 
 
-## promise.catch 方法
+## 8、promise.finally 方法
 
 
+## 9、Promise.resolve 方法
 
-
-
-## promise.finally 方法
-
-<u>ECMA2018 Added</u>
-
-
-
-## Promise.resolve 方法
-
-
-
-
-
-## Promise.reject 方法
-
-
-
-
+## 10、Promise.reject 方法
 
 ## Promise.all 方法
 
-
-
-
-
 ## Promise.race 方法
-
-
 
 ## 总结
 
