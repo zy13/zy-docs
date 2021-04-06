@@ -82,11 +82,22 @@ console.log(p);
 - 注意：如果当前状态已经改变过了，则直接 `return`
 
 ```js
-  _resolve(val) {
-    // 1.改变状态 2、改变value
-    this['[[PromiseState]]'] = 'fulfilled'
-    this['[[PromiseResult]]'] = val
+_resolve(val) {
+  this['[[PromiseState]]'] = 'fulfilled'
+  this['[[PromiseResult]]'] = val
+  // 微任务-所有同步任务执行后才开始执行微任务
+  let run = () => {
+    let cb
+    while (cb = this.resolveFnQueue.shift()) {
+      cb(val)
+    }
   }
+  let mo = new MutationObserver(run)
+  mo.observe(document.body,{
+    attributes: true
+  })
+  document.body.setAttribute('kkb', 'kkb')
+}
 ```
 ## 4、reject 方法
 
@@ -95,11 +106,22 @@ console.log(p);
 
 - 注意：如果当前状态已经改变过了，则直接 `return`
 ```js
-  _reject(err) {
-    // 1.改变状态 2、改变value
-    this['[[PromiseState]]'] = 'rejected'
-    this['[[PromiseResult]]'] = err
+_reject(err) {
+  this['[[PromiseState]]'] = 'rejected'
+  this['[[PromiseResult]]'] = err
+  // 微任务-所有同步任务执行后才开始执行微任务
+  let run = () => {
+    let cb
+    while (cb = this.rejectFnQueue.shift()) {
+      cb(err)
+    }
   }
+  let mo = new MutationObserver(run)
+  mo.observe(document.body,{
+    attributes: true
+  })
+  document.body.setAttribute('kkb', 'kkb')
+}
 ```
 
 ## 5、then 方法
@@ -108,6 +130,28 @@ console.log(p);
   - 比如setTimeout是个宏任务，其特点是：颗粒比较大
   - 在宏任务后面建立微任务队列，执行完之后才会执行下一个宏任务
   - 微任务颗粒度小，先执行，宏任务颗粒度大，后执行
+
+```js
+then(onResolve, onReject) {
+  // then原则：只存储回调函数，不执行回调函数
+  // 链式调用
+  return new Promise((resolve, reject) => {
+    let onResolveFn = (val) => {
+      let res = onResolve && onResolve(val)
+      if(res instanceof Promise) {
+        res.then(resolve)
+      } else {
+        resolve(res)
+      }
+    }
+    let onRejectFn = (err) => {
+      reject(err)
+    }
+    this.resolveFnQueue.push(onResolveFn)
+    this.rejectFnQueue.push(onReject)
+  })
+}
+```
 
 ### 1、添加任务
 把 `then` 方法中接收到的两个函数分别添加到对应的**任务队列**中：
@@ -120,9 +164,7 @@ console.log(p);
       let onResolveFn = (val) => {
         let res = onResolve && onResolve(val)
         if(res instanceof MyPromise) {
-          res.then(rs => {
-            resolve(rs)
-          })
+          res.then(resolve)
         } else {
           resolve(res)
         }
@@ -382,21 +424,37 @@ Promise.allSettled()方法方法接受一组 Promise 实例作为参数，包装
   })
 }
 ```
-## 11、静态方法 finally()
+## 11、方法 finally()
+异步执行完成之后在执行
+```js
+finally(cb) {
+  this.then(cb)
+}
+```
 
+## 12、方法 catch()
+```js
+catch(cb) {
+  this.then((undefined, err) => {
+    cb && cb(err)
+  })
+}
+```
 
-## 12、静态方法 any()- ES2021
+## 13、静态方法 any()- ES2021
 
 该方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例返回。只要参数实例有一个变成fulfilled状态，包装实例就会变成fulfilled状态；如果所有参数实例都变成rejected状态，包装实例就会变成rejected状态。
 
-## 总结
+## 14、扩展-MutationObserver-微任务
 
-- Promise 类
-- Promise 状态
-- promise.resolve 方法实现
-- promise.reject 方法实现
-- promise.then 方法实现
-- promise.catch 方法实现
+[MutationObserver](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver/MutationObserver)创建并返回一个新的观察器，它会在触发指定 DOM 事件时，调用指定的回调函数。MutationObserver 对 DOM 的观察不会立即启动；而必须先调用 observe() 方法来确定，要监听哪一部分的 DOM 以及要响应哪些更改。
 
+- 语法
 
-https://source.chromium.org/chromium/chromium
+`var observer = new MutationObserver(callback);`
+
+- 微任务
+
+由`MutationObserver`的实例化对象是一个[微任务](https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_DOM_API/Microtask_guide)，属于异步任务的一部分，只有所有同步任务执行完，才会执行异步任务。异步任务中可以有很多宏任务和微任务，微任务执行完之后才会执行下一个宏任务。
+
+![img](./imgs/event-loop.drawio.png)

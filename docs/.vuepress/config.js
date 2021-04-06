@@ -160,7 +160,10 @@ module.exports = {
       '/resource/': [{
         collapsable: false,
         children: [
-          ['frontEnd', '前端资源']
+          ['frontEnd', '1、前端资源'],
+          ['browser', '2、浏览器相关'],
+          ['javascript', '3、javascript相关'],
+          ['code', '4、手撕代码'],
         ]
       }],
       '/full-stack': [],
