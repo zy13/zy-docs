@@ -105,6 +105,41 @@ HTTP 是无状态协议，这意味着服务器不会在两个请求之间保留
 - SSL证书也需要钱，功能越强大的证书费用越高。
 - SSL证书需要绑定IP，不能在同一个ip上绑定多个域名，ipv4资源支持不了这种消耗。
 
+## GET和POST的区别
+
+get参数通过url传递，post放在request body中。
+
+get请求在url中传递的参数是有长度限制的，而post没有。
+
+get比post更不安全，因为参数直接暴露在url中，所以不能用来传递敏感信息。
+
+get请求只能进行url编码，而post支持多种编码方式
+
+get请求会浏览器主动cache，而post支持多种编码方式。
+
+get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留。
+
+GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。
+
+GET产生一个TCP数据包；POST产生两个TCP数据包。
+
+## 301和302的区别
+
+301 Moved Permanently 被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个URI之一。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。
+
+302 Found 请求的资源现在临时从不同的URI响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。
+
+字面上的区别就是301是永久重定向，而302是临时重定向。
+
+301比较常用的场景是使用域名跳转。302用来做临时跳转 比如未登陆的用户访问用户中心重定向到登录页面。
+
+## 状态码 304 和 200
+
+状态码200：请求已成功，请求所希望的响应头或数据体将随此响应返回。即返回的数据为全量的数据，如果文件不通过GZIP压缩的话，文件是多大，则要有多大传输量。
+
+状态码304：如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。即客户端和服务器端只需要传输很少的数据量来做文件的校验，如果文件没有修改过，则不需要返回全量的数据。
+
+
 ## 3、TCP三次握手，四次挥手
 
 ### 为什么需要“三次握手”
@@ -314,3 +349,77 @@ Etag/If-None-Match返回的是一个校验码。ETag可以保证每一个资源�
 Last-Modified与ETag是可以一起使用的，服务器会优先验证ETag，一致的情况下，才会继续比对Last-Modified，最后才决定是否返回304。
 
 另外觉得一篇很好的文章，从缓存策略来学习HTTP缓存：HTTP基于缓存策略三要素分解法
+
+## 9、cookie、session、sessionStorage、localStorage
+
+### cookie、sessionStorage、localStorage
+
+cookie数据始终在同源的http请求中携带(即使不需要)，即cookie在浏览器和服务器间来回传递。
+
+cookie数据还有路径（path）的概念，可以限制。cookie只属于某个路径下
+
+存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie，所以cookie只适合保存很小的数据，如回话标识。
+
+webStorage虽然也有存储大小的限制，但是比cookie大得多，可以达到5M或更大
+
+**数据的有效期不同**
+- sessionStorage：仅在当前的浏览器窗口关闭有效；
+- localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；
+- cookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭
+
+**作用域不同**
+- sessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面；
+- localStorage：在所有同源窗口都是共享的；
+- cookie：也是在所有同源窗口中共享的
+
+### cookie 和 session 的区别
+
+- 1.cookie数据存放在客户的浏览器上，session数据放在服务器上。
+- 2.cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗
+考虑到安全应当使用session。
+- 3.session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能
+考虑到减轻服务器性能方面，应当使用COOKIE。
+- 4.单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+
+## 浏览器缓存
+
+缓存分为两种：强缓存和协商缓存，根据响应的header内容来决定。
+
+强缓存相关字段有expires，cache-control。如果cache-control与expires同时存在的话，cache-control的优先级高于expires。
+
+协商缓存相关字段有Last-Modified/If-Modified-Since，Etag/If-None-Match
+
+## cookie和session的区别，localstorage和sessionstorage的区别
+
+Cookie和session都可用来存储用户信息，cookie存放于客户端，session存放于服务器端，因为cookie存放于客户端有可能被窃取，所以cookie一般用来存放不敏感的信息，比如用户设置的网站主题，敏感的信息用session存储，比如用户的登陆信息，session可以存放于文件，数据库，内存中都可以，cookie可以服务器端响应的时候设置，也可以客户端通过JS设置cookie会在请求时在http首部发送给客户端，cookie一般在客户端有大小限制，一般为4K，
+下面从几个方向区分一下cookie，localstorage，sessionstorage的区别
+
+1、生命周期：
+
+Cookie：可设置失效时间，否则默认为关闭浏览器后失效
+
+Localstorage:除非被手动清除，否则永久保存
+
+Sessionstorage：仅在当前网页会话下有效，关闭页面或浏览器后就会被清除
+
+2、存放数据：
+
+Cookie：4k左右
+
+Localstorage和sessionstorage：可以保存5M的信息
+
+3、http请求：
+
+Cookie：每次都会携带在http头中，如果使用cookie保存过多数据会带来性能问题
+
+其他两个：仅在客户端即浏览器中保存，不参与和服务器的通信
+
+4、易用性：
+
+Cookie：需要程序员自己封装，原生的cookie接口不友好
+
+其他两个：即可采用原生接口，亦可再次封装
+
+5、应用场景：
+
+从安全性来说，因为每次http请求都回携带cookie信息，这样子浪费了带宽，所以cookie应该尽可能的少用，此外cookie还需要指定作用域，不可以跨域调用，限制很多，但是用户识别用户登陆来说，cookie还是比storage好用，其他情况下可以用storage，localstorage可以用来在页面传递参数，sessionstorage可以用来保存一些临时的数据，防止用户刷新页面后丢失了一些参数，
