@@ -1,0 +1,316 @@
+## 1、HTTP
+
+[HTTP](https://developer.mozilla.org/zh-CN/docs/Web/HTTP)超文本传输​​协议，是一个用于传输超媒体文档（例如 HTML）的应用层协议。它是为 Web 浏览器与 Web 服务器之间的通信而设计的，但也可以用于其他目的。
+
+HTTP 遵循经典的**客户端-服务端模型**：客户端打开一个连接以发出请求，然后等待直到收到服务器端响应。
+
+HTTP 是无状态协议，这意味着服务器不会在两个请求之间保留任何数据（状态）。尽管通常基于 TCP/IP 层，但它可以在任何可靠的传输层上使用，也就是说，该协议不会像 UDP 那样静默的丢失消息。RUDP——作为 UDP 的可靠化升级版本——是一种合适的替代选择。
+
+### HTTP概述
+
+[HTTP](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview)是一种能够获取如 HTML 这样的网络资源的 protocol(通讯协议)。它是在 Web 上进行数据交换的基础，是一种 client-server 协议，也就是说，请求通常是由像浏览器这样的接受方发起的。一个完整的Web文档通常是由不同的子文档拼接而成的，像是文本、布局描述、图片、视频、脚本等等。
+
+![http](./imgs/http.png)
+
+### HTTP常用请求头
+
+[HTTP 消息头](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers)允许客户端和服务器通过 request和 response传递附加信息。一个请求头由名称（不区分大小写）后跟一个冒号“：”，冒号后跟具体的值（不带换行符）组成。该值前面的引导空白会被忽略。
+
+#### 根据不同上下文，可将消息头分为：
+- General headers: 通用首部同时适用于请求和响应消息，但与最终消息主体中传输的数据无关的消息头。
+- [Request headers](https://developer.mozilla.org/zh-CN/docs/Glossary/Request_header): 包含更多有关要获取的资源或客户端本身信息的消息头。
+- [Response headers](https://developer.mozilla.org/zh-CN/docs/Glossary/Response_header): 包含有关响应的补充信息，如其位置或服务器本身（名称和版本等）的消息头。
+- [Entity headers](https://developer.mozilla.org/zh-CN/docs/Glossary/Entity_header): 包含有关实体主体的更多信息，比如主体长(Content-Length)度或其MIME类型。
+
+#### 常用请求头
+<!-- - [Accept](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Content_negotiation) - 内容协商 -->
+- [Access-Control-Allow-Origin](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS) - 跨资源共享是一种基于HTTP 头的机制，该机制通过允许服务器标示除了它自己以外的其它origin（域，协议和端口），这样浏览器可以访问加载这些资源
+- [Content-Type](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Type) - 内容类型 
+- [Cookie](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cookie) - 请求首部，其中含有先前由服务器通过 Set-Cookie  首部投放并存储到客户端的[HTTP Cookie](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies)。
+- [Cache-Control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control) - 缓存请求指令。通用消息头字段，被用于在http请求和响应中，通过指定指令来实现缓存机制.
+- [ETag](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/ETag) - 资源的特定版本的标识符
+- [Expires](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Expires) - Expires响应头包含日期/时间， 即在此时候之后，响应过期。
+- [If-Modified-Since](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-Modified-Since) - 条件式请求首部。服务器只在所请求的资源在给定的日期时间之后对内容进行过修改的情况下才会将资源返回，状态码为 200  
+- [If-None-Match](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-None-Match) - 条件式请求首部。当且仅当服务器上没有任何资源的 ETag 属性值与这个首部中列出的相匹配的时候，服务器端会才返回所请求的资源，响应码为  200
+- [Set-Cookie](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie) - 响应首部 Set-Cookie 被用来由服务器端向客户端发送 cookie。
+
+### HTTP支持的方法
+
+- GET
+- POST
+- HEAD
+- OPTIONS
+- PUT
+- DELETE
+- TRACE
+- CONNECT
+
+
+## 2、HTTP 和 HTTPS
+
+### (1) HTTP 和 HTTPS 的基本概念
+
+- **HTTP**
+
+[HTTP](https://www.cnblogs.com/TankXiao/archive/2012/02/13/2342672.html)是超文本传输协议，是互联网上应用最为广泛的一种网络协议，是一个客户端和服务器端进行数据请求和应答的标准（`TCP`），用于从 `WWW` 服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少。
+
+- **https**
+
+是以安全为目标的超文本传输协议，也就是`HTTP`的安全版本，即`HTTP`下加入`SSL`（安全套接字）层。`HTTPS`的安全基础是`SSL`，因此`HTTPS`的加密由`SSL`完成。`HTTPS`协议的主要作用是: **建立一个信息安全通道，来确保数据的传输，确保网站的真实性。**
+
+### (2) HTTP 和 HTTPS 的区别？
+
+`HTTP`传输的数据都是未加密的，也就是明文的，网景公司设置了`SSL`协议来对`HTTP`协议传输的数据进行加密处理，简单来说`HTTPS`协议是由`HTTP`和`SSL`协议构建的可进行加密传输和身份认证的网络协议，比`HTTP`协议的安全性更高。主要的区别如下：
+
+- **`HTTPS`协议需要到`CA`申请证书，一般免费证书很少，需要交费。**
+  - CA（Certificate Authority）证书颁发机构
+  - 不同年限不同等级费用不一样，几千几万的都有
+- **`HTTP`是超文本传输协议，信息是明文传输，`HTTPS`则是具有安全性的`SSL`加密传输协议。**
+  - SSL(Secure Socket Layer)，安全套接字层
+  - SSL可以使用非对称加密算法、对称加密算法、HASH算法
+    - 非对称加密算法：RSA，DSA/DSS
+    - 对称加密算法：AES，RC4，3DES
+    - HASH算法： MD5，SHA1，SHA256
+- **链接方式不同，端口也不同，`HTTP`协议的端口为`80`，`HTTPS`的端口为`443`。**
+- `HTTP`的连接是简单的无状态的；`HTTPS`协议是由`SSL+HTTP`协议构建的可进行加密传输、身份认证的网络协议，比`HTTP`协议安全。
+
+### (3) HTTPS 协议的工作原理
+
+`HTTPS`在传输数据之前需要客户端（浏览器）与服务端（网站）之间进行一次握手，在握手过程中将确立双方加密传输数据的密码信息。`SSL`协议一套加密传输的协议，使用了非对称加密，对称加密以及`HASH`算法。握手过程的具体描述如下：
+
+![imgs](./imgs/https.png)
+
+- **1.客户端（浏览器）将自己支持的一套加密规则发送给服务端（网站）**，开始进行 `HTTPS` 请求。
+- **2.网站从中选出一组加密算法与`HASH`算法，并将自己的身份信息以证书的形式发回给浏览器**。证书里面包含了网站地址，加密公钥，以及证书的`CA`（颁发机构）等信息。
+- **3.浏览器获得网站证书**之后要做以下工作：
+  - **验证证书的合法性**（颁发证书的机构是否合法，证书中包含的网站地址是否与正在访问的地址一致等），如果证书受信任，则浏览器地址栏前面会显示一个小锁头，否则会给出证书不受信的提示。
+  - 如果证书受信任，或者是用户接受了不受信的证书，**浏览器会生成一串随机数的密码，并用证书中提供的公钥加密**。
+  - 使用约定好的`HASH`算法**计算握手消息**，并使用生成的随机数**对消息进行加密**，最后将之前生成的所有信息发送给网站。
+- **4.网站接收浏览器发来的数据**之后要做以下的操作：
+  - 使用自己的**私钥**将信息解密取出**密码**，使用密码解密浏览器发来的**握手消息**，并验证`HASH`是否与浏览器发来的一致。
+  - 使**用密码加密一段握手消息**，发送给浏览器。
+- **5.浏览器解密并计算握手消息的`HASH`**，如果与服务端发来的`HASH`一致，此时握手过程结束，之后所有的通信数据将由之前浏览器生成的随机密码并利用对称加密算法进行加密。
+
+
+### (4) https协议的优点
+
+- 使用HTTPS协议可认证用户和服务器，确保数据发送到正确的客户机和服务器；
+- HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全，可防止数据在传输过程中不被窃取、改变，确保数据的完整性。
+- HTTPS是现行架构下最安全的解决方案，虽然不是绝对安全，但它大幅增加黑客攻击的难度。
+- 谷歌曾在2014年8月份调整搜索引擎算法，并称“比起同等HTTP网站，采用HTTPS加密的网站在搜索结果中的排名将会更高”
+
+### (5) https协议的缺点
+- https握手阶段比较费时，会使页面加载时间延长50%，增加10%~20%的耗电。
+- https缓存不如http高效，会增加数据开销。
+- SSL证书也需要钱，功能越强大的证书费用越高。
+- SSL证书需要绑定IP，不能在同一个ip上绑定多个域名，ipv4资源支持不了这种消耗。
+
+## 3、TCP三次握手，四次挥手
+
+### 为什么需要“三次握手”
+
+`client`发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达`server`。本来这是一个早已失效的报文段。但`server`收到此失效的连接请求报文段后，就误认为是`client`再次发出的一个新的连接请求。于是就向`client`发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要`server`发出确认，新的连接就建立了。(谢希仁版《计算机网络》)
+
+由于现在`client`并没有发出建立连接的请求，因此不会理睬`server`的确认，也不会向`server`发送数据。但`server`却以为新的运输连接已经建立，并一直等待`client`发来数据。这样，`server`的很多资源就白白浪费掉了。
+
+采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。
+
+
+### 三次握手的目的
+- 实现可靠的数据传输
+- 防止**已失效的连接请求报文段**突然又传送到了服务端，因而产生错误。
+- 解决**网络中存在延迟的重复分组**的问题。
+- 防止`server`端一直等待，浪费资源。
+
+### TCP - 建立连接协议（三次握手）
+
+TCP是传输控制协议，用于建立通信连接，是客户端和服务端之间进行通信的桥梁。
+
+TCP协议的通信双方，都必须维护一个序列号，以标识发送出去的数据包中，哪些是已经被对方收到的。
+
+三次握手的过程即是通信双方相互告知序列号起始值，并确认对方已经收到了序列号起始值的必经步骤。
+
+![img](./imgs/tcp-3.png)
+
+- （1）第一次握手，客户端发送一个连接标识码`SYN=1`，随机序号`Seq=X`的数据包给服务端。服务端由`SYN=1`得知，客户端要求建立连接。
+  - `SYN = 1（建立连接）, Seq = x （随机序号1~7）`
+- （2）第二次握手，服务端收到请求后，要确认连接信息，向客户端发送确认码为`ACK = X + 1`（客户端的序号Seq+1），连接标识码、随机序号`Seq = Y`的数据包。
+  - `SYN = 1, ACK = X + 1, Seq = Y `
+  - 它表示对刚才客户端SYN报文的回应；
+  - 同时又标志SYN给客户端，询问客户端是否准备好进行数据通讯。
+- （3）第三次握手，客户端检验随机码、连接标识码、确认码，通过后，再次向服务端发送的确认码`ACK=Y+1`、随机序号`Seq = Z`的数据包。 服务端收到数据包后进行确认，则连接建立成功。
+  - `ACK = Y + 1, Seq = Z `
+
+### 说明
+- Seq：表示客户端，数据包的数据部分的第一位应该在数据流中所占的位置。下一个实际有数据的传输，会从上一次发送的ACK数据包的Seq开始。
+- ACK：表示期望的接收方的下一次Seq是多少
+
+```bash
+# syn - sync 同步
+# Seq - sequence 序列号
+# ACK - acknowledge 应答；确认帧
+```
+
+## 4、TCP 和 UDP 的区别
+- （1）TCP是面向连接的，UDP是无连接的，即发送数据前不需要先建立链接。
+- （2）TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达；UDP尽最大努力交付，即不保证可靠交付。 并且因为TCP可靠，面向连接，不会丢失数据因此适合大数据量的交换。
+- （3）TCP是面向字节流，UDP面向报文，并且网络出现拥塞不会使得发送速率降低（因此会出现丢包，对实时的应用比如IP电话和视频会议等）。
+- （4）TCP只能是1对1的，UDP支持1对1,1对多。
+- （5）TCP的首部较大为20字节，而UDP只有8字节。
+- （6）TCP是面向连接的可靠性传输，而UDP是不可靠的。
+
+## 5、在地址栏里输入一个URL,到这个页面呈现出来，中间会发生什么？
+
+![img](../kkb/8-nodejs/imgs/fromURLtoHTMLshow.drawio.png)
+
+- **1、输入 `url` 后，首先需要找到这个 `url` 域名的服务器 `ip`**,
+   - **ip** 查找过程：缓存 -> **hosts** -> **DNS**
+      - 为了寻找这个 **ip** ，浏览器首先会寻找 **缓存**，查看缓存中是否有记录，缓存的查找记录为：浏览器缓存 -》 系统缓存 -》 路由器缓存，
+      - 缓存中没有则查找系统的 **hosts** 文件中是否有记录，
+      - 如果没有则查询 **DNS** 服务器，
+- **2、得到服务器的`ip`地址后，浏览器根据这个`ip`以及相应的端口号，构造一个 `http` 请求，**
+  - 这个**请求报文**会包括这次请求的信息，
+    - 主要是请求方法，请求说明和请求附带的数据，
+  - 并将这个 **http** 请求封装在一个 **tcp** 包中，
+    - 这个 **tcp** 包会依次经过传输层，网络层，数据链路层，物理层到达服务器，
+- **3、服务器解析这个请求来作出响应，返回相应的 `html` 给浏览器，**
+  - 分析客户端请求
+  - 根据分析结果处理业务逻辑
+  - 响应处理结果，如返回相应的html
+- **4、因为`html`是一个树形结构，浏览器根据这个`html`来构建 `DOM` 树，**
+  - 在 **dom** 树的构建过程中如果遇到 **JS** 脚本和外部 **JS** 连接，则会停止构建 **DOM** 树来执行和下载相应的代码，这会造成阻塞，
+  - 这就是为什么推荐 **JS** 代码应该放在 **html** 代码的后面，
+- **5、之后根据外部样式，内部样式，内联样式构建一个`CSS`对象模型树 `CSSOM` 树，构建完成后和`DOM`树合并为渲染树，**
+  - 这里主要做的是排除非视觉节点，比如 **script**， **meta** 标签和排除 **display** 为 **none** 的节点，之后进行布局，
+  - 布局主要是确定各个元素的位置和尺寸，
+- **6、之后是渲染页面，**
+  - 因为 **html** 文件中会含有图片，视频，音频等资源，
+  - 在解析 **DOM** 的过程中，遇到这些都会进行并行下载，
+  - 浏览器对每个域的并行下载数量有一定的限制，一般是 **4-6** 个，
+
+- **7、当然在这些所有的请求中我们还需要关注的就是缓存，缓存一般通过 `Cache-Control`、`Last-Modify`、`Expires` 等首部字段控制。** 
+  - **Cache-Control** 和 **Expires** 的区别在于 
+    - **Cache-Control** 使用相对时间，
+    - **Expires** 使用的是基于服务器端的绝对时间，
+  - 因为存在时差问题，一般采用 **Cache-Control**，
+- **8、在请求这些有设置了缓存的数据时，会先查看是否过期，**
+  - 如果没有过期则直接使用本地缓存，
+  - 过期则请求并在服务器校验文件是否修改，
+    - 如果上一次响应设置了 **ETag** 值，会在这次请求的时候作为 **If-None-Match** 的值交给服务器校验，
+    - 如果一致，继续校验 **Last-Modified**，没有设置 **ETag** 则直接验证 **Last-Modified**，再决定是否返回 **304**
+    
+    ![img](./imgs/storage.png) -->
+
+<!-- ![img](../kkb/8-nodejs/imgs/webServer.drawio.png) -->
+
+## 6、一个图片url访问后直接下载怎样实现？
+
+**响应头**设置供**浏览器解析**OSS的API**参数**，它们的值决定浏览器是否进行图片下载：
+
+下载的情况下：
+- 1. x-oss-object-type: Normal
+- 2. x-oss-request-id: 598D5ED34F29D01FE2925F41
+- 3. x-oss-storage-class: Standard
+
+## 7、HTTP状态码
+
+### 200 - 请求已经成功
+
+状态码 [200](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/200) OK 表明请求已经成功. 默认情况下状态码为200的响应可以被缓存。
+
+响应会带有头部 [Cache-Control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control), [Content-Location](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Location), [Date](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Date), [ETag](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/ETag), [Expires](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Expires)，和 [Vary](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Vary).
+
+### 304 - Not Modified未修改
+
+HTTP [304](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/304) 未改变说明无需再次传输请求的内容，也就是说可以使用缓存的内容。这通常是在一些安全的方法（safe），例如GET 或HEAD 或在请求中附带了头部信息： [If-None-Match](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-None-Match) 或[If-Modified-Since](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-Modified-Since)。
+
+所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源
+
+如果客户端发送了一个带条件的GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个304状态码。
+
+## 8、浏览器缓存-HTTP强缓存和协商缓存
+
+因为服务器上的资源不是一直固定不变的，大多数情况下它会更新，这个时候如果我们还访问本地缓存，那么对用户来说，那就相当于资源没有更新，用户看到的还是旧的资源；所以我们希望服务器上的资源更新了浏览器就请求新的资源，没有更新就使用本地的缓存，以最大程度的减少因网络请求而产生的资源浪费。
+
+### 浏览器缓存
+
+浏览器缓存是浏览器在本地磁盘对用户最近请求过的文档进行存储，当访问者再次访问同一页面时，浏览器就可以直接从本地磁盘加载文档。浏览器缓存是Web性能优化的重要方式，主要分为强缓存（也称本地缓存）和协商缓存（也称弱缓存）。
+
+**浏览器缓存的优点：**
+- 减少冗余的数据传输
+- 减少服务器负担
+- 加快客户端加载网页的速度
+
+**浏览器缓存的过程究竟是怎么样的呢？**
+- 在浏览器第一次发起请求时，本地无缓存，向web服务器发送请求，服务器起端响应请求，浏览器端缓存。
+- 在第一次请求时，服务器会将页面最后修改时间通过`Last-Modified`标识由服务器发送给客户端，客户端记录修改时间；服务器还会生成一个`Etag`，并发送给客户端。
+
+![img](./imgs/bs-cache.png)
+
+
+**浏览器在第一次请求发生后，再次发送请求时：**
+
+强缓存、协商缓存什么时候用哪个？
+
+![img](./imgs/storage.png)
+
+### 强缓存
+
+强缓存是利用http头中的Expires和Cache-Control两个字段来控制的，用来表示资源的缓存时间。强缓存中，普通刷新会忽略它，但不会清除它，需要强制刷新。浏览器强制刷新，请求会带上Cache-Control:no-cache和Pragma:no-cache
+
+- **Expires**
+
+Expires是http1.0的规范，它的值是一个绝对时间的GMT格式的时间字符串。如我现在这个网页的Expires值是：expires:Fri, 14 Apr 2017 10:47:02 GMT。这个时间代表这这个资源的失效时间，只要发送请求时间是在Expires之前，那么本地缓存始终有效，则在缓存中读取数据。所以这种方式有一个明显的缺点，由于失效的时间是一个绝对时间，所以当服务器与客户端时间偏差较大时，就会导致缓存混乱。如果同时出现Cache-Control:max-age和Expires，那么max-age优先级更高。如我主页的response headers部分如下：
+
+```bash
+cache-control:max-age=691200
+expires:Fri, 14 Apr 2017 10:47:02 GMT
+```
+
+那么表示资源可以被缓存的最长时间为691200秒，会优先考虑max-age。
+
+- **Cache-Control**
+
+Cache-Control是在http1.1中出现的，主要是利用该字段的max-age值来进行判断，它是一个相对时间，例如Cache-Control:max-age=3600，代表着资源的有效期是3600秒。cache-control除了该字段外，还有下面几个比较常用的设置值：
+
+- no-cache：不使用本地缓存。需要使用缓存协商，先与服务器确认返回的响应是否被更改，如果之前的响应中存在ETag，那么请求的时候会与服务端验证，如果资源未被更改，则可以避免重新下载。
+- no-store：直接禁止游览器缓存数据，每次用户请求该资源，都会向服务器发送一个请求，每次都会下载完整的资源。
+- public：可以被所有的用户缓存，包括终端用户和CDN等中间代理服务器。
+- private：只能被终端用户的浏览器缓存，不允许CDN等中继缓存服务器对其缓存。Cache-Control与Expires可以在服务端配置同时启用，同时启用的时候Cache-Control优先级高。
+
+### 协商缓存
+
+协商缓存就是由服务器来确定缓存资源是否可用，所以客户端与服务器端要通过某种标识来进行通信，从而让服务器判断请求资源是否可以缓存访问。
+
+普通刷新会启用弱缓存，忽略强缓存。只有在地址栏或收藏夹输入网址、通过链接引用资源等情况下，浏览器才会启用强缓存，这也是为什么有时候我们更新一张图片、一个js文件，页面内容依然是旧的，但是直接浏览器访问那个图片或文件，看到的内容却是新的。
+
+这个主要涉及到两组header字段：Etag和If-None-Match、Last-Modified和If-Modified-Since。上面以及说得很清楚这两组怎么使用啦~复习一下：
+
+- **Etag和If-None-Match**
+
+Etag/If-None-Match返回的是一个校验码。ETag可以保证每一个资源是唯一的，资源变化都会导致ETag变化。服务器根据浏览器上送的If-None-Match值来判断是否命中缓存。
+
+与Last-Modified不一样的是，当服务器返回304 Not Modified的响应时，由于ETag重新生成过，response header中还会把这个ETag返回，即使这个ETag跟之前的没有变化。
+
+- **Last-Modify/If-Modify-Since**
+
+浏览器第一次请求一个资源的时候，服务器返回的header中会加上Last-Modify，Last-modify是一个时间标识该资源的最后修改时间，例如Last-Modify: Thu,31 Dec 2037 23:59:59 GMT。
+
+当浏览器再次请求该资源时，request的请求头中会包含If-Modify-Since，该值为缓存之前返回的Last-Modify。服务器收到If-Modify-Since后，根据资源的最后修改时间判断是否命中缓存。
+
+如果命中缓存，则返回304，并且不会返回资源内容，并且不会返回Last-Modify。
+
+- **为什么要有Etag?**
+
+为什么要有Etag
+你可能会觉得使用Last-Modified已经足以让浏览器知道本地的缓存副本是否足够新，为什么还需要Etag呢？HTTP1.1中Etag的出现主要是为了解决几个Last-Modified比较难解决的问题：
+
+ - 一些文件也许会周期性的更改，但是他的内容并不改变(仅仅改变的修改时间)，这个时候我们并不希望客户端认为这个文件被修改了，而重新GET；
+
+ - 某些文件修改非常频繁，比如在秒以下的时间内进行修改，(比方说1s内修改了N次)，If-Modified-Since能检查到的粒度是s级的，这种修改无法判断(或者说UNIX记录MTIME只能精确到秒)；
+
+- 某些服务器不能精确的得到文件的最后修改时间。
+
+Last-Modified与ETag是可以一起使用的，服务器会优先验证ETag，一致的情况下，才会继续比对Last-Modified，最后才决定是否返回304。
+
+另外觉得一篇很好的文章，从缓存策略来学习HTTP缓存：HTTP基于缓存策略三要素分解法

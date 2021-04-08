@@ -152,18 +152,23 @@ module.exports = {
           title: '第十四章 React',
           collapsable: true,
           children: [
-            ['14-react/1-react-base.md', '第1节 react基础'],
+            ['14-react/1-react-base.md', '第1节 react基础-1'],
             ['14-react/2-component-lifecycle.md', '第2节 组件通信和生命周'],
+            ['14-react/3-react-base.md', '第3节 react基础-2'],
           ]
         },
       ],
       '/resource/': [{
         collapsable: false,
         children: [
-          ['frontEnd', '1、前端资源'],
-          ['browser', '2、浏览器相关'],
-          ['javascript', '3、javascript相关'],
-          ['code', '4、手撕代码'],
+          ['http', '一、HTTP协议'],
+          // ['frontEnd', '1、前端资源'],
+          // ['browser', '2、浏览器相关'],
+          // ['javascript', '3、javascript相关'],
+          // ['code', '4、手撕代码'],
+          // ['http', '5、http相关'],
+          // ['www','6、网络资源'],
+          // ['tikTop.md','7、字节跳动'],
         ]
       }],
       '/full-stack': [],

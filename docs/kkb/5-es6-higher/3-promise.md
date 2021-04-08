@@ -458,3 +458,130 @@ catch(cb) {
 由`MutationObserver`的实例化对象是一个[微任务](https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_DOM_API/Microtask_guide)，属于异步任务的一部分，只有所有同步任务执行完，才会执行异步任务。异步任务中可以有很多宏任务和微任务，微任务执行完之后才会执行下一个宏任务。
 
 ![img](./imgs/event-loop.drawio.png)
+
+## 15、完整代码
+```js
+  class Promise{
+    constructor(handle) {
+      this['[[PromiseState]]'] = 'pending'
+      this['[[PromiseResult]]'] = 'undefined'
+      this.resolveFnQueue = []      
+      this.rejectFnQueue = []
+      handle(this._resolve.bind(this), this._reject.bind(this))
+    }
+    _resolve(val) {
+      this['[[PromiseState]]'] = 'fulfilled'
+      this['[[PromiseResult]]'] = val
+      // 微任务-所有同步任务执行后才开始执行微任务
+      let run = () => {
+        let cb
+        while (cb = this.resolveFnQueue.shift()) {
+          cb(val)
+        }
+      }
+      let mo = new MutationObserver(run)
+      mo.observe(document.body,{
+        attributes: true
+      })
+      document.body.setAttribute('kkb', 'kkb')
+    }
+    _reject(err) {
+      this['[[PromiseState]]'] = 'rejected'
+      this['[[PromiseResult]]'] = err
+      // 微任务-所有同步任务执行后才开始执行微任务
+      let run = () => {
+        let cb
+        while (cb = this.rejectFnQueue.shift()) {
+          cb(err)
+        }
+      }
+      let mo = new MutationObserver(run)
+      mo.observe(document.body,{
+        attributes: true
+      })
+      document.body.setAttribute('kkb', 'kkb')
+    }
+    then(onResolve, onReject) {
+      // then原则：只存储回调函数，不执行回调函数
+      // 链式调用
+      return new Promise((resolve, reject) => {
+        let onResolveFn = (val) => {
+          let res = onResolve && onResolve(val)
+          if(res instanceof Promise) {
+            res.then(resolve)
+          } else {
+            resolve(res)
+          }
+        }
+        let onRejectFn = (err) => {
+          reject(err)
+        }
+        this.resolveFnQueue.push(onResolveFn)
+        this.rejectFnQueue.push(onReject)
+      })
+    }
+    static resolve(val) {
+      return new Promise(resolve => {
+        resolve(val)
+      })
+    }
+    static reject(err) {
+      return new Promise((undefined, reject) => {
+        reject(err)
+      })
+    }
+    static all(list) {
+      // 所有函数都resolve才返回的结果列表
+      return new Promise((resolve, reject) => {
+        let resArr = []
+        list.forEach(item => {
+          item.then(res => {
+            resArr.push(res)
+            if(resArr.length === list.length) {
+              resolve(resArr)
+            }
+          },err => {
+            reject('err')
+          })
+        })
+      })
+    }
+    static allSettled(list) {
+      return new Promise((resolve, reject) => {
+        let resArr = []
+        list.forEach(item => {
+          item.then(res => {
+            resArr.push(res)
+            if(resArr.length === list.length) {
+              resolve(resArr)
+            }
+          }, err => {
+            resArr.push(err)
+            if(resArr.length === list.length) {
+              resolve(resArr)
+            }
+          })
+        })
+      })
+    }
+    static race(list) {
+      return new Promise((resolve,reject) => {
+        list.forEach(item => {
+          item.then(res => {
+              resolve(res)
+          }, err => {
+            reject(err)
+          })
+        })
+      })
+    }
+    finally(cb) {
+      this.then(cb)
+    }
+    catch(cb) {
+      this.then((undefined, err) => {
+        cb && cb(err)
+      })
+    }
+  }
+```
