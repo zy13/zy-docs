@@ -161,7 +161,8 @@ module.exports = {
       '/resource/': [{
         collapsable: false,
         children: [
-          ['http', '一、HTTP协议'],
+          ['1-projects','一、项目'],
+          ['http', '二、HTTP协议'],
           // ['frontEnd', '1、前端资源'],
           // ['browser', '2、浏览器相关'],
           // ['javascript', '3、javascript相关'],
