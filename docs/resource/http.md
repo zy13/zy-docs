@@ -45,7 +45,6 @@ HTTP 是无状态协议，这意味着服务器不会在两个请求之间保留
 - TRACE
 - CONNECT
 
-
 ## 2、HTTP 和 HTTPS
 
 ### (1) HTTP 和 HTTPS 的基本概念
@@ -104,7 +103,67 @@ HTTP 是无状态协议，这意味着服务器不会在两个请求之间保留
 - https缓存不如http高效，会增加数据开销。
 - SSL证书也需要钱，功能越强大的证书费用越高。
 - SSL证书需要绑定IP，不能在同一个ip上绑定多个域名，ipv4资源支持不了这种消耗。
-## 3、TCP三次握手，四次挥手
+
+## 3、HTTP状态码
+
+### 200 - 请求已经成功
+
+状态码 [200](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/200) - OK 表明请求已经成功. 默认情况下状态码为 **200** 的响应可以被缓存。
+
+响应会带有头部 [Cache-Control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control), [Content-Location](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Location), [Date](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Date), [ETag](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/ETag), [Expires](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Expires)，和 [Vary](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Vary).
+
+### 304 - Not Modified未修改
+
+HTTP [304](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/304) - 未改变说明无需再次传输请求的内容，也就是说可以使用缓存的内容。这通常是在一些安全的方法（safe），例如 **GET** 或 **HEAD** 或在请求中附带了头部信息： [If-None-Match](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-None-Match) 或[If-Modified-Since](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-Modified-Since)。
+
+所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源
+
+如果客户端发送了一个带条件的 **GET** 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个 **304** 状态码。
+## 4、301 和 302 的区别
+
+- **301 Moved Permanently** <br>
+被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个URI之一。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。
+
+- **302 Found**<br>
+请求的资源现在临时从不同的URI响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在 **Cache-Control** 或 **Expires** 中进行了指定的情况下，这个响应才是可缓存的。
+
+- 字面上的区别就是**301是永久重定向**，而 **302是临时重定向**。
+
+- **301** 比较常用的场景是使用域名跳转。<br>
+  **302** 用来做临时跳转，比如未登陆的用户访问用户中心重定向到登录页面。
+
+## 5、状态码 304 和 200
+
+- **状态码 200** - 请求已成功<br>
+  请求所希望的响应头或数据体将随此响应返回。即返回的数据为全量的数据，如果文件不通过GZIP压缩的话，文件是多大，则要有多大传输量。
+
+- **状态码304** - Not Modified 未修改<br>
+  如果客户端发送了一个带条件的 **GET** 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。即客户端和服务器端只需要传输很少的数据量来做文件的校验，如果文件没有修改过，则不需要返回全量的数据。
+
+## 6、GET和POST的区别
+
+- 请求参数<br>
+  get参数通过url传递，post放在request body中。
+
+- 参数长度<br>
+  get请求在url中传递的参数是有长度限制的，而post没有。
+
+- 安全<br>
+  get比post更不安全，因为参数直接暴露在url中，所以不能用来传递敏感信息。
+
+- 编码<br>
+  get请求只能进行url编码，而post支持多种编码方式
+
+- 缓存<br>
+  get请求浏览器会主动cache，而post需要设置请求头才会缓存。<br>
+  get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留。
+
+- GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。
+
+- TCP包个数<br>
+  GET产生一个TCP数据包；POST产生两个TCP数据包。
+
+## 7、TCP三次握手，四次挥手
 
 ### 为什么需要“三次握手”
 
@@ -150,7 +209,7 @@ TCP协议的通信双方，都必须维护一个序列号，以标识发送出�
 # ACK - acknowledge 应答；确认帧
 ```
 
-## 4、TCP 和 UDP 的区别
+## 8、TCP 和 UDP 的区别
 - （1）TCP是面向连接的，UDP是无连接的，即发送数据前不需要先建立链接。
 - （2）TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达；UDP尽最大努力交付，即不保证可靠交付。 并且因为TCP可靠，面向连接，不会丢失数据因此适合大数据量的交换。
 - （3）TCP是面向字节流，UDP面向报文，并且网络出现拥塞不会使得发送速率降低（因此会出现丢包，对实时的应用比如IP电话和视频会议等）。
@@ -158,7 +217,7 @@ TCP协议的通信双方，都必须维护一个序列号，以标识发送出�
 - （5）TCP的首部较大为20字节，而UDP只有8字节。
 - （6）TCP是面向连接的可靠性传输，而UDP是不可靠的。
 
-## 5、在地址栏里输入一个URL,到这个页面呈现出来，中间会发生什么？
+## 9、在地址栏里输入一个URL,到这个页面呈现出来，中间会发生什么？
 
 ![img](../kkb/8-nodejs/imgs/fromURLtoHTMLshow.drawio.png)
 
@@ -202,7 +261,7 @@ TCP协议的通信双方，都必须维护一个序列号，以标识发送出�
 
 <!-- ![img](../kkb/8-nodejs/imgs/webServer.drawio.png) -->
 
-## 6、一个图片url访问后直接下载怎样实现？
+## 10、一个图片url访问后直接下载怎样实现？
 
 **响应头**设置供**浏览器解析**OSS的API**参数**，它们的值决定浏览器是否进行图片下载：
 
@@ -211,110 +270,168 @@ TCP协议的通信双方，都必须维护一个序列号，以标识发送出�
 - 2. x-oss-request-id: 598D5ED34F29D01FE2925F41
 - 3. x-oss-storage-class: Standard
 
-## 7、HTTP状态码
-
-### 200 - 请求已经成功
-
-状态码 [200](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/200) OK 表明请求已经成功. 默认情况下状态码为200的响应可以被缓存。
-
-响应会带有头部 [Cache-Control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control), [Content-Location](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Location), [Date](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Date), [ETag](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/ETag), [Expires](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Expires)，和 [Vary](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Vary).
-
-### 304 - Not Modified未修改
-
-HTTP [304](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/304) 未改变说明无需再次传输请求的内容，也就是说可以使用缓存的内容。这通常是在一些安全的方法（safe），例如GET 或HEAD 或在请求中附带了头部信息： [If-None-Match](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-None-Match) 或[If-Modified-Since](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-Modified-Since)。
-
-所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源
-
-如果客户端发送了一个带条件的GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个304状态码。
-
-## 8、浏览器缓存-HTTP强缓存和协商缓存
-
+## 11、浏览器缓存 - 强缓存与协商缓存
 因为服务器上的资源不是一直固定不变的，大多数情况下它会更新，这个时候如果我们还访问本地缓存，那么对用户来说，那就相当于资源没有更新，用户看到的还是旧的资源；所以我们希望服务器上的资源更新了浏览器就请求新的资源，没有更新就使用本地的缓存，以最大程度的减少因网络请求而产生的资源浪费。
 
 ### 浏览器缓存
 
-浏览器缓存是浏览器在本地磁盘对用户最近请求过的文档进行存储，当访问者再次访问同一页面时，浏览器就可以直接从本地磁盘加载文档。浏览器缓存是Web性能优化的重要方式，主要分为强缓存（也称本地缓存）和协商缓存（也称弱缓存）。
+浏览器缓存是浏览器在本地磁盘对用户最近请求过的文档进行存储，当访问者再次访问同一页面时，浏览器就可以直接从本地磁盘加载文档。**浏览器缓存是Web性能优化的重要方式**，主要分为**强缓存（也称本地缓存）和协商缓存（也称弱缓存）**，根据响应的 **header** 内容来决定。
 
-**浏览器缓存的优点：**
-- 减少冗余的数据传输
+#### 基本原理
+
+- 浏览器在加载资源时，根据请求头的`expires`和`cache-control`判断是否命中**强缓存**，是则直接从**强缓存**读取资源，否则向服务器发送请求获取获取资源。
+- 若没有命中**强缓存**，浏览器向服务器发送请求，通过`last-modified`和`etag`验证资源是否命中`协商缓存`，如果命中，服务器会将这个请求返回，但是不会返回这个资源的数据，依然是从缓存中读取资源。
+#### 浏览器缓存的优点
+良好的缓存策略可以：
+- 降低资源的重复加载
 - 减少服务器负担
-- 加快客户端加载网页的速度
+- 提高客户端加载网页的速度
+### 强缓存
 
-**浏览器缓存的过程究竟是怎么样的呢？**
-- 在浏览器第一次发起请求时，本地无缓存，向web服务器发送请求，服务器起端响应请求，浏览器端缓存。
-- 在第一次请求时，服务器会将页面最后修改时间通过`Last-Modified`标识由服务器发送给客户端，客户端记录修改时间；服务器还会生成一个`Etag`，并发送给客户端。
+强缓存是利用`http`头中的`Expires`和`Cache-Control`两个字段来控制的，用来表示资源的缓存时间。强缓存中，普通刷新会忽略它，但不会清除它，需要强制刷新。浏览器强制刷新，请求会带上`Cache-Control:no-cache`和`Pragma:no-cache`。
+#### Expires - 资源缓存的绝对时间
+
+`Expires`是`http1.0`的规范，是一个表示资源的缓存过期时间的头部，它的值是一个绝对时间的`GMT`（ `Greenwich Mean Time`, 格林威治标准时间，即世界标准时间 ）格式的时间字符串。它描述的是一个绝对时间，由服务器返回。
+
+```json
+// 绝对时间
+expires: Fri, 14 Apr 2017 10:47:02 GMT
+```
+这个时间代表这个资源的失效时间，只要发送请求时间是在`Expires`之前，那么本地缓存始终有效，则在本地缓存中读取数据。
+
+- 缺点
+
+- `Expires` 表示资源缓存失效的时间。它受限于本地时间，如果修改了本地时间，造成服务器与客户端时间偏差较大时，会导致缓存混乱，可能会造成缓存失效。
+
+- 优先级
+
+如果同时出现`Cache-Control: max-age`和`Expires`，那么`Cache-Control`优先级更高。如`response headers`部分如：
+```json
+cache-control: max-age=691200
+expires: Fri, 14 Apr 2017 10:47:02 GMT
+```
+那么表示资源可以被缓存的最长时间为`691200`秒，会优先考虑`max-age`。
+
+#### Cache-Control - 资源缓存的相对时间
+
+`Cache-Control`是在`http1.1`中出现的，优先级高于 `Expires`，表示资源缓存的相对时间。
+
+主要是利用该字段的`max-age`值来进行判断，例如`Cache-Control:max-age=3600`，代表资源的有效期是`3600`秒。`cache-control`除了该字段外，还有下面几个比较常用的设置值：
+
+- `no-cache`：不使用本地缓存。<br>
+需要使用缓存协商，先与服务器确认返回的响应是否被更改，如果之前的响应中存在`ETag`，那么请求的时候会与服务端验证，如果资源未被更改，则可以避免重新下载。
+
+- `no-store`：直接禁止游览器缓存数据。<br>
+每次用户请求该资源，都会向服务器发送一个请求，每次都会下载完整的资源。
+
+- `public`：可以被所有的用户缓存。<br>
+包括终端用户和`CDN`等中间代理服务器。
+- `private`：只能被终端用户的浏览器缓存<br>
+不允许`CDN`等中继缓存服务器对其缓存。`Cache-Control`与`Expires`可以在服务端配置同时启用，同时启用的时候`Cache-Control`优先级高。
+
+![img](./imgs/cache-control.png)
+
+### 协商缓存
+
+协商缓存就是由服务器来确定缓存资源是否可用，主要涉及到两组`header`字段：`Last-Modified`和`If-Modified-Since`，`Etag`和`If-None-Match`：
+- 若可用，服务器返回状态码304，不返回资源内容，用浏览器缓存的内容；
+- 若不可用，服务器返回200，更新`Last-Modified`和`Etag`，并返回资源内容；
+- `Last-Modified`注重文件变化，如果文件内容为修改，文件保存时间修改了，`Last-Modified`值跟新，`Etag`值不变，缓存未命中，返回200，返回资源内容；`If-Modified-Since`
+- `Etag`注重文件内容变化，如果文件内容修改了，`Etag`和`Last-Modified`值都更新，缓存未命中，返回200，返回资源内容。
+- `Etag`值更新， `Last-Modified`值一定更新； `Last-Modified`值更新，`Etag`不一定更新。
+
+普通刷新会启用弱缓存，忽略强缓存。只有在地址栏或收藏夹输入网址、通过链接引用资源等情况下，浏览器才会启用强缓存，这也是为什么有时候我们更新一张图片、一个js文件，页面内容依然是旧的，但是直接浏览器访问那个图片或文件，看到的内容却是新的。
+
+#### **Last-Modified 和 If-Modify-Since**
+
+- Last-Modified - 资源的最后修改时间 - 响应头
+
+浏览器首次请求资源时，服务器返回的`header`中会加上`Last-Modified`。`Last-Modified`是一个时间标识，表示该资源的最后修改时间，例如`Last-Modified: Thu,31 Dec 2037 23:59:59 GMT`。
+
+- If-Modify-Since - 资源的最后修改时间 - 请求头
+
+当浏览器再次请求该资源时，`request`的请求头中会包含`If-Modify-Since`，该值为缓存之前返回的`Last-Modified`。服务器收到`If-Modify-Since`后，根据资源的最后修改时间判断是否命中缓存。如果命中缓存，则返回`304`，并且不会返回资源内容，并且不会返回新的`Last-Modified`。
+
+- 案例
+
+例如，浏览器访问首页时候，会同时请求首页的资源。
+
+（1）浏览器首次请求首页样式`index.css`时，服务返回的响应头加上`Last-Modified`，状态码为200，并返回资源内容：
+<enlarge><img src="./imgs/last-modify.png"/></enlarge>
+![img](./imgs/res-index.png)
+
+（2）浏览器再次请求`index.css`时，若`index.css`没有修改，请求头包含`If-Modify-Since`，值与`Last-Modified`一致，服务器返回状态码为304，无资源的内容返回：
+<enlarge><img src="./imgs/old-index.png"></enlarge>
+
+（3）浏览器再次请求`index.css`时，若`index.css`修改，请求头包含`If-Modify-Since`值为旧的`Last-Modified`，服务器响应头返回新的`Last-Modified`，状态码为200，病返回新的资源内容：
+<enlarge><img src="./imgs/re-index.png"/></enlarge>
+![img](./imgs/re-res.png)
+
+#### **Etag 和 If-None-Match**
+
+`Etag / If-None-Match`返回的是一个校验码。
+- `ETag`-响应头字段，可以保证每一个资源是唯一的，资源变化都会导致ETag变化。
+- `If-None-Match`-请求头字段，服务器根据浏览器发送的`If-None-Match`值来判断是否命中缓存。
+
+与`Last-Modified`不一样的是，当服务器返回`304 Not Modified`的响应时，由于`ETag`重新生成过，响应头中还会把这个`ETag`返回，即使这个`ETag`跟之前的没有变化。
+
+- 案例
+
+**（1）首次请求**
+<enlarge><img src="./imgs/etag.png"/></enlarge>
+
+**（2）未修改，再次请求**
+<enlarge><img src="./imgs/etag-none-match.png"/></enlarge>
+![img](./imgs/304-res.png)
+
+**（3）已修改，再次请求**
+<enlarge><img src="./imgs/re-etag-none.png"/></enlarge>
+
+
+### 为什么要有Etag?
+
+你可能会觉得使用`Last-Modified`已经足以让浏览器知道本地的缓存副本是否足够新，为什么还需要`Etag`呢？
+`HTTP1.1`中`Etag`的出现主要是为了解决几个`Last-Modified`比较难解决的问题：
+
+ - 一些文件也许会周期性的更改，但是他的内容并不改变(仅仅改变的修改时间)，这个时候我们并不希望客户端认为这个文件被修改了，而重新`GET`；
+
+ - 某些文件修改非常频繁，比如在秒以下的时间内进行修改，(比方说1s内修改了N次)，`If-Modified-Since`能检查到的粒度是`s`级的，这种修改无法判断(或者说`UNIX`记录`MTIME`只能精确到秒)；
+
+- 某些服务器不能精确的得到文件的最后修改时间。
+
+`Last-Modified`与`ETag`是可以一起使用的，服务器会优先验证`ETag`，一致的情况下，才会继续比对`Last-Modified`，最后才决定是否返回`304`。
+
+另外觉得一篇很好的文章，
+
+### 浏览器缓存的过程究竟是怎么样的呢？
+
+#### 1、浏览器首次发送请求时
+- 在浏览器首次向web服务器发送请求时，本地无缓存，服务器端响应成功请求后，浏览器端缓存。
+- 在首次请求时，服务器会将页面最后修改时间通过`Last-Modified`标识由服务器发送给客户端，客户端记录修改时间；服务器还会生成一个`Etag`，并发送给客户端。
+- 比如某图片资源的响应头
+  ```json
+  HTTP/1.1 200 OK
+  Vary: Accept-Encoding
+  Last-Modified: Wed, 02 Sep 2020 02:42:32 GMT  //---文件最新更改时间
+  ETag: "Xd/uSsLYtxW1AWTIX0ABpg=="  //---文件内容更改标识
+  Content-Type: image/jpeg
+  Content-Length: 17550
+  cache-control: public, max-age=0  //--是否缓存，缓存时长
+  content-md5: Xd/uSsLYtxW1AWTIX0ABpg==
+  Date: Mon, 12 Apr 2021 07:34:01 GMT
+  Connection: keep-alive
+  Keep-Alive: timeout=5
+  ```
 
 ![img](./imgs/bs-cache.png)
 
-
-**浏览器在第一次请求发生后，再次发送请求时：**
+#### 2、浏览器再次发送请求时
 
 强缓存、协商缓存什么时候用哪个？
 
 ![img](./imgs/storage.png)
 
-### 强缓存
-
-强缓存是利用http头中的Expires和Cache-Control两个字段来控制的，用来表示资源的缓存时间。强缓存中，普通刷新会忽略它，但不会清除它，需要强制刷新。浏览器强制刷新，请求会带上Cache-Control:no-cache和Pragma:no-cache
-
-- **Expires**
-
-Expires是http1.0的规范，它的值是一个绝对时间的GMT格式的时间字符串。如我现在这个网页的Expires值是：expires:Fri, 14 Apr 2017 10:47:02 GMT。这个时间代表这这个资源的失效时间，只要发送请求时间是在Expires之前，那么本地缓存始终有效，则在缓存中读取数据。所以这种方式有一个明显的缺点，由于失效的时间是一个绝对时间，所以当服务器与客户端时间偏差较大时，就会导致缓存混乱。如果同时出现Cache-Control:max-age和Expires，那么max-age优先级更高。如我主页的response headers部分如下：
-
-```bash
-cache-control:max-age=691200
-expires:Fri, 14 Apr 2017 10:47:02 GMT
-```
-
-那么表示资源可以被缓存的最长时间为691200秒，会优先考虑max-age。
-
-- **Cache-Control**
-
-Cache-Control是在http1.1中出现的，主要是利用该字段的max-age值来进行判断，它是一个相对时间，例如Cache-Control:max-age=3600，代表着资源的有效期是3600秒。cache-control除了该字段外，还有下面几个比较常用的设置值：
-
-- no-cache：不使用本地缓存。需要使用缓存协商，先与服务器确认返回的响应是否被更改，如果之前的响应中存在ETag，那么请求的时候会与服务端验证，如果资源未被更改，则可以避免重新下载。
-- no-store：直接禁止游览器缓存数据，每次用户请求该资源，都会向服务器发送一个请求，每次都会下载完整的资源。
-- public：可以被所有的用户缓存，包括终端用户和CDN等中间代理服务器。
-- private：只能被终端用户的浏览器缓存，不允许CDN等中继缓存服务器对其缓存。Cache-Control与Expires可以在服务端配置同时启用，同时启用的时候Cache-Control优先级高。
-
-### 协商缓存
-
-协商缓存就是由服务器来确定缓存资源是否可用，所以客户端与服务器端要通过某种标识来进行通信，从而让服务器判断请求资源是否可以缓存访问。
-
-普通刷新会启用弱缓存，忽略强缓存。只有在地址栏或收藏夹输入网址、通过链接引用资源等情况下，浏览器才会启用强缓存，这也是为什么有时候我们更新一张图片、一个js文件，页面内容依然是旧的，但是直接浏览器访问那个图片或文件，看到的内容却是新的。
-
-这个主要涉及到两组header字段：Etag和If-None-Match、Last-Modified和If-Modified-Since。上面以及说得很清楚这两组怎么使用啦~复习一下：
-
-- **Etag和If-None-Match**
-
-Etag/If-None-Match返回的是一个校验码。ETag可以保证每一个资源是唯一的，资源变化都会导致ETag变化。服务器根据浏览器上送的If-None-Match值来判断是否命中缓存。
-
-与Last-Modified不一样的是，当服务器返回304 Not Modified的响应时，由于ETag重新生成过，response header中还会把这个ETag返回，即使这个ETag跟之前的没有变化。
-
-- **Last-Modify/If-Modify-Since**
-
-浏览器第一次请求一个资源的时候，服务器返回的header中会加上Last-Modify，Last-modify是一个时间标识该资源的最后修改时间，例如Last-Modify: Thu,31 Dec 2037 23:59:59 GMT。
-
-当浏览器再次请求该资源时，request的请求头中会包含If-Modify-Since，该值为缓存之前返回的Last-Modify。服务器收到If-Modify-Since后，根据资源的最后修改时间判断是否命中缓存。
-
-如果命中缓存，则返回304，并且不会返回资源内容，并且不会返回Last-Modify。
-
-- **为什么要有Etag?**
-
-为什么要有Etag
-你可能会觉得使用Last-Modified已经足以让浏览器知道本地的缓存副本是否足够新，为什么还需要Etag呢？HTTP1.1中Etag的出现主要是为了解决几个Last-Modified比较难解决的问题：
-
- - 一些文件也许会周期性的更改，但是他的内容并不改变(仅仅改变的修改时间)，这个时候我们并不希望客户端认为这个文件被修改了，而重新GET；
-
- - 某些文件修改非常频繁，比如在秒以下的时间内进行修改，(比方说1s内修改了N次)，If-Modified-Since能检查到的粒度是s级的，这种修改无法判断(或者说UNIX记录MTIME只能精确到秒)；
-
-- 某些服务器不能精确的得到文件的最后修改时间。
-
-Last-Modified与ETag是可以一起使用的，服务器会优先验证ETag，一致的情况下，才会继续比对Last-Modified，最后才决定是否返回304。
-
-另外觉得一篇很好的文章，从缓存策略来学习HTTP缓存：HTTP基于缓存策略三要素分解法
-
-## 9、cookie、session、sessionStorage、localStorage
+## 12、cookie、session、sessionStorage、localStorage
 
 ### cookie、sessionStorage、localStorage
 
@@ -345,15 +462,9 @@ webStorage虽然也有存储大小的限制，但是比cookie大得多，可以�
 考虑到减轻服务器性能方面，应当使用COOKIE。
 - 4.单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
 
-## 浏览器缓存
 
-缓存分为两种：强缓存和协商缓存，根据响应的header内容来决定。
 
-强缓存相关字段有expires，cache-control。如果cache-control与expires同时存在的话，cache-control的优先级高于expires。
-
-协商缓存相关字段有Last-Modified/If-Modified-Since，Etag/If-None-Match
-
-## cookie和session的区别，localstorage和sessionstorage的区别
+## 14、cookie和session的区别，localstorage和sessionstorage的区别
 
 Cookie和session都可用来存储用户信息，cookie存放于客户端，session存放于服务器端，因为cookie存放于客户端有可能被窃取，所以cookie一般用来存放不敏感的信息，比如用户设置的网站主题，敏感的信息用session存储，比如用户的登陆信息，session可以存放于文件，数据库，内存中都可以，cookie可以服务器端响应的时候设置，也可以客户端通过JS设置cookie会在请求时在http首部发送给客户端，cookie一般在客户端有大小限制，一般为4K，
 下面从几个方向区分一下cookie，localstorage，sessionstorage的区别
@@ -388,36 +499,11 @@ Cookie：需要程序员自己封装，原生的cookie接口不友好
 
 从安全性来说，因为每次http请求都回携带cookie信息，这样子浪费了带宽，所以cookie应该尽可能的少用，此外cookie还需要指定作用域，不可以跨域调用，限制很多，但是用户识别用户登陆来说，cookie还是比storage好用，其他情况下可以用storage，localstorage可以用来在页面传递参数，sessionstorage可以用来保存一些临时的数据，防止用户刷新页面后丢失了一些参数，
 
-## GET和POST的区别
 
-get参数通过url传递，post放在request body中。
+## localStorage 与 sessionStorage 与cookie的区别总结
+共同点: 都保存在浏览器端, 且同源
+localStorage 与 sessionStorage 统称webStorage,保存在浏览器,不参与服务器通信,大小为5M
+生命周期不同: localStorage永久保存, sessionStorage当前会话, 都可手动清除
+作用域不同: 不同浏览器不共享local和session, 不同会话不共享session
+Cookie: 设置的过期时间前一直有效, 大小4K.有个数限制, 各浏览器不同, 一般为20个.携带在HTTP头中, 过多会有性能问题.可自己封装, 也可用原生
 
-get请求在url中传递的参数是有长度限制的，而post没有。
-
-get比post更不安全，因为参数直接暴露在url中，所以不能用来传递敏感信息。
-
-get请求只能进行url编码，而post支持多种编码方式
-
-get请求会浏览器主动cache，而post支持多种编码方式。
-
-get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留。
-
-GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。
-
-GET产生一个TCP数据包；POST产生两个TCP数据包。
-
-## 301和302的区别
-
-301 Moved Permanently 被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个URI之一。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。
-
-302 Found 请求的资源现在临时从不同的URI响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。
-
-字面上的区别就是301是永久重定向，而302是临时重定向。
-
-301比较常用的场景是使用域名跳转。302用来做临时跳转 比如未登陆的用户访问用户中心重定向到登录页面。
-
-## 状态码 304 和 200
-
-状态码200：请求已成功，请求所希望的响应头或数据体将随此响应返回。即返回的数据为全量的数据，如果文件不通过GZIP压缩的话，文件是多大，则要有多大传输量。
-
-状态码304：如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。即客户端和服务器端只需要传输很少的数据量来做文件的校验，如果文件没有修改过，则不需要返回全量的数据。
