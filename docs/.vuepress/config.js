@@ -184,7 +184,7 @@ module.exports = {
           title: '浏览器模型',
           collapsable: true,
           children: [
-            ['BOM/1-intro.md', '第1节 浏览器环境概述'],
+            ['BOM/1-intro.md', '第1节 浏览器模型概述'],
             ['BOM/2-window.md', '第2节 window对象'],
             ['BOM/3-ns.md', '第3节 Navigator 对象，Screen 对象'],
             ['BOM/4-cookie.md', '第4节 Cookie'],

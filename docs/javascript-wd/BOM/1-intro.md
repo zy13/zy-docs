@@ -24,6 +24,8 @@
 </script>
 ```
 
+#### type属性
+
 `<script>`标签有一个`type`属性，用来指定脚本类型，`type`属性有两种值：
 - `text/javascript`：这是默认值。老式浏览器，设为这个值比较好。
 - `application/javascript`：对于较新的浏览器，建议设为这个值。
@@ -195,7 +197,7 @@
 此外，对于来自**同一个域名的资源**，比如脚本文件、样式表文件、图片文件等，浏览器一般有限制，同时最多下载`6～20`个资源，即最多同时打开的 `TCP` 连接有限制，这是为了防止对服务器造成太大压力。如果是来自**不同域名的资源**，就没有这个限制。**所以，通常把静态文件放在不同的域名之下，以加快下载速度。**
 
 ### defer 属性
-为了解决脚本文件下载阻塞网页渲染的问题，一个方法是对`<script>`元素加入`defer`属性。它的**作用是延迟脚本的执行，等到 DOM 加载生成后，再执行脚本。**。有了`defer`属性，浏览器下载脚本文件的时候，不会阻塞页面渲染。
+为了解决脚本文件下载阻塞网页渲染的问题，一个方法是对`<script>`元素加入`defer`属性。它的**作用是延迟脚本的执行，等到 DOM 加载生成后，再执行脚本**。有了`defer`属性，浏览器下载脚本文件的时候，不会阻塞页面渲染。
 ```html
 <!-- 等到 DOM 加载完成后，才会执行a.js和b.js -->
 <script src="a.js" defer></script>
@@ -220,6 +222,7 @@
 
 解决“阻塞效应”的另一个方法是对`<script>`元素加入`async`属性。`async`属性可以保证脚本下载的同时，浏览器继续渲染。
 ```html
+<!-- 哪个脚本先下载结束，就先执行那个脚本 -->
 <script src="a.js" async></script>
 <script src="b.js" async></script>
 ```
@@ -244,6 +247,7 @@
 ### 脚本的动态加载
 `<script>`元素还可以动态生成，生成后再插入页面，从而实现脚本的动态加载。
 ```js
+// 哪个脚本文件先下载完成，就先执行哪个。
 ['a.js', 'b.js'].forEach(function(src) {
   var script = document.createElement('script');
   script.src = src;
@@ -255,7 +259,7 @@
 
 如果想避免这个问题，可以设置`async`属性为`false`。
 ```js
-// 在这段代码后面加载的脚本文件，会因此都等待b.js执行完成后再执行
+// 在这段代码后面加载的脚本文件，会等待b.js执行完成后再执行
 ['a.js', 'b.js'].forEach(function(src) {
   var script = document.createElement('script');
   script.src = src;
@@ -288,7 +292,7 @@ function loadScript(src, done) {
 <script src="example.js"></script>
 ```
 
-如果要采用 HTTPS 协议下载，必需写明。
+如果要采用 `HTTPS` 协议下载，必需写明。
 ```html
 <!-- example.js 采用 HTTPS 协议下载 -->
 <script src="https://example.js"></script>
@@ -297,14 +301,15 @@ function loadScript(src, done) {
 根据页面本身的协议来决定加载协议，这时可以采用下面的写法。
 ```html
 <script src="//example.js"></script>
-````
+```
 ## 3、浏览器的组成 - ♥
-- 渲染引擎：[link](./1-intro.html#渲染引擎)
-- 重流和重绘 - ♥：[link](./1-intro.html#重流和重绘)
+- 渲染引擎：[link](./1-intro.html#_3-1-渲染引擎)
+- 重流和重绘 - ♥：[link](./1-intro.html#_3-2-重流和重绘-♥)
+- JavaScript引擎 - ♥：[link](./1-intro.html#_3-3-javascript引擎-♥)
 
-浏览器的核心是两部分：**渲染引擎**和 **JavaScript 解释器**（又称 JavaScript 引擎）
+浏览器的核心是两部分：**渲染引擎** 和 **JavaScript 解释器**（又称 JavaScript 引擎）
 
-### 渲染引擎
+### 3.1 渲染引擎
 渲染引擎的主要作用是，将网页代码渲染为用户视觉可以感知的平面文档。不同的浏览器有不同的渲染引擎：
 - Firefox：Gecko 引擎
 - Safari：WebKit 引擎
@@ -319,8 +324,94 @@ function loadScript(src, done) {
 - 绘制：将渲染树绘制到屏幕。
 
 以上四步并非严格按顺序执行，往往第一步还没完成，第二步和第三步就已经开始了。所以，会看到这种情况：网页的 HTML 代码还没下载完，但浏览器已经显示出内容了。
-### 重流和重绘
+### 3.2 重流和重绘 - ♥
 
+渲染树转换为网页布局，称为“**布局流**”（flow）；布局显示到页面的这个过程，称为“**绘制**”（paint）。它们都具有阻塞效应，并且会耗费很多时间和计算资源。
+#### 重流和重绘的关系
+
+页面生成以后，脚本操作和样式表操作，都会触发“**重流**”（reflow）和“**重绘**”（repaint）。用户的互动也会触发重流和重绘，比如设置了鼠标悬停（a:hover）效果、页面滚动、在输入框中输入文本、改变窗口大小等等。
+
+- 重流和重绘并不一定一起发生，重流必然导致重绘，重绘不一定需要重流。
+- 比如改变元素颜色，只会导致重绘，而不会导致重流；
+- 改变元素的布局，则会导致重绘和重流。
+
+#### 如何降低重绘的次数和成本
+大多数情况下，浏览器会智能判断，将重流和重绘只限制到相关的子树上面，最小化所耗费的代价，而不会全局重新生成网页。
+- 尽量不要变动高层的 `DOM` 元素，而以底层 `DOM` 元素的变动代替；
+- 重绘`table`布局和`flex`布局，开销都会比较大。
+```js
+// 该代码只会导致一次重绘，因为浏览器会累积 DOM 变动，然后一次性执行。
+var foo = document.getElementById('foobar');
+foo.style.color = 'blue';
+foo.style.marginTop = '30px';
+```
+#### 优化技巧
+- 读取 `DOM` 或者写入 `DOM`，尽量写在一起，不要混杂。不要读取一个 `DOM` 节点，然后立刻写入，接着再读取一个 `DOM` 节点。
+- 缓存 `DOM` 信息。
+- 不要一项一项地改变样式，而是使用 `CSS class` 一次性改变样式。
+- 使用`documentFragment`操作 `DOM`
+- 动画使用`absolute`定位或`fixed`定位，这样可以减少对其他元素的影响。
+- 只在必要时才显示隐藏元素。
+- 使用`window.requestAnimationFrame()`，因为它可以把代码推迟到下一次重绘之前执行，而不是立即要求页面重绘。
+- 使用虚拟 DOM（virtual DOM）库。
+```js
+// 重流的代价: 每读一次 DOM，就写入新的值，会造成不停的重排和重流
+function doubleHeight(element) {
+  var currentHeight = element.clientHeight
+  element.style.height = (currentHeight * 2) + 'px'
+}
+document.querySelectorAll('a').forEach(item => {
+  doubleHeight(item)
+})
+```
+`window.requestAnimationFrame()`对比效果
+```js
+// 重绘的代价：把所有的写操作，都累积在一起，从而 DOM 代码变动的代价就最小化了
+function doubleHeight(element) {
+  var currentHeight = element.clientHeight
+  window.requestAnimationFrame(function () {
+    element.style.height = (currentHeight * 2) + 'px';
+  });
+}
+document.querySelectorAll('a').forEach(item => {
+  doubleHeight(item)
+})
+```
+### 3.3 JavaScript引擎 - ♥
+`JavaScript` 引擎的主要作用是，读取网页中的 `JavaScript` 代码，对其处理后运行。
+它是一种解释型语言，也就是说，它不需要编译，由解释器实时运行。
+- 这样的好处是运行和修改都比较方便，刷新页面就可以重新解释；
+- 缺点是每次运行都要调用解释器，系统开销较大，运行速度慢于编译型语言。
+
+#### 早起浏览器内部对JavaScript的处理过程
+
+为了提高运行速度，目前的浏览器都将 `JavaScript` 进行一定程度的编译，生成类似字节码（`bytecode`）的中间代码，以提高运行速度。以下是早起浏览器内部对JavaScript的处理过程：
+- 读取代码，进行词法分析（`Lexical analysis`），将代码分解成词元（`token`）;
+- 对词元进行语法分析（`parsing`），将代码整理成“语法树”（`syntax tree`）;
+- 使用“翻译器”（`translator`），将代码转为字节码（`bytecode`）;
+- 使用“字节码解释器”（`bytecode interpreter`），将字节码转为机器码。
+
+#### 现代浏览器对JavaScript的处理过程
+
+逐行解释将字节码转为机器码，是很低效的。为了提高运行速度，现代浏览器改为采用“即时编译”（`Just In Time compiler`，缩写 `JIT`）:
+- 字节码只在运行时编译，用到哪一行就编译哪一行，
+- 把编译结果缓存（inline cache）。
+
+通常，一个程序被经常用到的，只是其中一小部分代码，有了缓存的编译结果，整个程序的运行速度就会显著提升。
+
+#### JavaScript引擎
+
+字节码不能直接运行，而是运行在一个虚拟机（Virtual Machine）之上，一般也把虚拟机称为 **JavaScript 引擎**。
+
+并非所有的 JavaScript 虚拟机运行时都有字节码，有的 JavaScript 虚拟机基于源码，即只要有可能，就通过 JIT（just in time）编译器直接把源码编译成机器码运行，省略字节码步骤。这一点与其他采用虚拟机（比如 Java）的语言不尽相同。这样做的目的，是为了尽可能地优化代码、提高性能。
+
+下面是目前最常见的一些 JavaScript 虚拟机：
+- [Chakra](https://en.wikipedia.org/wiki/Chakra_(JScript_engine)) (Microsoft Internet Explorer)
+- [Nitro/JavaScript Core](https://en.wikipedia.org/wiki/WebKit#JavaScriptCore) (Safari)
+- [Carakan](https://dev.opera.com/articles/carakan/) (Opera)
+- [SpiderMonkey](https://developer.mozilla.org/en-US/docs/SpiderMonkey) (Firefox)
+- [V8](https://en.wikipedia.org/wiki/Chrome_V8) (Chrome, Chromium)
 
 
 ## 4、参考链接
+[参考链接](https://www.wangdoc.com/javascript/bom/engine.html#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5)
