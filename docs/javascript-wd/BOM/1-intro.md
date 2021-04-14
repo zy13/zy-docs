@@ -9,12 +9,12 @@
 
 ## 1、代码嵌入网页的方法
 
-- script 元素嵌入代码: [link](./1-intro.html#script-元素嵌入代码)
-- script 元素加载外部脚本: [link](./1-intro.html#script-元素加载外部脚本)
-- 事件属性：[link](./1-intro.html#事件属性)
-- URL 协议：[link](./1-intro.html#url-协议)
+- script 元素嵌入代码: [link](./1-intro.html#_1-1-script-元素嵌入代码)
+- script 元素加载外部脚本: [link](./1-intro.html#_1-2-script-元素加载外部脚本)
+- 事件属性：[link](./1-intro.html#_1-3-事件属性)
+- URL 协议：[link](./1-intro.html#_1-4-url-协议)
 
-### script 元素嵌入代码
+### 1.1 script 元素嵌入代码
 
 `<script>`元素内部可以直接写入 JavaScript 代码。
 ```html
@@ -43,7 +43,7 @@
 -->
 ```
 
-### script 元素加载外部脚本
+### 1.2 script 元素加载外部脚本
 
 `<script>`标签也可以指定加载外部的脚本文件。所加载的脚本必须是纯的 `JavaScript` 代码，不能有`HTML`代码和`<script>`标签。
 ```html
@@ -66,14 +66,14 @@
 </script>
 ```
 
-### 事件属性
+### 1.3 事件属性
 网页元素的事件属性（比如`onclick`和`onmouseover`），可以写入 `JavaScript` 代码。当指定事件发生时，就会调用这些代码。
 ```html
 <!-- 事件属性代码只有一个语句。如果有多个语句，使用分号分隔即可。 -->
 <button id="myBtn" onclick="console.log(this.id);">点击</button>
 ```
 
-### URL 协议
+### 1.4 URL 协议
 `URL` 支持`javascript:`协议，即在 `URL` 的位置写入代码，使用这个 `URL` 的时候就会执行 `JavaScript` 代码。
 ```html
 <a href="javascript:console.log('Hello')">点击</a>
@@ -108,13 +108,13 @@
 ```
 
 ## 2、script 元素 - ♥
-- 工作原理 - ♥：[link](./1-intro.html#工作原理)
-- defer 属性：[link](./1-intro.html#defer-属性)
-- async 属性：[link](./1-intro.html#async-属性)
-- 脚本的动态加载：[link](./1-intro.html#脚本的动态加载)
-- 加载使用的协议：[link](./1-intro.html#加载使用的协议)
+- 工作原理 - ♥：[link](./1-intro.html#_2-1-工作原理-♥)
+- defer 属性：[link](./1-intro.html#_2-2-defer-属性)
+- async 属性：[link](./1-intro.html#_2-3-async-属性)
+- 脚本的动态加载：[link](./1-intro.html#_2-4-脚本的动态加载)
+- 加载使用的协议：[link](./1-intro.html#_2-5-加载使用的协议)
 
-### 工作原理 - ♥
+### 2.1 工作原理 - ♥
 
 浏览器加载 `JavaScript` 脚本，主要通过`<script>`元素完成。正常的网页加载流程是这样的：
 - 浏览器一边下载 `HTML` 网页，一边开始解析。也就是说，不等到下载完，就开始解析。
@@ -196,7 +196,7 @@
 
 此外，对于来自**同一个域名的资源**，比如脚本文件、样式表文件、图片文件等，浏览器一般有限制，同时最多下载`6～20`个资源，即最多同时打开的 `TCP` 连接有限制，这是为了防止对服务器造成太大压力。如果是来自**不同域名的资源**，就没有这个限制。**所以，通常把静态文件放在不同的域名之下，以加快下载速度。**
 
-### defer 属性
+### 2.2 defer 属性
 为了解决脚本文件下载阻塞网页渲染的问题，一个方法是对`<script>`元素加入`defer`属性。它的**作用是延迟脚本的执行，等到 DOM 加载生成后，再执行脚本**。有了`defer`属性，浏览器下载脚本文件的时候，不会阻塞页面渲染。
 ```html
 <!-- 等到 DOM 加载完成后，才会执行a.js和b.js -->
@@ -218,7 +218,7 @@
 
 另外，使用`defer`加载的外部脚本不应该使用`document.write`方法。
 
-### async 属性
+### 2.3 async 属性
 
 解决“阻塞效应”的另一个方法是对`<script>`元素加入`async`属性。`async`属性可以保证脚本下载的同时，浏览器继续渲染。
 ```html
@@ -244,7 +244,7 @@
 由此可见，`async`属性优先级要高于`defer`属性。
 
 
-### 脚本的动态加载
+### 2.4 脚本的动态加载
 `<script>`元素还可以动态生成，生成后再插入页面，从而实现脚本的动态加载。
 ```js
 // 哪个脚本文件先下载完成，就先执行哪个。
@@ -284,7 +284,7 @@ function loadScript(src, done) {
 }
 ```
 
-### 加载使用的协议
+### 2.5 加载使用的协议
 
 如果不指定协议，浏览器默认采用 `HTTP` 协议下载。
 ```html
