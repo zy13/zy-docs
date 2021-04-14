@@ -611,5 +611,86 @@ requestIdleCallback(processPendingAnalyticsEvents, { timeout: 2000 });
 如果多次执行`window.requestIdleCallback()`，指定多个回调函数，那么这些回调函数将排成一个队列，按照先进先出的顺序执行。
 
 ## 4、事件
+- load 事件和 onload 属性：[link](2-window.html#_4-1-load-事件和-onload-属性)
+- error 事件和 onerror 属性：[link](2-window.html#_4-2-error-事件和-onerror-属性)
+- window 对象的事件监听属性：[link](2-window.html#_4-3-window-对象的事件监听属性)
 
+### 4.1 load 事件和 onload 属性
+`load`事件发生在文档在浏览器窗口加载完毕时。`window.onload`属性可以指定这个事件的回调函数。
+```js
+// 在网页加载完毕后，获取指定元素并进行处理。
+window.onload = function() {
+  var elements = document.querySelector('.example');
+  for (var i = 0; i < elements.length; i++) {
+    var elt = elements[i];
+    // ...
+  }
+};
+```
+### 4.2 error 事件和 onerror 属性
+浏览器脚本发生错误时，会触发`window`对象的`error`事件。我们可以通过`window.onerror`属性对该事件指定回调函数。
+```js
+window.onerror = function (message, filename, lineno, colno, error) {
+  console.log("出错了！--> %s", error.stack);
+};
+```
+由于历史原因，`window`的`error`事件的回调函数不接受错误对象作为参数，而是一共可以接受五个参数，它们的含义依次如下。老式浏览器只支持前三个参数。
+- `message`: 出错信息
+- `filename`: 出错脚本的网址
+- `lineno`: 行号
+- `colno`: 列号
+- `error`: 错误对象
+
+并不是所有的错误，都会触发 `JavaScript` 的`error`事件（即让 `JavaScript` 报错）。一般来说，只有 `JavaScript` 脚本的错误，才会触发这个事件，而像资源文件不存在之类的错误，都不会触发。
+```js
+// 如果整个页面未捕获错误超过3个，就显示警告。
+window.onerror = function(msg, url, line) {
+  if (onerror.num++ > onerror.max) {
+    alert('ERROR: ' + msg + '\n' + url + ':' + line);
+    return true;
+  }
+}
+onerror.max = 3;
+onerror.num = 0;
+```
+
+如果脚本网址与网页网址不在同一个域（比如使用了 `CDN`），浏览器根本不会提供详细的出错信息，只会提示出错，错误类型是“`Script error.`”，行号为`0`，其他信息都没有。这是浏览器防止向外部脚本泄漏信息。一个解决方法是在脚本所在的服务器，设置`Access-Control-Allow-Origin`的 `HTTP` 头信息：
+```json
+Access-Control-Allow-Origin: *
+```
+然后，在网页的`<script>`标签中设置`crossorigin`属性。
+```html
+<!-- crossorigin="anonymous"表示，读取文件不需要身份信息，即不需要 cookie 和 HTTP 认证信息 -->
+<script crossorigin="anonymous" src="//example.com/file.js"></script>
+
+<!-- 浏览器会上传 cookie 和 HTTP 认证信息，同时还需要服务器端打开 
+HTTP 头信息Access-Control-Allow-Credentials -->
+<script crossorigin="use-credentials" src="//example.com/file.js"></script>
+```
+### 4.3 window 对象的事件监听属性
+除了具备元素节点都有的 `GlobalEventHandlers` 接口，`window`对象还具有以下的事件监听函数属性。
+- `window.onafterprint`：afterprint事件的监听函数。
+- `window.onbeforeprint`：beforeprint事件的监听函数。
+- `window.onbeforeunload`：beforeunload事件的监听函数。
+- `window.onhashchange`：hashchange事件的监听函数。
+- `window.onlanguagechange`: languagechange的监听函数。
+- `window.onmessage`：message事件的监听函数。
+- `window.onmessageerror`：MessageError事件的监听函数。
+- `window.onoffline`：offline事件的监听函数。
+- `window.ononline`：online事件的监听函数。
+- `window.onpagehide`：pagehide事件的监听函数。
+- `window.onpageshow`：pageshow事件的监听函数。
+- `window.onpopstate`：popstate事件的监听函数。
+- `window.onstorage`：storage事件的监听函数。
+- `window.onunhandledrejection`：未处理的 Promise 对象的reject事件的监听函数。
+- `window.onunload`：unload事件的监听函数。
 ## 5、多窗口操作
+- 窗口的引用：[link](2-window.html#)
+- iframe 元素：[link](2-window.html#)
+- window.frames 属性：[link](2-window.html#)
+
+由于网页可以使用`iframe`元素，嵌入其他网页，因此一个网页之中会形成多个窗口。如果子窗口之中又嵌入别的网页，就会形成多级窗口。
+
+### 5.1 窗口的引用
+### 5.2 iframe 元素
+### 5.3 window.frames 属性
