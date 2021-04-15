@@ -19,14 +19,19 @@ window有自己的实体含义，其实不适合当作最高一层的顶层对�
 
 ## 2、window 对象的属性
 - window.name：[link](./2-window.html#_2-1-window-name)
-- window.closed，window.opener：[link](./2-window.html#_2-2-window-closed，window-opener)
-- window.self，window.window：[link](./2-window.html#_2-3-window-self，window-window)
+- window.closed，window.opener：[link](./2-window.html#_2-2-window-closed，window-opener) - 只读
+- window.self，window.window：[link](./2-window.html#_2-3-window-self，window-window) - 只读
 - window.frames，window.length：[link](./2-window.html#_2-4-window-frames，window-length)
 - window.frameElement：[link](./2-window.html#_2-5-window-frameelement)
 - window.top，window.parent：[link](./2-window.html#_2-6-window-top，window-parent)
 - window.status：[link](./2-window.html#_2-7-window-status)
 - window.devicePixelRatio：[link](./2-window.html#_2-8-window-devicepixelratio)
-- 位置大小属性：[link](./2-window.html#_2-9-位置大小属性)
+- **位置大小属性**：[link](./2-window.html#_2-9-位置大小属性)
+  - window.screenX，window.screenY - 只读: [link](./2-window.html#（1）window-screenx，window-screeny)
+  - window.innerHeight，window.innerWidth - 只读: [link](./2-window.html#（2）-window-innerheight，window-innerwidth)
+  - window.outerHeight，window.outerWidth - 只读: [link](./2-window.html#（3）window-outerheight，window-outerwidth)
+  - window.scrollX，window.scrollY - 只读: [link](./2-window.html#（4）window-scrollx，window-scrolly)
+  - window.pageXOffset，window.pageYOffset : [link](./2-window.html#（5）window-pagexoffset，window-pageyoffset)
 - 组件属性：[link](./2-window.html#_2-10-组件属性)
 - 全局对象属性：[link](./2-window.html#_2-11-全局对象属性)
 - window.isSecureContext：[link](./2-window.html#_2-12-window-issecurecontext)
@@ -262,7 +267,7 @@ console.log(window.isSecureContext) // true
 - window.getSelection()：[link](./2-window.html#_3-8-window-getselection)
 - window.getComputedStyle()，window.matchMedia()：[link](./2-window.html#_3-9-window-getcomputedstyle-，window-matchmedia)
 - window.requestAnimationFrame()-♥：[link](./2-window.html#_3-10-window-requestanimationframe-♥)
-- window.requestIdleCallback()：[link](./2-window.html#_3-11-window-requestidlecallback)
+- window.requestIdleCallback()-♥：[link](./2-window.html#_3-11-window-requestidlecallback-♥)
 
 ### 3.1 window.alert()，window.prompt()，window.confirm()
 `window.alert()`、`window.prompt()`、`window.confirm()`都是浏览器与用户互动的全局方法。它们会弹出不同的对话框，要求用户做出回应。注意，这三个方法弹出的对话框，都是浏览器统一规定的式样，无法定制。
@@ -416,7 +421,7 @@ window.sopt()
 
 ### 3.3 window.moveTo()，window.moveBy()
 
-为了防止有人滥用这两个方法，随意移动用户的窗口，目前只有一种情况，浏览器允许用脚本移动窗口：该窗口是用`window.open()`方法新建的，并且窗口里只有它一个 `Tab` 页。除此以外的情况，使用上面两个方法都是无效的。
+为了防止有人滥用这两个方法，随意移动用户的窗口，**目前只有一种情况，浏览器允许用脚本移动窗口：该窗口是用`window.open()`方法新建的，并且窗口里只有它一个 `Tab` 页**。除此以外的情况，使用上面两个方法都是无效的。
 #### window.moveTo()
 `window.moveTo()`方法用于移动浏览器窗口到指定位置。它接受两个参数，分别是窗口左上角距离屏幕左上角的水平距离和垂直距离，单位为像素。
 ```js
@@ -432,6 +437,8 @@ window.moveTo(100, 200) // 水平距离, 垂直距离
 window.moveBy(25, 50) // 向右移动的水平距离, 向下移动的垂直距离
 ```
 ### 3.4 window.resizeTo()，window.resizeBy()
+
+为了防止有人滥用这两个方法，随意缩放用户的窗口，**目前只有一种情况，浏览器允许用脚本缩放窗口：该窗口是用`window.open()`方法新建的，并且窗口里只有它一个 `Tab` 页。**除此以外的情况，使用上面两个方法都是无效的。
 #### window.resizeTo()
 `window.resizeTo()`方法用于缩放窗口到指定大小。它接受两个参数：
 - 第一个是缩放后的窗口宽度（`outerWidth`属性，包含滚动条、标题栏等等）
@@ -529,6 +536,8 @@ var selectedText = selObj.toString();
 `tag - 性能优化`
 
 **如果某个函数会改变网页的布局，一般就放在`window.requestAnimationFrame()`里面执行**，这样可以节省系统资源，使得网页效果更加平滑。因为慢速设备会用较慢的速率重流和重绘，而速度更快的设备会有更快的速率。
+- [Performance](https://developer.mozilla.org/zh-CN/docs/Web/API/Performance) 接口可以获取到当前页面中与性能相关的信息
+- `Performance.now()`返回一个表示从性能测量时刻开始经过的毫秒数
 ```js
 // 接受一个回调函数作为参数
 // callback执行时，它的参数就是系统传入的一个高精度时间戳（performance.now()的返回值），
@@ -553,12 +562,14 @@ window.requestAnimationFrame(callback)
   element.style.position = 'absolute'
   let start = null
   function step(timestamp) {
+    // timestamp: 系统传入的一个高精度时间戳（performance.now()的返回值，毫秒数）
     if(!start) start = timestamp
     let progress = timestamp - start
     // 元素不断向左移，最大不超过200像素
     element.style.left = Math.min(progress/10,200) + 'px';
     // 如果距离第一次执行不超过 2 秒，继续执行动画
     if(progress<2000) {
+      // step执行时，它的参数就是系统传入的一个高精度时间戳（performance.now()的返回值），
       window.requestAnimationFrame(step)
     }
   }
@@ -630,7 +641,9 @@ window.onload = function() {
 ### 4.2 error 事件和 onerror 属性
 浏览器脚本发生错误时，会触发`window`对象的`error`事件。我们可以通过`window.onerror`属性对该事件指定回调函数。
 ```js
+// 脚本报错时触发
 window.onerror = function (message, filename, lineno, colno, error) {
+  
   console.log("出错了！--> %s", error.stack);
 };
 ```
@@ -685,12 +698,82 @@ HTTP 头信息Access-Control-Allow-Credentials -->
 - `window.onunhandledrejection`：未处理的 Promise 对象的reject事件的监听函数。
 - `window.onunload`：unload事件的监听函数。
 ## 5、多窗口操作
-- 窗口的引用：[link](2-window.html#)
-- iframe 元素：[link](2-window.html#)
-- window.frames 属性：[link](2-window.html#)
+- 窗口的引用：[link](2-window.html#_5-1-窗口的引用)
+- iframe 元素：[link](2-window.html#_5-2-iframe-元素)
+- window.frames 属性：[link](2-window.html#_5-3-window-frames-属性)
 
 由于网页可以使用`iframe`元素，嵌入其他网页，因此一个网页之中会形成多个窗口。如果子窗口之中又嵌入别的网页，就会形成多级窗口。
 
 ### 5.1 窗口的引用
+各个窗口之中的脚本，可以引用其他窗口，多窗口之间的脚本是共享的。浏览器提供了一些特殊变量，用来返回其他窗口。
+- `top`：顶层窗口，即最上层的那个窗口
+- `parent`：父窗口
+- `self`：当前窗口，即自身
+```js
+// 判断当前窗口是否为顶层窗口。
+if(window.top === window.self) {
+  // 当前窗口是顶层窗口
+} else {
+  // 当前窗口是子窗口
+}
+
+// 让父窗口的访问历史后退一次
+window.parent.history.back();
+```
+
+```html
+<!-- 在顶层窗口打开链接。 -->
+<a href="example.html" target="_top">Link</a>
+```
+- `_top`：顶层窗口
+- `_parent`：父窗口
+- `_blank`：新窗口
 ### 5.2 iframe 元素
+对于`iframe`嵌入的窗口，拿到该窗口的 `DOM` 节点，然后使用`contentWindow`属性获得`iframe`节点包含的`window`对象和`document`对象。
+```js
+// frame.contentWindow可以拿到子窗口的window对象
+var frame = document.querySelector('#theFrame');
+var frameWindow = frame.contentWindow;
+
+// 拿到子窗口的document对象
+var frameDoc = frame.contentDocument; 
+// 等同于
+var frameDoc = frame.contentWindow.document;
+
+// 同源情况下, 读取子窗口内部的属性，比如子窗口标题
+frameWindow.title
+
+// 判断当前窗口是否为iframe窗口
+if(window.parent !== window.self) {
+  // 当前窗口是子窗口
+}
+```
+- `<iframe>`元素遵守同源政策，只有当父窗口与子窗口在同一个域时，两者之间才可以用脚本通信，否则只有使用`window.postMessage`方法。
+- `<iframe>`窗口的`window`对象，有一个`frameElement`属性，返回`<iframe>`在父窗口中的 `DOM` 节点。对于非嵌入的窗口，该属性等于`null`。
+```js
+var f1Element = document.getElementById('f1');
+var f1Window = f1Element.contentWindow;
+
+f1Window.frameElement === f1Element // true
+window.frameElement === null // true
+
+var frameEl = window.frameElement;
+console.log(11, frameEl);
+console.log(window.top, window.parent)
+if (frameEl) {
+  frameEl.src = 'other.html';
+}
+```
+
 ### 5.3 window.frames 属性
+
+`window.frames`属性返回一个类似数组的对象，成员是所有子窗口的`window`对象。可以使用这个属性，实现窗口之间的互相引用。比如，`frames[0]`返回第一个子窗口，`frames[1].frames[2]`返回第二个子窗口内部的第三个子窗口，`parent.frames[1]`返回父窗口的第二个子窗口。
+
+-`window.frames`每个成员的值，是框架内的窗口（即框架的`window`对象），而不是`iframe`标签在父窗口的 `DOM` 节点。如果要获取每个框架内部的 `DOM` 树，需要使用`window.frames[0].document`的写法。
+- 如果`<iframe>`元素设置了`name`或`id`属性，那么属性值会自动成为全局变量，并且可以通过`window.frames`属性引用，返回子窗口的`window`对象。
+- `name`属性的值会自动成为子窗口的名称，可以用在`window.open`方法的第二个参数，或者`<a>`和`<frame>`标签的`target`属性。
+```js
+// HTML 代码为 <iframe id="myFrame">
+window.myFrame // [HTMLIFrameElement]
+frames.myframe === myFrame // true
+```
