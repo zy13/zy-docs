@@ -34,10 +34,14 @@ module.exports = {
       //   text: '算法',
       //   link: '/algorithm/'
       // },
-      // {
-      //   text: 'JavaScript深入简出',
-      //   link: '/javascript/'
-      // },
+      {
+        text: 'JavaScript深入简出',
+        link: '/javascript/'
+      },
+      {
+        text: 'JavaScript教程-网道',
+        link: '/javascript-wd/'
+      },
       // {text: 'categories', link: '/categories/'},
       // {text: 'components', link: '/components/'},
     ],
@@ -163,6 +167,7 @@ module.exports = {
         children: [
           ['1-projects','一、项目'],
           ['http', '二、HTTP协议'],
+          ['cache', '三、HTTP缓存体系'],
           // ['frontEnd', '1、前端资源'],
           // ['browser', '2、浏览器相关'],
           // ['javascript', '3、javascript相关'],
@@ -174,7 +179,30 @@ module.exports = {
       }],
       '/full-stack': [],
       '/algorithm': [],
-      '/javascript': []
+      '/javascript-wd/': [
+        {
+          title: '浏览器模型',
+          collapsable: true,
+          children: [
+            ['BOM/1-intro.md', '第1节 浏览器模型概述 - ♥'],
+            ['BOM/2-window.md', '第2节 window对象 - ♥'],
+            ['BOM/3-ns.md', '第3节 Navigator 对象，Screen 对象'],
+            ['BOM/4-cookie.md', '第4节 Cookie  - ♥'],
+            ['BOM/5-xhr.md', '第5节 XMLHttpRequest 对象 - ♥'],
+            ['BOM/6-corsl.md', '第6节 同源限制 - ♥'],
+            ['BOM/7-cors.md', '第7节 CORS 通信 - ♥'],
+            ['BOM/8-storage.md', '第8节 Storage 接口 - ♥'],
+            ['BOM/9-history.md', '第9节 History 对象'],
+            ['BOM/10-luu.md', '第10节 Location 对象，URL 对象，URLSearchParams 对象'],
+            ['BOM/11-ab.md', '第11节 ArrayBuffer 对象，Blob 对象'],
+            ['BOM/12-fff.md', '第12节 File 对象，FileList 对象，FileReader 对象'],
+            ['BOM/13-fd.md', '第13节 表单，FormData 对象'],
+            ['BOM/14-IndexedDB.md', '第14节 IndexedDB API'],
+            ['BOM/15-webWorker.md', '第15节 Web Worker'],
+            ['BOM/16-code.md', '第16节 手撕代码  - ♥'],
+          ]
+        }
+      ]
       // '/categories/': [
       //   {
       //     title: 'html',
