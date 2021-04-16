@@ -32,10 +32,13 @@
 
 ### 对象的创建方式：
 - 1、字面量；
-- 2、构造函数 new Object()；
+- 2、构造函数 new Object() 或者 类的实例化对象；
 - 3、Object.create()
+- 4、Object.defineProperty
+- 5、Proxy
+- 6、单例模式、工厂模式
 
-### 1、字面量创建
+### 字面量创建
 ```js
   let str = 'name'
   let obj1 = {
@@ -47,7 +50,7 @@
   }
 ```
 
-### 3、构造函数 new Object()创建
+### 构造函数 new Object()创建
 ```js
   let obj2 = new Object()
   obj2.name = '张三'
@@ -67,7 +70,7 @@
   })
 ```
 
-### 4、Object.create()创建：属性方法放在原型上。
+### Object.create()创建：属性方法放在原型上。
 ```js
   let obj3 = Object.create({
     name: '张三',
@@ -315,7 +318,7 @@ console.log(zhangsan === Person.prototype)
 
 ## 9、工厂模式对比构造函数
 
-- 无法解决对象识别问题：即创造的所以实例都是Object类型
+- 无法解决对象识别问题：即创造的所有实例都是Object类型
 - 没有公共空间存放公共方法：没有原型，占用内存
 
 ```js
@@ -383,6 +386,8 @@ console.log(Object.prototype.__proto__); // null
 
 ## 11、call, apply, bind
 
+- 三者均能实现构造函数的继承。
+
 Function对象自带的三个函数：call, apply, bind，能将函数的this绑定到指定的对象上。
 三者间传入的参数形式不一样：
 - **call**
@@ -437,11 +442,12 @@ console.log(foo.bind(obj))
 
 ## 12、构造函数的继承
 
-- 继承：子类继承父类所有属性，父类不受影响
+**继承**：子类继承父类所有属性，父类不受影响
 - 目的：找到类之间的共性精简代码
 - 使用`call`、`apply`、`bind`实现继承
-- 无法继承父类原型prototype中的属性和方法
+- **无法继承父类原型`prototype`中的属性和方法**
 
+在子类中，调用父类的call、apply、或者bind方法，方法绑定子类的this，也就是子类实例化的对象
 ```js
 // 继承；
 // 1.call 2.apply 3.bind
@@ -507,12 +513,11 @@ lisi.fn();
 
 ## 14、传值和传址
 
+传值指向的是不同的内存地址，赋值不受影响；传址指向的是同一个内存地址，会互相受到影响。
+
 - 基本数据类型 - **传值**：`Number`、`String`、`Boolean`、`Null`、`Undefined`
-- 复杂数据类型/引用数据类型 - **传址**: `Array`、`Date`、`Math`、`RegExp`、`Object`、`Function`等
-- **浅拷贝**：`JSON序列化`
-  - 如果拷贝对象包含函数，或者undefined等值，此方法就会出现问题
-  - 无法拷贝函数和undefined的属性
-- `深拷贝`: 递归遍历
+- 复杂数据类型/引用数据类型 - **传址**: `Array`、`Date`、`Math`、`RegExp`、`Object`、
+`Function`等
 ```js
 //复杂数据类型：传址;
 let DadProto = {
@@ -530,26 +535,44 @@ let a = 10;
 let b = a;
 b = 20;
 console.log(a);
+```
 
-// 浅拷贝拷贝；
-// 1.JSON序列号
+## 15、浅拷贝和深拷贝
+
+**拷贝**：拷贝之后的新旧对象互相不受影响<br>
+**赋值**：对象赋值之后，新旧两个对象会互相受到影响
+
+### **浅拷贝**：只拷贝对象第一层数据
+- 无法拷贝**函数**、**undefined**
+- JSON序列化：JSON.parse、JSON.stringify
+```js
 let DadPrototype = {
   name:"张三",
   age:20,
   fn:function() {
     console.log("fn..");
   },
-  test:undefined
+  test:undefined,
+  hobby: {
+    h1: '篮球',
+    h2: '爬山',
+    obj: {
+      ass: []
+    }
+  },
+  arr: ['1']
 }
 
-// JSON序列化
-// 如果拷贝对象包含函数，或者undefined等值，此方法就会出现问题
-// 无法拷贝函数和undefined的属性
-let SonPrototype = JSON.parse(JSON.stringify(DadPrototype));
-SonPrototype.name = "李四";
-console.log(DadPrototype);
-console.log(SonPrototype);
-
+  // JSON序列化：无法拷贝函数和undefined的属性
+  let SonPrototype = JSON.parse(JSON.stringify(DadPrototype));
+  SonPrototype.name = "李四";
+  console.log(DadPrototype);
+  console.log(SonPrototype);
+  ```
+### **深拷贝**: 拷贝对象的所有属性和方法
+- **Object.assign()**
+- 函数 - 递归遍历拷贝的对象: 大量数据的拷贝会消耗性能
+```js
 // 深拷贝：递归遍历
 let obj = {
   name: '张三',
@@ -565,10 +588,8 @@ let obj = {
     houses: []
   }
 }
+// 函数 - 递归遍历
 let newObj = deepCopy(obj)
-newObj.name = '李四'
-console.log(newObj,obj)
-
 function deepCopy(obj) {
   let newObj = Array.isArray(obj) ? [] : {}
   for(let key in obj) {
@@ -582,10 +603,14 @@ function deepCopy(obj) {
   }
   return newObj
 }
+// Object.assign
+let newObj1 = Object.assign({}, obj)
 ```
 
 ## 15、原型深拷贝继承
-- 子类原型对父类原型进行深拷贝：`Son.prototype = deepCopy(Dad.prototype);`
+- 子类原型对父类原型进行深拷贝：
+  - 深拷贝函数 - 递归遍历对象，返回一个新对象，新对象包含旧对象的所有属性和方法
+  - `Son.prototype = deepCopy(Dad.prototype);`
 ```js
 // 深拷贝：递归遍历
 function deepCopy(obj) {
@@ -629,12 +654,13 @@ let zhangyi  = new Dad("张一",50);
 zhangyi.fn();
 ```
 
-## 16、组合继承
-- 组合继承，替换深拷贝
+## 16、组合继承 - 替换深拷贝
+- **组合继承** - 替换深拷贝
+  - 子类继承父类构造函数
   - 创建一个中间类Link
-  - Link的prototype继承父类Dad的prototype
-  - 子类Son的prototype继承Link的prototype
-  - 子类的prototype的constructor指向自己
+  - **Link的prototype** - 继承 - **父类Dad的prototype**
+  - **子类Son的prototype** - 等于 - **Link的实例化对象**
+  - **子类的prototype的constructor** - 指向 - **自己**
 ```js
 function Dad(name,age) {
   this.name = name;
@@ -653,8 +679,8 @@ function Son(name,age) {
 let Link = function(){};
 Link.prototype = Dad.prototype;
 
-Son.prototype = new Link()
-Son.prototype.constructor = Son
+Son.prototype = new Link() // 获取父类中的原型的属性和方法，此时 Son.prototype.constructor === Dad --> true
+Son.prototype.constructor = Son // 上一步 Son.prototype.constructor  === Son --> false
 Son.prototype.fn = function() {
   console.log('喜欢篮球')
 }

@@ -3,6 +3,7 @@
 - 一个用于构建用户界面的 JavaScript 库 。
   - 用户界面：WEB --- 网页 (用户可以看到并使用的视图界面)
 - 中文手册：[https://react.docschina.org/](https://react.docschina.org/)
+- github仓库地址：[react-学习笔记](https://github.com/zy13/react-demo/tree/1-react-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0)
 
 ### 命令式编程 和 声明式编程
 
@@ -109,7 +110,16 @@ JSX 是一种语法糖，可以为 JavaScript 添加 xml 的语法扩展。
 - 在 `jsx` 所有标签必须闭合
 - 组件的首字母一定大写，标签一定要小写
 
-**XSS** 为了有效的防止 `XSS` 注入攻击，`ReactDOM` 会在渲染的时候把内容（字符串）进行转义，所以字符串形式的标签是不会作为 `HTML` 标签进行处理的
+## 3、延伸：XSS
+
+- XSS是[跨站脚本攻击](https://developer.mozilla.org/zh-CN/docs/Glossary/Cross-site_scripting)(Cross Site Scripting)，为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。
+
+在以下2种情况下，容易发生 XSS 攻击：
+- 数据从一个不可靠的链接进入到一个 Web 应用程序
+- 没有过滤掉恶意代码的动态内容被发送给 Web 用户
+
+### React是如何防止XSS的？
+为了有效的防止 `XSS` 注入攻击，`ReactDOM` 会在渲染的时候把内容（字符串）进行转义，所以字符串形式的标签是不会作为 `HTML` 标签进行处理的。
 
 ## 4、插值表达式
 
@@ -300,7 +310,7 @@ ReactDOM.render(
 组件是对具有一定独立功能的**数据**与**方法**的封装，对外暴露接口，有利于代码功能的复用，且不用担心冲突问题。
 
 
-### 类式组件
+### 类组件
 - 组件类必须继承 **React.Component**
 - 组件类必须有 **render** 方法
 
@@ -339,14 +349,14 @@ ReactDOM.render(
 ### props
 
 **props** 是父组件传递过来的参数
-- 1、父组件调用子组件时，可以将数据添加到子组件的属性上，
-- 2、在子组件中，可以通过`props`属性接受父组件传过来的属性
+- 父组件调用子组件时，可以将数据添加到子组件的属性上，
+- 在子组件中，可以通过`props`属性接受父组件传过来的属性
 
 ### state
 
 **state**是组件自身的状态
-- 1、在组件内，用来state属性来定义状态
-- 2、在React想要更新状态，必须调用组件的setState方法
+- 在组件内，用来state属性来定义状态
+- 在React想要更新状态，必须调用组件的setState方法
 
 ### props 与 state 的区别
 
@@ -433,7 +443,7 @@ ReactDOM.render(
 ## 11、React 事件
 
 - 多个单词组成的事件名称，第二字母开始，首字母要大写
-- 行间事件中：
+- 行间事件中：（把函数体写到xml代码中）
   - 箭头函数的`this`指向类组件
   - function定义的函数中的this为undefined
 ```js

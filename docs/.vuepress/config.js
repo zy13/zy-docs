@@ -26,18 +26,18 @@ module.exports = {
         text: '前端资源',
         link: '/resource/'
       },
-      {
-        text: '全栈进阶',
-        link: '/full-stack/'
-      },
-      {
-        text: '算法',
-        link: '/algorithm/'
-      },
-      {
-        text: 'JavaScript深入简出',
-        link: '/javascript/'
-      },
+      // {
+      //   text: '全栈进阶',
+      //   link: '/full-stack/'
+      // },
+      // {
+      //   text: '算法',
+      //   link: '/algorithm/'
+      // },
+      // {
+      //   text: 'JavaScript深入简出',
+      //   link: '/javascript/'
+      // },
       // {text: 'categories', link: '/categories/'},
       // {text: 'components', link: '/components/'},
     ],
@@ -46,7 +46,7 @@ module.exports = {
           title: '第一章 ECMAScript6基础',
           collapsable: true,
           children: [
-            ['1-ECMAScript6/1-es6', 'ECMAScript6基础']
+            ['1-ECMAScript6/1-es6-base.md', '第1节 ECMAScript6基础']
           ]
         },
         {
@@ -64,28 +64,34 @@ module.exports = {
           title: '第四章 正则表达式',
           collapsable: true,
           children: [
-            ['4-reg-exp/reg-exp.md', '正则表达式']
+            // ['4-reg-exp/reg-exp.md', '正则表达式']
           ]
         },
         {
-          title: '第五章 es6高阶',
+          title: '第五章 ES6高阶函数',
           collapsable: true,
           children: [
-            ['5-es6-higher/1-base.md', '第1节 异步基础'],
-            // ['5-es6-higher/1-async.md', '第1节 异步专题'],
-            // ['5-es6-higher/2-data-responsive.md', '第2节 数据响应式'],
-            // ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
+            ['5-es6-higher/1-async.md', '第1节 异步专题'],
+            ['5-es6-higher/2-data.md', '第2节 数据响应式原理'],
+            ['5-es6-higher/3-promise.md', '第3节 Promise原理'],
           ]
         },
         {
-          title: '第六章 git',
+          title: '第六章 Git',
+          collapsable: true,
+          // children: [
+          //   ['6-git/1-base', '第1节 git基础']
+          // ]
+        },
+        {
+          title: '第七章 函数式编程',
           collapsable: true,
           children: [
-            ['6-git/1-base', '第1节 git基础']
+            // ['7-function-coding/1-base', '第1节 git基础']
           ]
         },
         {
-          title: '第八章 node.js',
+          title: '第八章 Node.js',
           collapsable: true,
           children: [
             ['8-nodejs/1-webServer', '第1节 搭建webServer'],
@@ -122,10 +128,10 @@ module.exports = {
           ]
         },
         {
-          title: '第十二章 Typescript',
+          title: '第十二章 TypeScript',
           collapsable: true,
           children: [
-            ['12-typescript/ts.md', 'Typescript'],
+            // ['12-typescript/ts.md', 'Typescript'],
           ]
         },
         {
@@ -146,16 +152,24 @@ module.exports = {
           title: '第十四章 React',
           collapsable: true,
           children: [
-            ['14-react/1-react-base.md', '第1节 react基础'], 
+            ['14-react/1-react-base.md', '第1节 react基础-1'],
             ['14-react/2-component-lifecycle.md', '第2节 组件通信和生命周'],
-            ['14-react/3-fun-compoennt.md', '第3节 函数组件'],
+            ['14-react/3-react-base.md', '第3节 react基础-2'],
           ]
         },
       ],
       '/resource/': [{
         collapsable: false,
         children: [
-          ['frontEnd', '前端资源']
+          ['1-projects','一、项目'],
+          ['http', '二、HTTP协议'],
+          // ['frontEnd', '1、前端资源'],
+          // ['browser', '2、浏览器相关'],
+          // ['javascript', '3、javascript相关'],
+          // ['code', '4、手撕代码'],
+          // ['http', '5、http相关'],
+          // ['www','6、网络资源'],
+          // ['tikTop.md','7、字节跳动'],
         ]
       }],
       '/full-stack': [],

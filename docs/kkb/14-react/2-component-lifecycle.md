@@ -27,9 +27,9 @@ this.setState({
 })
 ```
 
-## 2、setState的浅合并 - 浅拷贝
+## 2、setState的浅合并
 
-###  Object.assign()的浅合并 - 浅拷贝
+###  Object.assign()的浅合并
 
 用`Object.assign()`合并对象时，对象中的对象只能覆盖不能合并，也就是源对象会对目标对象中的对象进行覆盖。
 ```js

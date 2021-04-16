@@ -19,6 +19,9 @@
 
 [官方文档](https://nodejs.org/dist/latest-v15.x/docs/api/)
 
+## 手撕代码
+
+[手撕代码](https://blog.csdn.net/qq_45768871/article/details/105592666)
 ## inteview-宝典
 
 1、[牛客网-前端面试宝典](https://www.nowcoder.com/tutorial/96/4700c6f1f3334c9191a38406002efa65)
