@@ -189,7 +189,7 @@ module.exports = {
             ['BOM/3-ns.md', '第3节 Navigator 对象，Screen 对象'],
             ['BOM/4-cookie.md', '第4节 Cookie  - ♥'],
             ['BOM/5-xhr.md', '第5节 XMLHttpRequest 对象 - ♥'],
-            ['BOM/6-corsl.md', '第6节 同源限制 - ♥'],
+            ['BOM/6-corsl.md', '第6节 同源限制 - 跨域解决方案汇总 - ♥'],
             ['BOM/7-cors.md', '第7节 CORS 通信 - ♥'],
             ['BOM/8-storage.md', '第8节 Storage 接口 - ♥'],
             ['BOM/9-history.md', '第9节 History 对象'],
