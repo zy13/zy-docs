@@ -1,4 +1,4 @@
-## 1、window.requestAnimationFrame - 执行网页动画 - 重流和重绘
+a## 1、window.requestAnimationFrame - 执行网页动画 - 重流和重绘
 - [window.requestAnimationFrame](./2-window.html#_3-10-window-requestanimationframe-♥)
 - [重流和重绘](./1-intro.html#__3-2-重流和重绘-♥")
 
