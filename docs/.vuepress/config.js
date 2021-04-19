@@ -42,6 +42,10 @@ module.exports = {
         text: 'JavaScript教程-网道',
         link: '/javascript-wd/'
       },
+      {
+        text: 'IQ',
+        link: '/interviews/'
+      },
       // {text: 'categories', link: '/categories/'},
       // {text: 'components', link: '/components/'},
     ],
@@ -200,6 +204,17 @@ module.exports = {
             ['BOM/14-IndexedDB.md', '第14节 IndexedDB API'],
             ['BOM/15-webWorker.md', '第15节 Web Worker'],
             ['BOM/16-code.md', '第16节 手撕代码  - ♥'],
+          ]
+        }
+      ],
+      '/interviews': [
+        {
+          title: '浏览器模型',
+          collapsable: true,
+          children: [
+            ['1-all', '汇总'],
+            ['2-kkb', '开课吧'],
+            ['3-web', 'web'],
           ]
         }
       ]
