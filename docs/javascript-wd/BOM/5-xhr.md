@@ -116,7 +116,7 @@ xhr.onreadystatechange = function () {
 }
 ```
 ### 2.4 XMLHttpRequest.responseType
-`XMLHttpRequest.responseType`属性是一个字符串，表示服务器返回数据的类型。这个属性是可写的，可以在调用`open()`方法之后、调用`send()`方法之前，**设置这个属性的值，告诉浏览器如何解读返回的数据。**如果`responseType`设为空字符串，就等同于默认值`text`。`XMLHttpRequest.responseType`属性可以等于以下值。
+`XMLHttpRequest.responseType`属性是一个字符串，表示服务器返回数据的类型。这个属性是可写的，可以在调用`open()`方法之后、调用`send()`方法之前，**设置这个属性的值，告诉浏览器如何解读返回的数据**。如果`responseType`设为空字符串，就等同于默认值`text`。`XMLHttpRequest.responseType`属性可以等于以下值。
 - `""`（空字符串）：等同于`text`，表示服务器返回文本数据。
 - `"arraybuffer"`：`ArrayBuffer` 对象，表示服务器返回二进制数组。
 - `"blob"`：`Blob` 对象，表示服务器返回二进制对象，处理文件、图片等数据。
@@ -319,7 +319,7 @@ Access-Control-Allow-Credentials: true
 ```
 `withCredentials`属性打开的话，跨域请求不仅会发送 `Cookie`，还会设置远程主机指定的 `Cookie`。反之也成立，如果`withCredentials`属性没有打开，那么跨域的 `AJAX` 请求即使明确要求浏览器设置 `Cookie`，浏览器也会忽略。
 
-**注意**，脚本总是遵守同源政策，无法从`document.cookie`或者 `HTTP` 回应的头信息之中，读取跨域的 `Cookie`，`withCredentials`属性不影响这一点。
+**注意，脚本总是遵守同源政策，无法从`document.cookie`或者 `HTTP` 回应的头信息之中，读取跨域的 `Cookie`，`withCredentials`属性不影响这一点。**
 
 ### 2.12 XMLHttpRequest.upload
 

@@ -189,6 +189,13 @@ module.exports = {
       '/algorithm': [],
       '/javascript-wd/': [
         {
+          title: '事件',
+          collapsable: true,
+          children: [
+            ['events/1-EventTarget.md', '第1节 EventTarget 接口']
+          ]
+        },
+        {
           title: '浏览器模型',
           collapsable: true,
           children: [
