@@ -43,6 +43,10 @@ module.exports = {
         link: '/javascript-wd/'
       },
       {
+        text: 'HTTP权威指南',
+        link: '/http/'
+      },
+      {
         text: 'IQ',
         link: '/interviews/'
       },
@@ -216,6 +220,13 @@ module.exports = {
             ['2-kkb', '开课吧'],
             ['3-web', 'web'],
           ]
+        }
+      ],
+      '/http': [
+        {
+          title: '浏览器模型',
+          collapsable: true,
+          children: []
         }
       ]
       // '/categories/': [

@@ -116,7 +116,7 @@
 
 ### 2.1 工作原理 - ♥
 
-浏览器加载 `JavaScript` 脚本，主要通过`<script>`元素完成。正常的网页加载流程是这样的：
+浏览器加载 `JavaScript` 脚本，主要通过`<script>`元素完成。正常的**网页加载流程**是这样的：
 - 浏览器一边下载 `HTML` 网页，一边开始解析。也就是说，不等到下载完，就开始解析。
 - 解析过程中，浏览器发现`<script>`元素，就暂停解析，把网页渲染的控制权交给 `JavaScript` 引擎。
 - 如果`<script>`元素引用了外部脚本，就下载该脚本再执行，否则就直接执行代码。
@@ -127,7 +127,7 @@
 #### **加载外部脚本** - ♥
 
 加载外部脚本时，浏览器会暂停页面渲染，等待脚本下载并执行完成后，再继续渲染。<br>
-原因是 `JavaScript` 代码可以修改 `DOM`，所以必须把控制权让给它，**否则会导致复杂的线程竞赛的问题。**
+原因是 `JavaScript` 代码可以修改 `DOM`，所以必须把控制权让给它，**否则会导致复杂的线程竞赛的问题。**（线程是非独立的,同一个进程里线程是数据共享的,当各个线程访问数据资源时会出现竞争状态即:数 据几乎同步会被多个线程占用,造成数据混乱,即所谓的线程不安全）
 
 如果外部脚本加载时间很长（一直无法完成下载），那么浏览器就会一直等待脚本下载完成，造成网页长时间失去响应，**浏览器就会呈现“假死”状态，这被称为“阻塞效应”**。**为了避免这种情况，较好的做法是将`<script>`标签都放在页面底部，而不是头部。**
 
@@ -212,21 +212,19 @@
 
 下载的脚本文件在`DOMContentLoaded`事件触发前执行（即刚刚读取完`</html>`标签），而且可以保证执行顺序就是它们在页面上出现的顺序。
 
-#### 注意
-
-对于内置而不是加载外部脚本的`script`标签，以及动态生成的`script`标签，`defer`属性不起作用。
-
-另外，使用`defer`加载的外部脚本不应该使用`document.write`方法。
+**注意**
+- 对于内置而不是加载外部脚本的`script`标签，以及动态生成的`script`标签，`defer`属性不起作用。
+- 另外，使用`defer`加载的外部脚本不应该使用`document.write`方法。
 
 ### 2.3 async 属性
 
-解决“阻塞效应”的另一个方法是对`<script>`元素加入`async`属性。`async`属性可以保证脚本下载的同时，浏览器继续渲染。
+解决“阻塞效应”的另一个方法是对`<script>`元素加入`async`属性。`async`属性可以保证脚本下载的同时，浏览器继续渲染。`async`属性的作用是，使用另一个进程下载脚本，下载时不会阻塞渲染。
 ```html
 <!-- 哪个脚本先下载结束，就先执行那个脚本 -->
 <script src="a.js" async></script>
 <script src="b.js" async></script>
 ```
-`async`属性的作用是，使用另一个进程下载脚本，下载时不会阻塞渲染。
+#### async 属性的运行流程：
 - 浏览器开始解析 `HTML` 网页;
 - 解析过程中，发现带有`async`属性的`script`标签;
 - 浏览器继续往下解析 `HTML` 网页，同时并行下载`<script>`标签中的外部脚本;
@@ -239,9 +237,11 @@
 - 另外，使用`async`属性的脚本文件里面的代码，不应该使用`document.write`方法。
 
 #### defer属性和async属性到底应该使用哪一个？
-一般来说，如果脚本之间没有依赖关系，就使用`async`属性，如果脚本之间有依赖关系，就使用`defer`属性。如果同时使用`async`和`defer`属性，后者不起作用，浏览器行为由`async`属性决定。
+- 一般来说，如果脚本之间没有依赖关系，就使用`async`属性，
+- 如果脚本之间有依赖关系，就使用`defer`属性。
+- 如果同时使用`async`和`defer`属性，后者不起作用，浏览器行为由`async`属性决定。
 
-由此可见，`async`属性优先级要高于`defer`属性。
+由此可见，**`async`属性优先级要高于`defer`属性**。
 
 
 ### 2.4 脚本的动态加载
@@ -310,7 +310,7 @@ function loadScript(src, done) {
 浏览器的核心是两部分：**渲染引擎** 和 **JavaScript 解释器**（又称 JavaScript 引擎）
 
 ### 3.1 渲染引擎
-渲染引擎的主要作用是，将网页代码渲染为用户视觉可以感知的平面文档。不同的浏览器有不同的渲染引擎：
+渲染引擎的主要作用是，将**网页代码渲染为用户视觉可以感知的平面文档**。不同的浏览器有不同的渲染引擎：
 - Firefox：Gecko 引擎
 - Safari：WebKit 引擎
 - Chrome：Blink 引擎
@@ -349,13 +349,14 @@ foo.style.marginTop = '30px';
 - 读取 `DOM` 或者写入 `DOM`，尽量写在一起，不要混杂。不要读取一个 `DOM` 节点，然后立刻写入，接着再读取一个 `DOM` 节点。
 - 缓存 `DOM` 信息。
 - 不要一项一项地改变样式，而是使用 `CSS class` 一次性改变样式。
-- 使用`documentFragment`操作 `DOM`
+- 使用文档碎片`documentFragment`操作 `DOM`
 - 动画使用`absolute`定位或`fixed`定位，这样可以减少对其他元素的影响。
 - 只在必要时才显示隐藏元素。
 - 使用`window.requestAnimationFrame()`，因为它可以把代码推迟到下一次重绘之前执行，而不是立即要求页面重绘。
-- 使用虚拟 DOM（virtual DOM）库。
+  - “动画的计时控制项；时间控制” - 用于更平滑、更高效展示动画的`API`
+- 使用虚拟 `DOM`（`virtual DOM`）库。
 ```js
-// 重流的代价: 每读一次 DOM，就写入新的值，会造成不停的重排和重流
+// 重流的代价: 每读一次 DOM，就写入新的值，会造成不停的重流和重绘
 function doubleHeight(element) {
   var currentHeight = element.clientHeight
   element.style.height = (currentHeight * 2) + 'px'
@@ -364,7 +365,7 @@ document.querySelectorAll('a').forEach(item => {
   doubleHeight(item)
 })
 ```
-`window.requestAnimationFrame()`对比效果
+使用`window.requestAnimationFrame()`对比效果
 ```js
 // 重绘的代价：把所有的写操作，都累积在一起，从而 DOM 代码变动的代价就最小化了
 function doubleHeight(element) {
@@ -383,7 +384,7 @@ document.querySelectorAll('a').forEach(item => {
 - 这样的好处是运行和修改都比较方便，刷新页面就可以重新解释；
 - 缺点是每次运行都要调用解释器，系统开销较大，运行速度慢于编译型语言。
 
-#### 早起浏览器内部对JavaScript的处理过程
+#### 早期浏览器内部对JavaScript的处理过程
 
 为了提高运行速度，目前的浏览器都将 `JavaScript` 进行一定程度的编译，生成类似字节码（`bytecode`）的中间代码，以提高运行速度。以下是早起浏览器内部对JavaScript的处理过程：
 - 读取代码，进行词法分析（`Lexical analysis`），将代码分解成词元（`token`）;
@@ -401,17 +402,13 @@ document.querySelectorAll('a').forEach(item => {
 
 #### JavaScript引擎
 
-字节码不能直接运行，而是运行在一个虚拟机（Virtual Machine）之上，一般也把虚拟机称为 **JavaScript 引擎**。
+字节码不能直接运行，而是运行在一个虚拟机（`Virtual Machine`）之上，一般也把虚拟机称为 **JavaScript 引擎**。
 
-并非所有的 JavaScript 虚拟机运行时都有字节码，有的 JavaScript 虚拟机基于源码，即只要有可能，就通过 JIT（just in time）编译器直接把源码编译成机器码运行，省略字节码步骤。这一点与其他采用虚拟机（比如 Java）的语言不尽相同。这样做的目的，是为了尽可能地优化代码、提高性能。
+并非所有的 `JavaScript` 虚拟机运行时都有字节码，有的 `JavaScript` 虚拟机基于源码，即只要有可能，就通过 `JIT`（`just in time`）编译器直接把源码编译成机器码运行，省略字节码步骤。这一点与其他采用虚拟机（比如 `Java`）的语言不尽相同。这样做的目的，是为了尽可能地优化代码、提高性能。
 
-下面是目前最常见的一些 JavaScript 虚拟机：
+下面是目前最常见的一些 `JavaScript` 虚拟机：
 - [Chakra](https://en.wikipedia.org/wiki/Chakra_(JScript_engine)) (Microsoft Internet Explorer)
 - [Nitro/JavaScript Core](https://en.wikipedia.org/wiki/WebKit#JavaScriptCore) (Safari)
 - [Carakan](https://dev.opera.com/articles/carakan/) (Opera)
 - [SpiderMonkey](https://developer.mozilla.org/en-US/docs/SpiderMonkey) (Firefox)
 - [V8](https://en.wikipedia.org/wiki/Chrome_V8) (Chrome, Chromium)
-
-
-## 4、参考链接
-[参考链接](https://www.wangdoc.com/javascript/bom/engine.html#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5)

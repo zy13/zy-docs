@@ -1,6 +1,6 @@
 [Navigator 对象，Screen 对象](https://www.wangdoc.com/javascript/bom/navigator.html)
 
-`window.navigator`属性指向一个包含浏览器和系统信息的 Navigator 对象。脚本通过这个属性了解**用户的环境信息**。
+`window.navigator`属性指向一个**包含浏览器和系统信息**的 Navigator 对象。脚本通过这个属性了解**用户的环境信息**。
 
 ## 1、Navigator 对象的属性
 
@@ -13,14 +13,14 @@
 - Navigator.cookieEnabled：[link](./3-ns.html#_1-7-navigator-cookieenabled)
 
 ### 1.1 Navigator.userAgent
-`navigator.userAgent`属性返回浏览器的 `User Agent` 字符串，表示浏览器的厂商和版本信息。
+`navigator.userAgent`属性返回浏览器的 `User Agent` 字符串，表示**浏览器的厂商和版本信息**。
 ```js
 //  Chrome 浏览器的userAgent 
 console.log(navigator.userAgent)
 //pc -  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
 // mobile - "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Mobile Safari/537.36"
 ```
-通过`userAgent`属性识别浏览器，不是一个好办法。因为必须考虑所有的情况（不同的浏览器，不同的版本），非常麻烦，而且用户可以改变这个字符串。这个字符串的格式并无统一规定，也无法保证未来的适用性，各种上网设备层出不穷，难以穷尽。
+**通过`userAgent`属性识别浏览器，不是一个好办法**。因为必须考虑所有的情况（不同的浏览器，不同的版本），非常麻烦，而且用户可以改变这个字符串。这个字符串的格式并无统一规定，也无法保证未来的适用性，各种上网设备层出不穷，难以穷尽。
 
 所以，现在一般不再通过它识别浏览器了，而是使用“**功能识别**”方法，即**逐一测试当前浏览器是否支持要用到的 JavaScript 功能**。
 
@@ -48,7 +48,7 @@ for (var i = 0; i < pluginsLength; i++) {
 }
 ```
 ### 1.3 Navigator.platform
-`navigator.platform`属性返回用户的操作系统信息，比如`MacIntel`、`Win32`、`Linux x86_64`等 。
+`navigator.platform`属性返回**用户的操作系统信息**，比如`MacIntel`、`Win32`、`Linux x86_64`等 。
 ```js
 console.log(navigator.platform)
 // "Win32"
@@ -84,7 +84,7 @@ navigator.languages // ["zh-CN", "zh"]
 
 如果这个属性发生变化，就会在`window`对象上触发`languagechange`事件。
 ### 1.6 Navigator.geolocation
-`navigator.geolocation`属性返回一个 `Geolocation` 对象，包含用户地理位置的信息。
+`navigator.geolocation`属性返回一个 `Geolocation` 对象，包含**用户地理位置的信息**。
 **注意，该 `API `只有在` HTTPS` 协议下可用，否则调用下面方法时会报错。**
 
 `Geolocation` 对象提供下面三个方法。
@@ -152,7 +152,7 @@ for (let i = 0; i < window.navigator.hardwareConcurrency; i++) {
 }
 ```
 ### 3.3 Navigator.connection
-`navigator.connection`属性返回一个对象，包含当前网络连接的相关信息。
+`navigator.connection`属性返回一个对象，包含**当前网络连接的相关信息**。
 ```js
 // 如果网络连接是 4G，则加载大型脚本。
 if (navigator.connection.effectiveType === '4g') {
@@ -167,7 +167,7 @@ if (navigator.connection.effectiveType === '4g') {
 - `type`：当前连接的介质类型，可能的值为`bluetooth`、`cellular`、`ethernet`、`none`、`wifi`、`wimax`、`other`、`unknown`。
 
 ## 4、Screen 对象
-`Screen` 对象表示当前窗口所在的屏幕，提供显示设备的信息。`window.screen`属性指向这个对象。
+`Screen` 对象表示**当前窗口所在的屏幕**，提供显示设备的信息。`window.screen`属性指向这个对象。
 
 该对象有下面的属性。
 
@@ -186,15 +186,15 @@ if (navigator.connection.effectiveType === '4g') {
     window.location.replace('wide.html');
   }
   ```
-- `screen.availHeight`：浏览器窗口可用的屏幕高度（单位像素）。因为部分空间可能不可用，比如系统的任务栏或者 `Mac` 系统屏幕底部的 `Dock` 区，这个属性等于`height`减去那些被系统组件的高度。
-- `screen.availWidth`：浏览器窗口可用的屏幕宽度（单位像素）。
+- `screen.availHeight`：**浏览器窗口可用的屏幕高度**（单位像素）。因为部分空间可能不可用，比如系统的任务栏或者 `Mac` 系统屏幕底部的 `Dock` 区，这个属性等于`height`减去那些被系统组件的高度。
+- `screen.availWidth`：**浏览器窗口可用的屏幕宽度**（单位像素）。
 - `screen.pixelDepth`：整数，表示屏幕的色彩位数，比如`24`表示屏幕提供`24`位色彩。
 - `screen.colorDepth`：`screen.pixelDepth`的别名。严格地说，`colorDepth` 表示应用程序的颜色深度，`pixelDepth` 表示屏幕的颜色深度，绝大多数情况下，它们都是同一件事。
-- `screen.orientation`：返回一个对象，表示屏幕的方向。该对象的`type`属性是一个字符串，表示屏幕的具体方向，
-  - `landscape-primary`表示横放，
-  - `landscape-secondary`表示颠倒的横放，
-  - `portrait-primary`表示竖放，
-  - `portrait-secondary`表示颠倒的竖放。
+- `screen.orientation`：返回一个对象，表示**屏幕的方向**。该对象的`type`属性是一个字符串，表示屏幕的具体方向，
+  - `landscape-primary`表示**横放**，
+  - `landscape-secondary`表示**颠倒的横放**，
+  - `portrait-primary`表示**竖放**，
+  - `portrait-secondary`表示**颠倒的竖放**。
   ```js
   window.screen.orientation
   // { angle: 0, type: "landscape-primary", onchange: null }

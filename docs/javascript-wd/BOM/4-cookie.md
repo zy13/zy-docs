@@ -57,8 +57,13 @@ document.cookie // "id=foo;key=bar"
 
 #### 修改cookie
 
-如果服务器想改变一个早先设置的 `Cookie`，必须同时满足四个条件：`Cookie` 的`key`、`domain`、`path`和`secure`都匹配。
-- 只要有一个属性不同，就会生成一个全新的 Cookie，而非替换掉Cookie。
+如果服务器想改变一个早先设置的 `Cookie`，必须同时满足四个条件：`Cookie` 的
+- `key`
+- `domain`
+- `path`
+- `secure`
+
+ 只要有一个属性不同，就会生成一个全新的 `Cookie`，而非替换掉`Cookie`。
 ```js
 // 原始的 `Cookie` 是用如下的`Set-Cookie`设置。
 'Set-Cookie: key1=value1; domain=example.com; path=/blog'
@@ -84,7 +89,7 @@ document.cookie // "id=foo;key=bar"
 服务器收到浏览器发来的 `Cookie` 时，有两点是无法知道的。
 - `Cookie` 的各种属性，比如何时过期。
 - 哪个域名设置的 `Cookie`，到底是一级域名设的，还是某一个二级域名设的。
-## 3、Cookie 的属性
+## 3、Cookie 的属性 - ♥
 - Expires，Max-Age：[link](./4-cookie.html#_3-1-expires，max-age)
 - Domain，Path：[link](./4-cookie.html#_3-2-domain，path)
 - Secure，HttpOnly：[link](./4-cookie.html#_3-3-secure，httponly)
@@ -93,7 +98,7 @@ document.cookie // "id=foo;key=bar"
 ### 3.1 Expires，Max-Age
 
 #### Expires - Cookie到期时间
-`Expires`属性指定一个具体的到期时间，到了指定时间以后，浏览器就不再保留这个 `Cookie`。它的值是 `UTC` （Universal Time Coordinated，世界协调时间）格式，可以使用`Date.prototype.toUTCString()`进行格式转换。
+`Expires`属性指定一个具体的到期时间，到了指定时间以后，浏览器就不再保留这个 `Cookie`。它的值是 `UTC` （`Universal Time Coordinated`，世界协调时间）格式，可以使用`Date.prototype.toUTCString()`进行格式转换。
 ```js
 // koa
 router.get('/detail', async ctx => {
@@ -282,7 +287,7 @@ document.cookie = 'fontSize=14; '
 document.cookie = 'fontSize=;expires=Thu, 01-Jan-1970 00:00:01 GMT';
 ```
 
-## 5、参考链接
+### 5、参考链接
 
 - [HTTP cookies](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies), by MDN
 - [Using the Same-Site Cookie Attribute to Prevent CSRF Attacks](https://www.netsparker.com/blog/web-security/same-site-cookie-attribute-prevent-cross-site-request-forgery/)

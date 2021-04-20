@@ -127,7 +127,7 @@ window.frames.length === window.length // true
 ```
 
 ### 2.5 window.frameElement
-`window.frameElement`属性主要用于当前窗口嵌在另一个网页的情况（嵌入`<object>`、`<iframe>`或`<embed>`元素），返回当前窗口所在的那个元素节点。如果当前窗口是顶层窗口，或者所嵌入的那个网页不是同源的，该属性返回`null`。
+`window.frameElement`属性主要用于**当前窗口嵌在另一个网页的情况**（嵌入`<object>`、`<iframe>`或`<embed>`元素），**返回当前窗口所在的那个元素节点**。如果当前窗口是顶层窗口，或者所嵌入的那个网页不是同源的，该属性返回`null`。
 ```html
 <!--当前窗口是顶层窗口 -->
 <body>
@@ -187,11 +187,12 @@ window.devicePixelRatio // 2 移动端
 `window.screenX`和`window.screenY`属性，返回浏览器窗口左上角相对于当前屏幕左上角的水平距离和垂直距离（单位像素）。这两个属性只读。
 ```js
 // 浏览器窗口左上角 相对于 当前屏幕左上角
-console.log(window.screenX) // -1920 - 水平距离
+console.log(window.screenX) // -1920 - 水平距离 - 双屏副屏幕
+console.log(window.screenX) // 0 - 水平距离 - 单屏幕 或者 双屏主屏幕
 console.log(window.screenY) // 0 - 垂直距离
 ```
 #### （2） window.innerHeight，window.innerWidth
-`window.innerHeight`和`window.innerWidth`属性，返回网页在当前窗口中可见部分的高度和宽度，即“视口”（`viewport`）的大小（单位像素）。这两个属性只读。
+`window.innerHeight`和`window.innerWidth`属性，返回网页在当前窗口中**可见部分**的高度和宽度，即“视口”（`viewport`）的大小（单位像素）。这两个属性只读。
 ```js
 console.log(window.innerHeight) // 937 - 视口高度，包括滚动条高度
 console.log(window.innerHeight) // 1321 - 视口宽度, 包括滚动条宽度
@@ -200,13 +201,13 @@ console.log(window.innerHeight) // 1321 - 视口宽度, 包括滚动条宽度
   因为这时网页的像素大小不变（比如宽度还是`960`像素），只是每个像素占据的屏幕空间变大了，因此可见部分（视口）就变小了。
 - 注意，这两个属性值包括滚动条的高度和宽度。
 #### （3）window.outerHeight，window.outerWidth
-`window.outerHeight`和`window.outerWidth`属性返回浏览器窗口的高度和宽度，包括浏览器菜单和边框（单位像素）。这两个属性只读。
+`window.outerHeight`和`window.outerWidth`属性返回**浏览器窗口**的高度和宽度，包括浏览器菜单和边框（单位像素）。这两个属性只读。
 ```js
 console.log(window.outerHeight) // 1040 - 浏览器窗口的高度
 console.log(window.outerWidth) // 1920 - 浏览器窗口的高度
 ```
 #### （4）window.scrollX，window.scrollY
-`window.scrollX`属性返回页面的水平滚动距离，`window.scrollY`属性返回页面的垂直滚动距离，单位都为像素。这两个属性只读。
+`window.scrollX`属性返回页面的**水平滚动距离**，`window.scrollY`属性返回页面的**垂直滚动距离**，单位都为像素。这两个属性只读。
 - 这两个属性的返回值不是整数，而是双精度浮点数
 - 如果页面没有滚动，它们的值就是`0`。
 - 如果用户向下拉动了垂直滚动条`75`像素，那么`window.scrollY`就是`75`左右。
@@ -239,7 +240,7 @@ window.pageYOffset === window.scrollY // true
 这些对象的`visible`属性是一个布尔值，表示这些组件是否可见，**这些属性只读**。
 
 ### 2.11 全局对象属性
-全局对象属性指向一些浏览器原生的全局对象：
+全局对象属性指向一些**浏览器原生的全局对象**：
 - window.document：指向`document`对象，这个属性有同源限制。只有来自同源的脚本才能读取这个属性。
 - window.location：指向`Location`对象，用于获取当前窗口的 `URL` 信息，等同于document.location属性。
 - window.navigator：指向`Navigator`对象，用于获取环境信息。
@@ -274,7 +275,7 @@ console.log(window.isSecureContext) // true
 
 三个方法都具有堵塞效应，一旦弹出对话框，整个页面就是暂停执行，等待用户做出反应。
 #### （1）window.alert()
-`window.alert()`方法弹出的对话框，只有一个“确定”按钮，往往用来通知用户某些信息。
+`window.alert()`方法弹出的警示对话框，只有一个“确定”按钮，往往用来通知用户某些信息。
 ```js
 // 参数只能是字符串, 没法使用 CSS 样式, 可以用\n指定换行。
 window.alert('Hello World');
@@ -283,7 +284,7 @@ alert('本条提示\n分成两行');
 用户只有点击“确定”按钮，对话框才会消失。对话框弹出期间，浏览器窗口处于冻结状态，如果不点“确定”按钮，用户什么也干不了。
 
 #### （2）window.prompt()
-`window.prompt()`方法弹出的对话框，提示文字的下方，还有一个输入框，要求用户输入信息，并有“确定”和“取消”两个按钮。它往往用来获取用户输入的数据。
+`window.prompt()`方法弹出的敏捷对话框，提示文字的下方，还有一个输入框，要求用户输入信息，并有“确定”和“取消”两个按钮。它往往用来获取用户输入的数据。
 ```js
 // 参数一：文字提示；参数二（可选，最好提供）：输入框默认值
 // 返回值 - 字符串类型：确定--输入框的值；取消--null
@@ -295,7 +296,7 @@ var result = prompt('您的年龄？', 25)
 - 用户点击了“取消”（或者按了 `ESC` 按钮），则返回值是`null`。
 
 #### （3）window.confirm()
-`window.confirm()`方法弹出的对话框，除了提示信息之外，只有“确定”和“取消”两个按钮，往往用来征询用户是否同意。
+`window.confirm()`方法弹出的确定对话框，除了提示信息之外，只有“确定”和“取消”两个按钮，往往用来征询用户是否同意。
 ```js
 // 返回值result - 布尔值：确定-true；取消-false
 var okay = confirm('Please confirm this message.');
