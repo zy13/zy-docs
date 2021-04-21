@@ -143,7 +143,9 @@ parent.location.href = target + '#' + hash;
 ### 3.2 window.postMessage()
 上面的这种方法属于破解，`HTML5` 为了解决这个问题，引入了一个全新的`API`：跨文档通信 `API`（`Cross-document messaging`）。这个 `API` 为`window`对象新增了一个`window.postMessage`方法，允许跨窗口通信，不论这两个窗口是否同源。
 
-`postMessage`方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（`origin`），即“协议 + 域名 + 端口”。也可以设为`*`，表示不限制域名，向所有窗口发送。
+#### postMessage方法 - 发送消息
+- 第一个参数是具体的信息内容，
+- 第二个参数是接收消息的窗口的源（`origin`），即“协议 + 域名 + 端口”。也可以设为`*`，表示不限制域名，向所有窗口发送。
 
 #### 父窗口向子窗口发消息
 父窗口`aaa.com`向子窗口`bbb.com`发消息，调用`postMessage`方法实现。
@@ -159,7 +161,7 @@ popup.postMessage('Hello World!', 'http://bbb.com');
 window.opener.postMessage('Nice to see you', 'http://aaa.com');
 ```
 
-#### message 事件
+#### message 事件 - 获取消息
 父窗口和子窗口都可以通过`message`事件，监听对方的消息。
 ```js
 // 父窗口和子窗口都可以用下面的代码，
@@ -263,8 +265,8 @@ window.onmessage = function(e) {
 - WebSocket：[link](./6-corsl.html#_4-2-websocket)
 - CORS：[link](./6-corsl.html#_4-3-cors)
 
-### 4.1 JSONP
-`JSONP` 是服务器与客户端跨源通信的常用方法。最大特点就是简单易用，没有兼容性问题，老式浏览器全部支持，服务端改造非常小。`JSONP`只能发`get`请求，它的做法如下。
+### 4.1 JSONP - JSON.parse
+**`JSONP` 是服务器与客户端跨源通信的常用方法。最大特点就是简单易用，没有兼容性问题，老式浏览器全部支持，服务端改造非常小。`JSONP`只能发`get`请求，它的做法如下。**
 
 - **第一步**，网页添加一个`<script>`元素，向服务器请求一个脚本，这不受同源政策限制，可以跨域请求。
 ```html

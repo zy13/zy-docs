@@ -46,10 +46,6 @@ module.exports = {
         text: 'HTTP权威指南',
         link: '/http/'
       },
-      {
-        text: 'IQ',
-        link: '/interviews/'
-      },
       // {text: 'categories', link: '/categories/'},
       // {text: 'components', link: '/components/'},
     ],
@@ -173,9 +169,14 @@ module.exports = {
       '/resource/': [{
         collapsable: false,
         children: [
-          ['1-projects','一、项目'],
-          ['http', '二、HTTP协议'],
-          ['cache', '三、HTTP缓存体系'],
+          // ['1-projects','一、项目'],
+          ['http', '☆-HTTP协议'],
+          ['cache', '☆-HTTP缓存体系'],
+          ['css','☆-CSS&HTML'],
+          ['javascript','☆-JavaScript'],
+          ['react','☆-react'],
+          ['vue','☆-vue'],
+          ['bs','☆-浏览器'],
           // ['frontEnd', '1、前端资源'],
           // ['browser', '2、浏览器相关'],
           // ['javascript', '3、javascript相关'],
@@ -218,24 +219,16 @@ module.exports = {
           ]
         }
       ],
-      '/interviews': [
+      '/http/': [
         {
-          title: '浏览器模型',
+          title: '第一章 HTTP 概述',
           collapsable: true,
           children: [
-            ['1-all', '汇总'],
-            ['2-kkb', '开课吧'],
-            ['3-web', 'web'],
+            ['1-web-base/1-http-intro.md','第1节 HTTP - 因特网的多媒体信使'],
+            // ['2-http-struct']
           ]
         }
       ],
-      '/http': [
-        {
-          title: '浏览器模型',
-          collapsable: true,
-          children: []
-        }
-      ]
       // '/categories/': [
       //   {
       //     title: 'html',
