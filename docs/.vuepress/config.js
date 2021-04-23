@@ -177,6 +177,8 @@ module.exports = {
           ['react','☆-react'],
           ['vue','☆-vue'],
           ['bs','☆-浏览器'],
+          ['http-1','☆-http'],
+          ['coding','☆-手撕代码'],
           // ['frontEnd', '1、前端资源'],
           // ['browser', '2、浏览器相关'],
           // ['javascript', '3、javascript相关'],
