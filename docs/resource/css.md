@@ -1,7 +1,12 @@
 ## css sprites含义及使用
->`CSS Sprites`其实就是把网页中一些背景图片整合到一张图片文件中，再利用`CSS`的`“backgroundimage”`，`“background- repeat”`，`“background-position”`的组合进行背景定位，`background-position`可以用数字能精确的定位出背景图片的位置。
+`CSS Sprites`其实就是把网页中一些背景图片整合到一张图片文件中，再利用`CSS`的
+- `“backgroundimage”`，
+- `“background- repeat”`，
+- `“background-position”`
 
->`CSS Sprites`为一些大型的网站节约了带宽，提高了用户的加载速度和用户体验，不需要加载更
+的组合进行背景定位，`background-position`可以用数字能精确的定位出背景图片的位置。
+
+`CSS Sprites`为一些大型的网站节约了带宽，提高了用户的加载速度和用户体验，不需要加载更
 多的图片。
 
 ## CSS中link和@import的区别

@@ -192,6 +192,13 @@ module.exports = {
       '/algorithm': [],
       '/javascript-wd/': [
         {
+          title: '数据类型',
+          collapsable: false,
+          children: [
+            ['ES5/1-datatype.md','第一节 JavaScript 的基本语法'],
+          ]
+        },
+        {
           title: '事件',
           collapsable: true,
           children: [

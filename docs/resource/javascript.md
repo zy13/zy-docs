@@ -79,7 +79,7 @@ function sum(num1, num2) {
 - 经典的编程语言很少使用原型模式，但作为原型语言的 `JavaScript` 在构造新对象及其原型时使用
 了这个模式。
 
-## ☆-看代码猜结果
+## ☆-基础考察
 下面代码的输出结果是什么?
 ```js
 // 按顺序执行原则
@@ -133,6 +133,179 @@ console.log(isNaN(age));
 // 所以第三个和第四个打印分别是true false；
 // Number.isNaN不同的地方是，他会首先判断传入的值是否为数字类型，如果不是，直接返回
 // false，本题中传入的是字符串类型，所以第一个和第二个打印均为false，故选C。
+```
+以下代码运行输出为
+```js
+var a = [1, 2, 3],
+b = [1, 2, 3],
+c = [1, 2, 4];
+console.log(a == b);
+console.log(a === b);
+console.log(a > c);
+console.log(a < c);
+
+// A: false, false, false, true 
+// B: false, false, false, false 
+// C: true, true, false, true 
+// D: other
+
+// JavaScript中Array的本质也是对象，所以前两个的结果都是false， 而JavaScript中Array的'>'运算
+// 符和'<'运算符的比较方式类似于字符串比较字典序，会从第一个元素开始进行比较，如果一样比
+// 较第二个，还一样就比较第三个，如此类推，所以第三个结果为false，第四个为true。 综上所
+// 述，结果为false, false, false, true，选A
+```
+以下代码运行结果为
+```js
+var val = 'smtg';
+console.log('Value is ' + (val === 'smtg') ? 'Something' : 'Nothing');
+
+// A: Value is Something 
+// B: Value is Nothing 
+// C: NaN 
+// D: other
+
+// 这题考的javascript中的运算符优先级，这里'+'运算符的优先级要高于'?'所以运算符，实际上是
+// 'Value is true'?'Something' : 'Nothing'，当字符串不为空时，转换为bool为true，所以结果
+// 为'Something'，选D
+```
+以下代码运行结果为
+```js
+[,,,].join(", ")
+
+// A: ", , , " 
+// B: "undefined, undefined, undefined, undefined" 
+// C: ", , " 
+// D: ""
+
+// JavaScript中使用字面量创建数组时，如果最末尾有一个逗号’,’，会被省略，所以实际上这个数组
+// 只有三个元素（都是undefined）： console.log([,].length);//输出结果：//3 而三个元素，使用
+// join方法，只需要添加两次，所以结果为", , "，选C
+```
+以下代码运行结果为
+```js
+function sidEffecting(ary) {
+  ary[0] = ary[2];
+}
+function bar(a,b,c) {
+  c = 10
+  sidEffecting(arguments);
+  return a + b + c;
+}
+bar(1,1,1)
+
+// A: 3 
+// B: 12 
+// C: error 
+// D: other
+
+// 这题考的是JS的函数arguments的概念： 在调用函数时，函数内部的arguments维护着传递到这
+// 个函数的参数列表。它看起来是一个数组，但实际上它只是一个有length属性的Object，不从
+// Array.prototype继承。所以无法使用一些Array.prototype的方法。 arguments对象其内部属性
+// 以及函数形参创建getter和setter方法，因此改变形参的值会影响到arguments对象的值，反过来
+// 也是一样 具体例子可以参见Javascript秘密花园#arguments 所以，这里所有的更改都将生效，a
+// 和c的值都为10，a+b+c的值将为21，选D
+```
+以下代码运行结果为
+```js
+var name = 'World!';
+// 立即执行函数
+(function () {
+  if (typeof name === 'undefined') {
+    var name = 'Jack';
+    console.log('Goodbye ' + name);
+  } else {
+    console.log('Hello ' + name);
+  }
+})();
+
+// 等价于
+var name = ‘World!’;
+(function () { 
+  // 作用域中的变量提升
+  var name;//现在还是undefined
+  if (typeof name === 'undefined'){
+    name = 'Jack';
+    console.log('Goodbye ' + name);
+  } else {
+    console.log('Hello ' + name);
+  }
+
+// A: Goodbye Jack 
+// B: Hello Jack 
+// C: Hello undefined 
+// D: Hello World
+
+// 这题考的是javascript作用域中的变量提升，javascript的作用于中使用var定义的变量都会被提升
+// 到所有代码的最前面，这样就很好理解了，typeof name ===
+// ‘undefined’的结果为true，所以最后会输出’Goodbye Jack’，选A
+```
+以下代码运行结果为
+```js
+var a = [0];
+if ([0]) {
+  // 隐式类型转换
+  console.log(a == true);
+} else {
+  console.log("wut");
+}
+
+// A: true 
+// B: false 
+// C: "wut" 
+// D: other
+
+// 同样是一道隐式类型转换的题，不过这次考虑的是’'运算符，a本身是一个长度为1的数组，而当数
+// 组不为空时，其转换成bool值为true。 而左右的转换，会使用如果一个操作值为布尔值，则在比
+// 较之前先将其转换为数值的规则来转换，Number([0])，也就是0，于是变成了0 == true，结果自
+// 然是false，所以最终结果为B
+```
+以下代码运行结果为
+```js
+var ary = Array(3);
+ary[0]=2
+ary.map(function(elem) { return '1'; });
+
+// A: [2, 1, 1] 
+// B: ["1", "1", "1"] 
+// C: [2, "1", "1"] 
+// D: other
+
+// 又是考的Array.prototype.map的用法，map在使用的时候，只有数组中被初始化过元素才会被
+// 触发，其他都是undefined，所以结果为[“1”, undefined ,undefined]，选D
+```
+以下代码运行结果为
+```js
+var a = 111111111111111110000,
+b = 1111;
+console.log(a + b);
+
+// A: 111111111111111111111 
+// B: 111111111111111110000 
+// C: NaN 
+// D: Infinity
+
+// 又是一道考查JavaScript数字的题，由于JavaScript实际上只有一种数字形式IEEE 754标准的64位
+// 双精度浮点数，其所能表示的整数范围为-253~253(包括边界值)。这里的111111111111111110000已
+// 经超过了2^53次方，所以会发生精度丢失的情况。综上选B
+```
+以下代码运行结果为
+```js
+(function(){
+  var x = y = 1;
+})();
+console.log(y);
+console.log(x);
+
+// A: 1, 1 
+// B: error, error 
+// C: 1, error 
+// D: other
+
+// 变量提升和隐式定义全局变量的题，也是一个JavaScript经典的坑… 还是那句话，在作用域内，变
+// 量定义和函数定义会先行提升，所以里面就变成了: (function(){ var x; y = 1; x = 1; })(); 这点会问
+// 了，为什么不是var x, y;，这就是坑的地方…这里只会定义第一个变量x，而y则会通过不使用var
+// 的方式直接使用，于是乎就隐式定义了一个全局变量y 所以，y是全局作用域下，而x则是在函数
+// 内部，结果就为1, error，选C
 ```
 
 ## ☆-其他类型值转换为字符串时的规则

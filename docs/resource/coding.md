@@ -62,3 +62,41 @@ for(let i=0;i<arr.length;i++){
 }
 newArr = Object.values(obj)
 ```
+
+## ♥-JS实现九九乘法表
+```html
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  li{
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  span{
+    display: inline-block;
+    width: 80px;
+    line-height: 28px;
+    background-color: forestgreen;
+    color:greenyellow;
+    margin-right: 10px;
+    text-align: center;
+  }
+</style>
+<body>
+  <ul></ul>
+  <script>
+    // 九九乘法表
+    for(let i=1;i<=9;i++) {
+      let li = document.createElement('li')
+      for(let j=1;j<=i;j++) {
+        let span = document.createElement('span')
+        span.innerHTML = `${j} x ${i} = ${j*i}`
+        li.appendChild(span)
+      }
+      document.querySelector('ul').appendChild(li)
+    }
+  </script>
+</body>
+```
