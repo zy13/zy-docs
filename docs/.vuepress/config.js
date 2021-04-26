@@ -196,6 +196,7 @@ module.exports = {
           collapsable: false,
           children: [
             ['ES5/1-datatype.md','第一节 JavaScript 的基本语法'],
+            ['ES5/2-intro.md','第二节 数据类型概述']
           ]
         },
         {
