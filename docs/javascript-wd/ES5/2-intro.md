@@ -62,7 +62,7 @@ if (typeof v === "undefined") {
 ```
 
 ## 3、instanceof 运算符
-`instanceof`运算符返回一个布尔值，表示对象是否为某个构造函数的实例。它的原理是检查右边构造函数的prototype属性，是否在左边对象的原型链上。
+`instanceof`运算符返回一个布尔值，表示对象是否为某个构造函数的实例。**它的原理是检查右边构造函数的`prototype`属性，是否在左边对象的原型链上。**
 
 **注意**：`instanceof`运算符只能用于对象，不适用原始类型的值。
 ```js
@@ -119,4 +119,135 @@ s instanceof String // false
 undefined instanceof Object // false
 null instanceof Object // false
 ```
-## 2、确定一个值的类型的三种方法
+
+## 4、Object.prototype.toString 方法
+`toString`方法的作用是返回一个对象的字符串形式，默认情况下返回类型字符串。
+```js
+// 对于一个对象调用toString方法，会返回字符串[object Object]，该字符串说明对象的类型
+var o1 = new Object();
+o1.toString() // // "[object Object]"
+
+var o2 = {a:1};
+o2.toString() // "[object Object]"
+```
+字符串`[object Object]`本身没有太大的用处，但是通过自定义`toString`方法，可以让对象在自动类型转换时，得到想要的字符串形式。
+```js
+var obj = new Object();
+obj.toString = function () {
+  return 'hello';
+};
+// 当对象用于字符串加法时，会自动调用toString方法
+obj + ' ' + 'world' // "hello world"
+```
+
+数组、字符串、函数、`Date` 对象都分别部署了自定义的`toString`方法，覆盖了`Object.prototype.toString`方法。
+```js
+// 数组、字符串、函数、Date 对象调用toString方法，并不会返回[object Object]
+// 因为它们都自定义了toString方法，覆盖原始方法。
+
+[1, 2, 3].toString() // "1,2,3"
+
+'123'.toString() // "123"
+
+(function () {
+  return 123;
+}).toString()
+// "function () {
+//   return 123;
+// }"
+
+(new Date()).toString() // "Tue Apr 27 2021 09:29:07 GMT+0800 (中国标准时间)"
+```
+
+### toString() 的应用：判断数据类型
+`Object.prototype.toString`方法返回对象的类型字符串，因此可以用来判断一个值的类型。
+```js
+// 调用空对象的toString方法，结果返回一个字符串object Object
+// 其中第二个Object表示该值的构造函数
+// 十分有用的判断数据类型的方法。
+var obj = {};
+obj.toString() // "[object Object]"
+```
+由于实例对象可能会自定义`toString`方法，覆盖掉`Object.prototype.toString`方法，所以为了得到类型字符串，最好直接使用`Object.prototype.toString`方法。通过函数的`call`方法，可以在任意值上调用这个方法，帮助我们判断这个值的类型。
+```js
+// value值调用Object.prototype.toString方法
+Object.prototype.toString.call(value)
+
+// 不同数据类型返回值
+// 数值：返回[object Number]。
+// 字符串：返回[object String]。
+// 布尔值：返回[object Boolean]。
+// undefined：返回[object Undefined]。
+// null：返回[object Null]。
+// 数组：返回[object Array]。
+// arguments 对象：返回[object Arguments]。
+// 函数：返回[object Function]。
+// Error 对象：返回[object Error]。
+// Date 对象：返回[object Date]。
+// RegExp 对象：返回[object RegExp]。
+// 其他对象：返回[object Object]。
+
+Object.prototype.toString.call(2) // "[object Number]"
+Object.prototype.toString.call('') // "[object String]"
+Object.prototype.toString.call(true) // "[object Boolean]"
+Object.prototype.toString.call(undefined) // "[object Undefined]"
+Object.prototype.toString.call(null) // "[object Null]"
+Object.prototype.toString.call(Math) // "[object Math]"
+Object.prototype.toString.call({}) // "[object Object]"
+Object.prototype.toString.call([]) // "[object Array]"
+```
+`Object.prototype.toString`方法准确度更高的类型判断函数
+```js
+var type = function (o){
+  var s = Object.prototype.toString.call(o);
+  return s.match(/\[object (.*?)\]/)[1].toLowerCase();
+};
+
+type({}); // "object"
+type([]); // "array"
+type(5); // "number"
+type(null); // "null"
+type(); // "undefined"
+type(/abcd/); // "regex"
+type(new Date()); // "date"
+```
+在上面这个`type`函数的基础上，还可以加上专门判断某种类型数据的方法。
+```js
+var type = function (o){
+  var s = Object.prototype.toString.call(o);
+  return s.match(/\[object (.*?)\]/)[1].toLowerCase();
+};
+
+['Null',
+ 'Undefined',
+ 'Object',
+ 'Array',
+ 'String',
+ 'Number',
+ 'Boolean',
+ 'Function',
+ 'RegExp'
+].forEach(function (t) {
+  type['is' + t] = function (o) {
+    return type(o) === t.toLowerCase();
+  };
+});
+
+type.isObject({}) // true
+type.isNumber(NaN) // true
+type.isRegExp(/abc/) // true
+```
+
+## 5、确定一个值的类型的三种方法
+`JavaScript` 有三种方法，可以确定一个值到底是什么类型
+```bash
+- `typeof` 运算符
+- `instanceof` 运算符
+- `Object.prototype.toString` 方法
+```
+- `typeof`运算符可以返回一个**值的数据类型**。
+- `instanceof` 运算符返回一个**布尔值**，且只能用于对象，不适用原始类型的值。
+- `Object.prototype.toString`方法返回**对象的类型字符串**
+  ```js
+  Object.prototype.toString.call(value)
+  ```

@@ -1,4 +1,4 @@
-## 目录
+<!-- ## 目录
 
 ### ECMAScript基础
   - 掌握ES6基本使用
@@ -75,24 +75,22 @@
 ### TypeScript
 ### Vue
 ### React
-## 1、JavaScript
-- ES5
+## 1、JavaScript -->
+<!-- - ES5
 - DOM
-- BOM
+- BOM -->
 ## 课表
-
-- 第一阶段课表
-<enlarge :isZoom='true'><img src="./course-1.png"></enlarge>
-
-- 第二阶段课表
 ### 第一阶段课表
 <enlarge :isZoom='true'><img src="./course-1.png"></enlarge>
 
 ### 第二阶段课表
 <enlarge :isZoom='true'><img src="./course-2.png"></enlarge>
 
-- 第三阶段课表
+### 第三阶段课表
 <enlarge :isZoom='true'><img src="./course-3.png"></enlarge>
 
-- 第四阶段课表
+### 第四阶段课表
 <enlarge :isZoom='true'><img src="./course-4.jpg"></enlarge>
+
+### 第五阶段课表
+<enlarge :isZoom='true'><img src="./course-5.png"></enlarge>

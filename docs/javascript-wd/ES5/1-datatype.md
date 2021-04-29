@@ -174,7 +174,7 @@ a // 1
 ### if 结构
 `if`结构先判断一个表达式的布尔值，然后根据布尔值的真伪，执行不同的语句。
 
-所谓布尔值，指的是 `JavaScript` 的两个特殊值，`true`表示真，`false
+所谓布尔值，指的是 `JavaScript` 的两个特殊值，`true`表示真，`false`
 ```js
 if (布尔值 or 返回布尔值的表达式)
   语句;
@@ -218,7 +218,6 @@ else console.log('world');
 ### switch 结构
 多个`if...else`连在一起使用的时候，可以转为使用更方便的`switch`结构
 ```js
-// 如果所有case都不符合，则执行最后的default部分
 // 如果所有case都不符合，则执行最后的default部分
 switch (fruit) {
   case "banana":

@@ -192,11 +192,16 @@ module.exports = {
       '/algorithm': [],
       '/javascript-wd/': [
         {
-          title: '数据类型',
+          title: '第一章 数据类型',
           collapsable: false,
           children: [
             ['ES5/1-datatype.md','第一节 JavaScript 的基本语法'],
-            ['ES5/2-intro.md','第二节 数据类型概述']
+            ['ES5/2-intro.md','第二节 数据类型概述'],
+            ['ES5/3-null-undefined-boolean.md', '第三节 null, undefined 和 boolean'],
+            ['ES5/4-number.md', '第四节 number 数值'],
+            ['ES5/5-string.md', '第五节 string 字符串'],
+            ['ES5/6-object.md', '第六节 object 对象'],
+            ['ES5/7-function.md', '第七节 function 函数'],
           ]
         },
         {
