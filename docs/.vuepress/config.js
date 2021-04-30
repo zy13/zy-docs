@@ -193,7 +193,7 @@ module.exports = {
       '/javascript-wd/': [
         {
           title: '第一章 数据类型',
-          collapsable: false,
+          collapsable: true,
           children: [
             ['ES5/1-datatype.md','第一节 JavaScript 的基本语法'],
             ['ES5/2-intro.md','第二节 数据类型概述'],
@@ -202,6 +202,16 @@ module.exports = {
             ['ES5/5-string.md', '第五节 string 字符串'],
             ['ES5/6-object.md', '第六节 object 对象'],
             ['ES5/7-function.md', '第七节 function 函数'],
+            ['ES5/8-array.md', '第八节 array 数组'],
+          ]
+        },
+        {
+          title: '第二章 运算符',
+          collapsable: true,
+          children: [
+            ['operator/1-algorism.md','第一节 算术运算符'],
+            ['operator/2-comparison.md','第二节 比较运算符'],
+            ['operator/3-boolean.md','第三节 布尔运算符'],
           ]
         },
         {

@@ -136,7 +136,7 @@ s.length // 5
 ```
 
 ## 5、字符集
-`JavaScript` 使用 `Unicode`（万国码；统一码；字符） 字符集。`JavaScript` 引擎内部，所有字符都用 `Unicode` 表示。
+`JavaScript` 使用 `Unicode`（统一码） 字符集。**`JavaScript` 引擎内部，所有字符都用 `Unicode` 表示**。
 
 `JavaScript` 不仅以 `Unicode` 储存字符，还允许直接在程序中使用 `Unicode` 码点表示字符，即将字符写成`\uxxxx`的形式，其中`xxxx`代表该字符的 `Unicode` 码点。
 - 解析代码的时候，`JavaScript` 会自动识别一个字符是字面形式表示，还是 `Unicode` 形式表示。输出给用户的时候，所有字符都会转成字面形式。
