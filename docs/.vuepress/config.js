@@ -195,23 +195,32 @@ module.exports = {
           title: '第一章 数据类型',
           collapsable: true,
           children: [
-            ['ES5/1-datatype.md','第一节 JavaScript 的基本语法'],
-            ['ES5/2-intro.md','第二节 数据类型概述'],
-            ['ES5/3-null-undefined-boolean.md', '第三节 null, undefined 和 boolean'],
-            ['ES5/4-number.md', '第四节 number 数值'],
-            ['ES5/5-string.md', '第五节 string 字符串'],
-            ['ES5/6-object.md', '第六节 object 对象'],
-            ['ES5/7-function.md', '第七节 function 函数'],
-            ['ES5/8-array.md', '第八节 array 数组'],
+            ['1-ES5/1-datatype.md','第一节 JavaScript 的基本语法'],
+            ['1-ES5/2-intro.md','第二节 数据类型概述'],
+            ['1-ES5/3-null-undefined-boolean.md', '第三节 null, undefined 和 boolean'],
+            ['1-ES5/4-number.md', '第四节 number 数值'],
+            ['1-ES5/5-string.md', '第五节 string 字符串'],
+            ['1-ES5/6-object.md', '第六节 object 对象'],
+            ['1-ES5/7-function.md', '第七节 function 函数'],
+            ['1-ES5/8-array.md', '第八节 array 数组'],
           ]
         },
         {
           title: '第二章 运算符',
           collapsable: true,
           children: [
-            ['operator/1-algorism.md','第一节 算术运算符'],
-            ['operator/2-comparison.md','第二节 比较运算符'],
-            ['operator/3-boolean.md','第三节 布尔运算符'],
+            ['2-operator/1-algorism.md','第一节 算术运算符'],
+            ['2-operator/2-comparison.md','第二节 比较运算符'],
+            ['2-operator/3-boolean.md','第三节 布尔运算符'],
+            ['2-operator/4-binary.md','第四节 二进制位运算符'],
+            ['2-operator/5-other.md','第五节 其它运算符，运算顺序'],
+          ]
+        },
+        {
+          title: '第三章 语法专题',
+          collapsable: true,
+          children: [
+            ['3-syntax/1-type-toggle.md','第一节 数据类型的转换 - ♥']
           ]
         },
         {
