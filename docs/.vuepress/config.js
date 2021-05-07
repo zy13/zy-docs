@@ -220,7 +220,18 @@ module.exports = {
           title: '第三章 语法专题',
           collapsable: true,
           children: [
-            ['3-syntax/1-type-toggle.md','第一节 数据类型的转换 - ♥']
+            ['3-syntax/1-type-toggle.md','第一节 数据类型的转换 - ♥'],
+            ['3-syntax/2-error.md','第二节 错误处理机制'],
+            ['3-syntax/3-coding-style.md','第三节 编程风格'],
+            ['3-syntax/4-console.md','第四节 console 对象与控制台'],
+          ]
+        },
+        {
+          title: '第四章 标准库',
+          collapsable: true,
+          children: [
+            ['4-standard/1-object.md','第一节 Object对象'],
+            ['4-standard/2-object.md','第二节 属性描述对象'],
           ]
         },
         {
