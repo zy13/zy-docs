@@ -232,6 +232,8 @@ module.exports = {
           children: [
             ['4-standard/1-object.md','第一节 Object对象'],
             ['4-standard/2-object.md','第二节 属性描述对象'],
+            ['4-standard/3-array.md','第三节 Array对象'],
+            ['4-standard/4-packing.md','第四节 包装对象'],
           ]
         },
         {
