@@ -235,6 +235,9 @@ module.exports = {
             ['4-standard/3-array.md','第三节 Array对象'],
             ['4-standard/4-packing.md','第四节 包装对象'],
             ['4-standard/5-boolean.md','第五节 Boolean对象'],
+            ['4-standard/6-number.md','第六节 Number对象'],
+            ['4-standard/7-string.md','第七节 String对象'],
+            ['4-standard/8-math.md','第八节 Math对象'],
           ]
         },
         {
