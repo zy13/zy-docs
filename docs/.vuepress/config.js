@@ -238,6 +238,8 @@ module.exports = {
             ['4-standard/6-number.md','第六节 Number对象'],
             ['4-standard/7-string.md','第七节 String对象'],
             ['4-standard/8-math.md','第八节 Math对象'],
+            ['4-standard/9-date.md','第九节 Date对象'],
+            ['4-standard/10-regexp.md','第十节 RegExp对象'],
           ]
         },
         {

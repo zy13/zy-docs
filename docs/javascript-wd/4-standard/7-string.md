@@ -228,17 +228,19 @@ one + two + three // "33"
 // 返回的数组还有index属性和input属性
 // 别表示匹配字符串开始的位置和原始字符串。
 var matches = 'cat, bat, sat, fat'.match('at');
+matches // ["at", index: 1, input: "cat, bat, sat, fat", groups: undefined]
 matches.index // 1
 matches.input // "cat, bat, sat, fat"
 
 // match方法还可以使用正则表达式作为参数
 // 参数为正则表达式
 // 返回一个数组
-// 数组成员为匹配的第一个或者多个字符串，取决于匹配规则
-// 若是返回多个数组，则没有index属性和input属性
-var matches = 'cat, bat, sat, fat'.match(/at/g) // ["at", "at", "at", "at"]
-matches.index // undefined
-matches.input // undefined
+// 数组成员为匹配的第一个或者多个字符串，取决于正则表达式匹配的修饰符
+// 若是修饰符为g，则返回的数组没有index属性和input属性
+var matches1 = 'cat, bat, sat, fat'.match(/at/)
+var matches2 = 'cat, bat, sat, fat'.match(/at/g)
+matches1 // ["at", index: 1, input: "cat, bat, sat, fat", groups: undefined]
+matches2 // ["at", "at", "at", "at"]
 ```
 
 ## 13、String.prototype.search()，String.prototype.replace()
