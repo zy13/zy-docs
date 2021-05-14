@@ -240,6 +240,15 @@ module.exports = {
             ['4-standard/8-math.md','第八节 Math对象'],
             ['4-standard/9-date.md','第九节 Date对象'],
             ['4-standard/10-regexp.md','第十节 RegExp对象'],
+            ['4-standard/11-json.md','第十一节 JSON对象'],
+          ]
+        },
+        {
+          title: '第五章 面向对象编程',
+          collapsable: true,
+          children: [
+            ['5-oop/1-instance-object.md', '第一节 实例对象和new命令'],
+            ['5-oop/2-this.md', '第二节 this关键字 - ♥'],
           ]
         },
         {
