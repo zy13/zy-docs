@@ -165,10 +165,18 @@ module.exports = {
             ['14-react/3-react-base.md', '第3节 react基础-2'],
           ]
         },
+        {
+          title: '第十八章 移动端专题',
+          collapsable: true,
+          children: [
+            ['18-mobile/1-mobile.md','第1节 移动端-适配'],
+          ]
+        }
       ],
       '/resource/': [{
         collapsable: false,
         children: [
+          ['link','线上资源链接'],
           // ['1-projects','一、项目'],
           ['http', '☆-HTTP协议'],
           ['cache', '☆-HTTP缓存体系'],
