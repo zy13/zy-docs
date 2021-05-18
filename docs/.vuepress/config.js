@@ -176,7 +176,7 @@ module.exports = {
       '/resource/': [{
         collapsable: false,
         children: [
-          ['link','线上资源链接'],
+          ['link','☆-线上资源链接'],
           // ['1-projects','一、项目'],
           ['http', '☆-HTTP协议'],
           ['cache', '☆-HTTP缓存体系'],

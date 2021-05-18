@@ -333,6 +333,8 @@ chrome默认width=964px;margin:8px; -->
 - `flex`让所有弹性盒模型对象的子元素都有相同的长度，且忽略它们内部的内容，用于设置或检索弹性盒模型对象的子元素如何分配空间。
 - 在`Flex`布局中，`flex`子元素的设置`float`，`clear`以及`vertical-align`属性都是没有用的。
 ### 作用在父级身上的属性
+- 当子项多行显示时，`align-items`失效，因为其只针对单行
+- 用`flex-wrap`可以控制子项单行或多行显示
 ```js
 /*用来控制子项整体布局方向，是从左往右还是从右往左，是从上往下还是从下往上。*/
 `flex-direction`: row | row-reverse | column | column-reverse;
@@ -354,8 +356,18 @@ chrome默认width=964px;margin:8px; -->
 `align-content`: stretch | flex-start | flex-end | center | 
                  space-between | space-around | space-evenly;
 ```
->![flex-direction](./imgs/6-flex-direction.drawio.png)
+![flex-direction](./imgs/6-flex-direction.drawio.png)
 
+![align-content](./imgs/7-align-content.drawio.png)
+
+**单行子项水平垂直都居中**
+```css
+.box{
+  display: flex;
+  justity-content: space-evenly|space-between|center;
+  align-items: center
+}
+```
 ### 作用在子级身上的属性
 ```js
 /* 数值，默认值是 1 */
@@ -388,4 +400,75 @@ chrome默认width=964px;margin:8px; -->
 `flex`: none | auto | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
 
 `align-self`: auto | flex-start | flex-end | center | baseline | stretch;
+```
+
+## 7、flex案例
+![flex](./imgs/8-flex.png)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+    }
+    html {
+      font-size: 4vw;
+      /*750/@rem 30/@rem*/
+    }
+    html .box {
+      width: 25rem;
+      height: 18.46666667rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-content: space-around;
+      border-bottom: 0.06666667rem solid #eee;
+    }
+    html .box .item {
+      width: 5.33333333rem;
+      height: 5.33333333rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+</body>
+</html>
+````
+
+```less
+*{
+  margin: 0;
+}
+@rem: 30rem/2; // dpr:2.0
+html{
+  font-size: 4vw; /*750/@rem 30/@rem*/
+  .box{
+    width: 25rem;
+    height: (277/@rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    border-bottom: (1/@rem) solid #eee;
+    .item{
+      width: (80/@rem);
+      height: (80/@rem);
+    }
+  }
+}
 ```
