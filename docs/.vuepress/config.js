@@ -170,6 +170,7 @@ module.exports = {
           collapsable: true,
           children: [
             ['18-mobile/1-mobile.md','第1节 移动端-适配'],
+            ['18-mobile/2-mobile-event.md','第2节 移动端-事件'],
           ]
         }
       ],
