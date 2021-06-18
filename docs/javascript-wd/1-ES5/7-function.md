@@ -575,10 +575,12 @@ p1.setAge(25);
 p1.getAge() // 25
 ```
 
-## 18、立即调用的函数表达式（IIFE）- ♥
-根据 `JavaScript` 的语法，圆括号`()`跟在函数名之后，表示调用该函数。比如，`print()`就表示调用`print`函数。
+## 18、立即执行函数表达式（IIFE）- ♥
+(IIFE, Immediately-Invoked Function Expression)
+
+根据 `JavaScript` 的语法，**圆括号`()`跟在函数名之后，表示调用该函数**。比如，`print()`就表示调用`print`函数。
 - 有时，我们需要在定义函数之后，立即调用该函数。这时，你不能在函数的定义之后加上圆括号，这会产生语法错误。
-- 产生这个错误的原因是，`function`这个关键字**既可以当作语句，也可以当作表达式**。
+- 产生这个错误的原因是，**`function`这个关键字既可以当作语句，也可以当作表达式**。
 - **当作表达式时，函数可以定义后直接加圆括号调用，引擎就把函数定义当作一个值**。
 ```js
 function(){ /* code */ }(); // SyntaxError: Function statements require a function name

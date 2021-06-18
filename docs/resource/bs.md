@@ -140,5 +140,108 @@
     - 如果一致，继续校验 **Last-Modified**，没有设置 **ETag** 则直接验证 **Last-Modified**，再决定是否返回 **304**
     
     ![img](./imgs/storage.png)
+## ☆-跨域
+因为浏览器出于安全考虑，有同源策略。也就是说，如果**协议、域名或者端口**有一个不同就是跨域，
+Ajax 请求会失败。防止CSRF攻击。 
+### 1.JSONP 
+JSONP的原理很简单，就是利用`<script></script>`标签没有跨域限制的漏洞。 通过`<script></script>`标签指向一个需要访问的地址并提供一个回调函数来接收数据当需要通讯时。
+```html
+<!-- JSONP 使用简单且兼容性不错，但是只限于 get 请求。 -->
+<script>
+  function jsonp(data) {
+    console.log(data)
+  }
+</script>
+```
+
+### 2. CORS
+CORS 需要浏览器和后端同时支持。IE 8 和 9 需要通过 `XDomainRequest` 来实现。
+
+### 3. document.domain
+该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
+
+### 4. webpack配置proxyTable设置开发环境跨域
+
+### 5. nginx代理跨域
+
+### 6. iframe跨域
+
+### 7. postMessage
+这种方式通常用于获取嵌入页面中的第三方页面数据。一个页面发送消息，另一个页面判断来源并接收消息
+
+## ☆-前端性能优化
+三个方面来说明前端性能优化：
+
+### 一： webapck优化与开启gzip压缩
+- 1.babel-loader用 include 或 exclude来帮我们避免不必要的转译，不转译node_moudules中的js文件 其次在缓存当前转译的js文件，设置
+loader: 'babel-loader?cacheDirectory=true' 
+- 2.文件采用按需加载等等 
+- 3.具体的做法非常简单，只需要你在你的 request headers 中加上这么一句： accept-encoding:gzip 
+- 4.图片优化，采用svg图片或者字体图标 
+- 5.浏览器缓存机制，它又分为强缓存和协商缓存
+### 二：本地存储
+从 Cookie 到 Web Storage、IndexedDB 说明一下SessionStorage和localStorage还有cookie的区别和优缺点
+
+### 三：代码优化 
+- 1.事件代理 
+- 2.事件的节流和防抖 
+- 3.页面的回流和重绘 
+- 4.EventLoop事件循环机制
+- 5.代码优化等等
+
+## ☆-移动端性能优化
+- 尽量使用css3动画，开启硬件加速
+- 适当使用touch时间代替click时间
+- 避免使用css3渐变阴影效果
+- 可以用transform: translateZ(0) 来开启硬件加速
+- 不滥用float。float在渲染时计算量比较大，尽量减少使用
+- 不滥用web字体。web字体需要下载，解析，重绘当前页面
+- 合理使用requestAnimationFrame动画代替setTimeout
+- css中的属性（css3 transitions、css3 3D transforms、opacity、webGL、video）会触发GUP渲
+染，耗电
+
+## ☆-浏览器缓存
+缓存可以减少网络 IO 消耗，提高访问速度。
+
+浏览器缓存是一种操作简单、效果显著的前端性能优化手段 
+
+很多时候，大家倾向于将浏览器缓存简单地理解为“HTTP 缓存”。 
+
+但事实上，浏览器缓存机制有四个方面，它们按照获取资源时请求的优先级依次排列如下：
+- Memory Cache
+- Service Worker Cache
+- HTTP Cache
+- Push Cache
+
+缓存它又分为强缓存和协商缓存。优先级较高的是强缓存，在命中强缓存失败的情况下，才会走协商缓
+存
+- **实现强缓存**：过去我们一直用 expires。当服务器返回响应时，在 Response Headers 中将过期时
+间写入 expires 字段，现在一般使用Cache-Control 两者同时出现使用Cache-Control
+- **协商缓存**：Last-Modified 是一个时间戳，如果我们启用了协商缓存，它会在首次请求时随着
+Response Headers 返回：每次请求去判断这个时间戳是否发生变化。从而去决定你是304读取缓
+存还是给你返回最新的数据。
+
+## ☆-websocket和ajax轮询
+
+- **websocket**是html5中提出的新的协议，可以实现客户端与服务器的通信，实现服务器的推送功能
+- 优点是，只要经过一次连接，就可以连续不断的得到服务器推送消息，节省带宽和服务器端的压力
+- **ajax轮询**模拟常连接就是每隔一段时间（0.5s）就向服务器发起ajax请求，查询服务器是否有数据更新
+- 缺点就是，每次都要建立HTTP连接，即使需要传输的数据非常少，浪费带宽
+
+## 回流（Reflow）与重绘（Repaint）
+
+**回流**：当我们对 DOM 的修改引发了 DOM 几何尺寸的变化（比如修改元素的宽、高或隐藏元素
+等）时，浏览器需要重新计算元素的几何属性（其他元素的几何属性和位置也会因此受到影
+响），然后再将计算的结果绘制出来。这个过程就是回流（**也叫重排**）。
+
+**重绘**：当我们对 DOM 的修改导致了样式的变化、却并未影响其几何属性（比如修改了颜色或背
+景色）时，浏览器不需重新计算元素的几何属性、直接为该元素绘制新的样式（跳过了上图所示
+的回流环节）。这个过程叫做重绘。
+
+**重绘不一定导致回流，回流一定会导致重绘**
+
+硬要比较的话，回流比重绘做的事情更多，带来的开销也更大。但这两个说到底都是吃性能的，
+所以都不是什么善茬。我们在开发中，要从代码层面出发，尽可能把回流和重绘的次数最小化
+
 
 

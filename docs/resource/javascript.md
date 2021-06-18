@@ -751,4 +751,531 @@ window.onscroll = thottle(fn, delay)
 - `Window.onload`网页资源加载完毕后触发，包括`html`、`js`、`css`、图片等
 - `DOMContentLoaded`只要`DOM`结构加载完成后就触发
 
+## 使用Promise实现红绿灯交替重复亮
+红灯3秒亮一次，黄灯2秒亮一次，绿灯1秒亮一次；如何让三个灯不断交替重复亮灯？（用Promise实
+现）
+
+红灯3秒亮一次，绿灯1秒亮一次 ，黄灯2秒亮一次，意思就是3秒执行一次`red`函数，2秒执行一次
+`gree`n函数，1秒执行一次`yellow`函数，不断交替重复亮灯，意思就是按照这个顺序一直执行这3
+个函数，这步可以利用递归来实现。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="stop">停止</button>
+  <button class="start">开始</button>
+  <script>
+    function red() {
+      console.log('red')
+    }
+    function yellow() {
+      console.log('yellow')
+    }
+    function green() {
+      console.log('green')
+    }
+    let timer = null
+    var light = function(delay, cb)  {
+      return new Promise(function(resolve, reject){
+        timer = setTimeout(function(){
+          cb()
+          resolve()
+        }, delay)
+      })
+    }
+    const step = function() {
+      Promise.resolve().then(() => {
+        return light(3000, red)
+      }).then(() => {
+        return light(2000, yellow)
+      }).then(() => {
+        return light(1000, green)
+      }).then(()=>{
+        step()
+      })
+    }
+    step()
+    document.querySelector('.stop').onclick = function() {
+      if(timer) {
+        clearTimeout(timer)
+      }
+    }
+    document.querySelector('.start').onclick = function() {
+      step()
+    }
+  </script>
+</body>
+</html>
+```
+
+## 为什么在 JavaScript中比较两个相似的对象时返回 false
+```js
+let a = { a: 1 };
+let b = { a: 1 };
+let c = a;
+console.log(a === b); // 打印 false，即使它们有相同的属性
+console.log(a == b); // false
+console.log(a === c); // true
+```
+
+`JavaScript` 以不同的方式比较对象和基本类型。
+- 在基本类型中，`JavaScript` 通过值对它们进行比较，
+- 而在对象中，`JavaScript` 通过引用或存储变量的内存中的地址对它们进行比较。
+
+这就是为什么第一个和第二个 `console.log` 语句返回 `false` ，而第二个 `console.log` 语句返回 `true` 。 `a`和 `c` 有相同的引用地址，而 `a `和 `b` 没有。
+
+## 为什么在调用这个函数时，代码中的b 会变成一个全局变量?
+```js
+function myFunc() {
+  let a = b = 0;
+}
+myFunc();
+```
+原因是赋值运算符是从右到左的求值的。这意味着当多个赋值运算符出现在一个表达式中时，它
+们是从右向左求值的。所以上面代码变成了这样：
+```js
+function myFunc() {
+let a = (b = 0);
+}
+myFunc();
+```
+首先，表达式 b = 0 求值，在本例中 b 没有声明。因此，JavaScript 引擎在这个函数外创建了一
+个全局变量 b ，之后表达式 b = 0 的返回值为 0 ，并赋给新的局部变量 a 。
+
+以通过在赋值之前先声明变量来解决这个问题。
+```js
+function myFunc() {
+  let a,b;
+  a = b = 0;
+}
+myFunc();
+```
+
+## var , let 和const 的区别是什么？
+- （1） var 声明的变量会挂载在 window 上，而 let 和 const 声明的变量不会：
+```js
+var a = 100;
+console.log(a,window.a); // 100 100
+let b = 10;
+console.log(b,window.b); // 10 undefined
+const c = 1;
+console.log(c,window.c); // 1 undefined
+```
+- （2） var 声明变量存在变量提升， let 和 const 不存在变量提升:
+```js
+console.log(a); // undefined ===> a已声明还没赋值，默认得到undefined值
+var a = 100;
+console.log(b);
+// 报错：Cannot access 'b' before initialization
+// => 无法在初始化之前访问“b”
+let b = 10;
+console.log(c);
+// 报错：Cannot access 'c' before initialization
+const c = 10;
+```
+（3） let 和 const 声明形成块作用域
+```js
+if(1){
+var a = 100;
+let b = 10;
+}
+console.log(a); // 100
+console.log(b) // 报错：b is not defined ===> 找不到b这个变量
+
+// ------------------
+if(1){
+var a = 100;
+const c = 1;
+}
+console.log(a); // 100
+console.log(c) // 报错：c is not defined ===> 找不到c这个变量
+```
+（4）同一作用域下 let 和 const 不能声明同名变量，而 var 可以
+```js
+var a = 100;
+console.log(a); // 100
+var a = 10;
+console.log(a); // 10
+-------------------------------------
+let a = 100;
+let a = 10;
+// 控制台报错：Identifier 'a' has already been declared ===> 标识符a已经被声明
+了。
+
+```
+（5）暂存死区
+```js
+var a = 100;
+if(1){
+  a = 10;
+  // 在当前块作用域中存在a使用let/const声明的情况下，给a赋值10时，只会在当前作用域找变量a，
+  // 而这时，还未到声明时候，所以控制台Cannot access 'a' before initialization
+  let a = 1;
+}
+```
+(6) const
+```js
+/*
+* 1、一旦声明必须赋值,不能使用null占位。
+* 2、声明后不能再修改
+* 3、如果声明的是复合类型数据，可以修改其属性
+*
+*/
+const a = 100;
+const list = [];
+list[0] = 10;
+console.log(list); // [10]
+const obj = {a:100};
+obj.name = 'apple';
+obj.a = 10000;
+console.log(obj);&emsp;&emsp;// {a:10000,name:'apple'}
+```
+
+## 手撕代码
+
+### 使用Promise实现红绿灯交替重复亮
+红灯3秒亮一次，黄灯2秒亮一次，绿灯1秒亮一次；如何让三个灯不断交替重复亮灯？（用Promise实
+现），三个亮灯函数已经存在：
+```js
+function red() {
+  console.log('red');
+}
+function green() {
+  console.log('green');
+}
+function yellow() {
+  console.log('yellow');
+}
+```
+解析：红灯3秒亮一次，黄灯2秒亮一次，绿灯1秒亮一次，意思就是3秒执行一次red函数，2秒执行一次
+green函数，1秒执行一次yellow函数；不断交替重复亮灯，思就是按照这个顺序一直执行这3
+个函数，这步可以利用递归来实现。
+```js
+function red() {
+  console.log('red');
+}
+function green() {
+  console.log('green');
+}
+function yellow() {
+  console.log('yellow');
+}
+function light(fn, delay) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      fn()
+      resolve()
+    }, delay)
+  })
+}
+function step() {
+  Promise.resolve().then(() => {
+    return light(red, 3000)
+  }).then(() => {
+    return light(yellow, 2000)
+  }).then(() => {
+    return light(green, 1000)
+  }).then(() => {
+    step()
+  })
+}
+
+step()
+```
+###  请实现一个方法将data结构转换为tree结构。
+```js
+let data = [
+  {"parent_id": null, "id": 'a', 'value': 'xxxx'},
+  {"parent_id": 'a', "id": 'c', 'value': 'xxxx'},
+  {"parent_id": 'd', "id": 'f', 'value': 'xxxx'},
+  {"parent_id": 'c', "id": 'e', 'value': 'xxxx'},
+  {"parent_id": 'b', "id": 'd', 'value': 'xxxx'},
+  {"parent_id": 'a', "id": 'b', 'value': 'xxxx'},
+];
+let tree = {
+  'a': {
+    value: 'xxxx',
+    children: {
+      'b': {
+        value: 'xxxx',
+        children: {
+          'd': {
+            value: 'xxxx',
+            children: {
+              'f': {
+                value: 'xxxx'
+              }
+            }
+          }
+        }
+      },
+      'c': {
+        value: 'xxxx',
+        children: {
+          'e': {
+            value: 'xxxx'
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```js
+// 参考
+// 法将data结构转换为tree结构
+let data = [
+  {"parent_id": null, "id": 'a', 'value': 'xxxx'},
+  {"parent_id": 'a', "id": 'c', 'value': 'xxxx'},
+  {"parent_id": 'd', "id": 'f', 'value': 'xxxx'},
+  {"parent_id": 'c', "id": 'e', 'value': 'xxxx'},
+  {"parent_id": 'b', "id": 'd', 'value': 'xxxx'},
+  {"parent_id": 'a', "id": 'b', 'value': 'xxxx'},
+];
+function dataToTree(data){
+  let tree = {}
+  data.filter(item => !item.parent_id).forEach(item => {
+    tree[item.id] = {
+      value: item.value
+    }
+  })
+  function loop(tree) {
+    Object.keys(tree).forEach(key=>{
+      let newData = data.filter(item => item.parent_id === key)
+      if(newData.length) {
+        newData.forEach(item => {
+          tree[key].children = tree[key].children || {}
+          tree[key].children[item.id] = {
+            value: item.value
+          }
+          loop(tree[key].children)
+        })
+      }
+    })
+  }
+  loop(tree)
+  console.log(tree);
+  return tree
+}
+dataToTree(data)
+```
+## 基础题
+
+**为什么在 JavaScript中比较两个相似的对象时返回 false?**
+```js
+let a = { a: 1 };
+let b = { a: 1 };
+let c = a;
+console.log(a === b); // 打印 false，即使它们有相同的属性
+console.log(a == b); // false
+console.log(a === c); // true
+
+
+// 解析：
+// JavaScript 以不同的方式比较对象和基本类型。
+// 在基本类型中，JavaScript 通过值对它们进行比较，
+// 而在对象中，JavaScript 通过引用或存储变量的内存中的地址对它们进行比较。
+// 这就是为什么第一个和第二个 console.log 语句返回 false ，而第二个 console.log 语句返回 true.
+// a 和 c 有相同的引用地址，而 a 和 b 没有。
+```
+
+**为什么在调用这个函数时，代码中的b 会变成一个全局变量?**
+```js
+function myFunc() {
+  let a = b = 0;
+}
+myFunc();
+```
+```js
+// 解析：
+// 原因是赋值运算符是从右到左的求值的。这意味着当多个赋值运算符出现在一个表达式中时，它
+// 们是从右向左求值的。所以上面代码变成了这样：
+function myFunc() {
+let a = (b = 0);
+}
+myFunc();
+
+// 首先，表达式 b = 0 求值，在本例中 b 没有声明。因此，JavaScript 引擎在这个函数外创建了一
+// 个全局变量 b ，之后表达式 b = 0 的返回值为 0 ，并赋给新的局部变量 a 。
+
+// 可以通过在赋值之前先声明变量来解决这个问题。
+function myFunc() {
+let a,b;
+a = b = 0;
+}
+myFunc();
+```
+**var , let 和const 的区别是什么？**
+```js
+// （1） var 声明的变量会挂载在 window 上，而 let 和 const 声明的变量不会：
+
+var a = 100;
+console.log(a,window.a); // 100 100
+let b = 10;
+console.log(b,window.b); // 10 undefined
+const c = 1;
+console.log(c,window.c); // 1 undefined
+
+// （2） var 声明变量存在变量提升， let 和 const 不存在变量提升:
+
+console.log(a); // undefined ===> a已声明还没赋值，默认得到undefined值
+var a = 100;
+console.log(b);
+// 报错：Cannot access 'b' before initialization
+// => 无法在初始化之前访问“b”
+let b = 10;
+console.log(c);
+// 报错：Cannot access 'c' before initialization
+const c = 10;
+
+// （3） let 和 const 声明形成块作用域
+
+if(1){
+  var a = 100;
+  let b = 10;
+  const c = 1;
+}
+console.log(a); // 100
+console.log(b) // 报错：b is not defined ===> 找不到b这个变量
+console.log(c) // 报错：c is not defined ===> 找不到c这个变量
+
+// （4）同一作用域下 let 和 const 不能声明同名变量，而 var 可以
+
+var a = 100;
+console.log(a); // 100
+var a = 10;
+console.log(a); // 10
+// -------------------------------------
+let a = 100;
+let a = 10; // 控制台报错：Identifier 'a' has already been declared ===> 标识符a已经被声明了。
+
+// （5）暂存死区
+
+var a = 100;
+if(1){
+  a = 10;
+  // 在当前块作用域中存在a使用let/const声明的情况下，给a赋值10时，只会在当前作用域找变量a，
+  // 而这时，还未到声明时候，所以控制台Cannot access 'a' before initialization
+  let a = 1;
+}
+
+
+// （6） const
+
+/*
+* 1、一旦声明必须赋值,不能使用null占位。
+* 2、声明后不能再修改
+* 3、如果声明的是复合类型数据，可以修改其属性
+*
+*/
+const a = 100;
+
+const list = [];
+list[0] = 10;
+console.log(list); // [10]
+
+const obj = {a:100};
+obj.name = 'apple';
+obj.a = 10000;
+console.log(obj);&emsp;&emsp;// {a:10000,name:'apple'}
+```
+**什么时候不使用箭头函数? 说出三个或更多的例子？**
+```
+（1）当想要函数被提升时(箭头函数是匿名的)
+（2）要在函数中使用 this/arguments 时，由于箭头函数本身不具有 this/arguments ，
+     因此它们取决于外部上下文
+（3）使用命名函数(箭头函数是匿名的)
+（4）使用函数作为构造函数时(箭头函数没有构造函数)
+（5）当想在对象字面是以将函数作为属性添加并在其中使用对象时，因为咱们无法访问 this，即对象本身。
+```
+**Object.freeze() 和 const 的区别是什么？**
+```js
+// （1）const 和 Object.freeze 是两个完全不同的概念。
+// （2）const 声明一个只读的变量，一旦声明，常量的值就不可改变：
+const person = {
+  name: "Leonardo"
+};
+let animal = {
+  species: "snake"
+};
+person = animal; // ERROR "person" is read-only
+
+// Object.freeze 适用于值，更具体地说，适用于对象值，它使对象不可变，即不能更改其属性
+let person = {
+  name: "Leonardo"
+};
+let animal = {
+  species: "snake"
+};
+Object.freeze(person);
+person.name = "Lima"; //TypeError: Cannot assign to read only property
+'name' of object
+console.log(person);
+```
+**如何在 JS 中创建对象**
+```js
+// （1）使用对象字面量：
+let obj = {
+name:"张三",
+}
+console.log(obj); // {name: "张三"}
+
+// （2）使用构造函数：
+let obj = new Object();
+obj.name = "张三";
+console.log(obj); // {name: "张三"}
+
+// （3）使用 Object.create 方法：
+let obj = Object.create({
+name:"张三",
+});
+console.log(obj.name); // 张三
+```
+**{} 和 [] 的 valueOf 和 toString 的结果是什么？**
+```
+{} 的 valueOf 结果为 {} ，toString 的结果为 "[object Object]"
+[] 的 valueOf 结果为 [] ，toString 的结果为 ""
+```
+```js
+function fn(n, o) {
+  console.log(o);
+  return {
+    fn: function (m) {
+      return fn(m, n);
+    }
+  }
+}
+fn(0).fn(1).fn(2).fn(3); // =>?
+
+// 这块连续调用.fn只是一个迷惑作用，其实可以看做打印值都是上一次调用的传参，第一次调用没有第二
+// 个参数，所以首先打印一个undefined，之后每次打印都是前一次的参数，所以输出结果应该是
+// undefined 0 1 2。
+
+```
+## js垃圾回收方法
+
+**标记清除（mark and sweep）**
+- 这是JavaScript最常见的垃圾回收方式，当变量进入执行环境的时候，比如函数中声明一个变量，
+垃圾回收器将其标记为“进入环境”，当变量离开环境的时候（函数执行结束）将其标记为“离开环境”。
+- 垃圾回收器会在运行的时候给存储在内存中的所有变量加上标记，然后去掉环境中的变量以及被环境中变量所引用的变量（闭包），在这些完成之后仍存在标记的就是要删除的变量了
+
+**引用计数(reference counting)**
+- 在低版本IE中经常会出现内存泄露，很多时候就是因为其采用**引用计数**方式进行垃圾回收。
+- **引用计数的策略**是跟踪记录每个值被使用的次数，当声明了一个变量并将一个引用类型赋值给该变量的时候这个值的引用次数就加1，如果该变量的值变成了另外一个，则这个值得引用次数减1，当这个值的引用次数变为0的时候，说明没有变量在使用，这个值没法被访问了，因此可以将其占用的空间回收，这样**垃圾回收器会在运行的时候清理掉引用次数为0的值占用的空间**。
+- 在IE中虽然JavaScript对象通过**标记清除**的方式进行垃圾回收，但BOM与DOM对象却是通过**引用计数**回收垃圾的，也就是说只要涉及BOM及DOM就会出现循环引用问题。
+
+## 原型
+
+- 所有的函数数据类型都天生自带一个`prototype`属性
+- 该属性的属性值是一个对象 `prototype`的属性值中天生自带一个`constructor`属性
+- 其`constructor`属性值指向当前原型所属的, 类所有的对象数据类型，都天生自带一个`proto`属性，
+- 该属性的属性值指向当前实例所属类的原型
 

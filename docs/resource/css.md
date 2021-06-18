@@ -1,4 +1,19 @@
-## css sprites含义及使用
+## 1、浏览器是怎样解析CSS选择器的？
+
+1. `CSS`选择器的解析是**从右向左**解析的。
+2. 若**从左向右**的匹配，发现不符合规则，需要进行回溯，会损失很多性能。
+3. 若**从右向左**匹配，先找到所有的最右节点，对于每一个节点，向上寻找其父节点直到找到根元素或满足条件的匹配规则，则结束这个分支的遍历。
+
+两种匹配规则的性能差别很大，是因为
+- **从右向左**的匹配在第一步就筛选掉了**大量的不符合条件的最右节点**（叶子节点），
+- 而**从左向右**的匹配规则的性能都浪费在了失败的查找上面。 
+
+而在 `CSS` 解析完毕后，需要将解析的结果与 `DOM Tree`的内容一起进行分析建立一棵 `Render Tree`，最终用来进行绘图。
+
+在建立`Render Tree` 时（`WebKit` 中的`「Attachment」`过程），浏览器就要为每个 `DOM Tree` 中的元素根据 `CSS` 的解析结果（`Style Rules`）来确定生成怎样的 `Render Tree`。
+
+
+## 2、css sprites含义及使用
 `CSS Sprites`其实就是把网页中一些背景图片整合到一张图片文件中，再利用`CSS`的
 - `“backgroundimage”`，
 - `“background- repeat”`，
@@ -9,13 +24,13 @@
 `CSS Sprites`为一些大型的网站节约了带宽，提高了用户的加载速度和用户体验，不需要加载更
 多的图片。
 
-## CSS中link和@import的区别
+## 3、CSS中link和@import的区别
 - (1) `link`属于`HTML`标签，而`@import`是`CSS`提供的
 - (2) 页面被加载的时，`link`会同时被加载，而`@import`被引用的`CSS`会等到引用它的 `CSS`文件被加载完再加载
 - (3) `import`只在`IE5`以上才能识别，而`link`是`HTML`标签，无兼容问题
 - (4) `link`方式的样式的权重高于`@import`的权重
 
-## src与href的区别
+## 4、src与href的区别
 
 - `src`用于替换当前元素，`href`用于在当前文档和引用资源之间确立联系。
 
@@ -34,5 +49,13 @@
 <link href="../css/index.css" />
 <!-- 不会进行下载 -->
 <a href="资源的链接"></a>
+```
+
+## 基础
+**disabled 和 readonly 的区别？**
+```
+disabled 指当 input 元素加载时禁用此元素。input 内容不会随着表单提交。
+readonly 规定输入字段为只读。input 内容会随着表单提交。
+无论设置 readonly 还是 disabled，通过 js 脚本都能更改 input 的 value。
 ```
 

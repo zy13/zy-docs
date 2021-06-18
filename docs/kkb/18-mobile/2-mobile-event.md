@@ -494,5 +494,111 @@ box.addEventListener('touchmove', function(){
 ## 9、swiper的使用
 [swiper](https://www.swiper.com.cn/)
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      margin: 0;
+    }
+    
+    .box{
+      overflow: hidden;
+      position: relative;
+      height: 545px;
+    }
+
+    .list{
+      display: flex;
+      transition: 0.5s;
+    }
+
+    .list img{
+      width: 100vw;
+    }
+  </style>
+</head>
+<body>
+  <div class="box swiper-container">
+    <div class="list swiper-wrapper">
+      <div class="swiper-slide"><img src="imgs/img01.png"></div>
+      <div class="swiper-slide"><img src="imgs/img02.png"></div>
+      <div class="swiper-slide"><img src="imgs/img03.png"></div>
+      <div class="swiper-slide"><img src="imgs/img04.png"></div>
+      <div class="swiper-slide"><img src="imgs/img05.png"></div>
+    </div>
+  </div>
+  <script src="js/swiper.min.js"></script>
+  <script>
+
+    var swiper = new Swiper('.swiper-container',{
+      loop : true, // 无缝切换
+      direcrion: 'vertical' // 垂直切换
+    });
+
+  </script>
+</body>
+</html>
+```
+
 
 ## 8、better-scroll - 更强大效果更好
+
+- [BetterScroll 2.0 - 官网](https://better-scroll.gitee.io/docs/zh-CN/)
+- [better-scroll 详解](https://blog.csdn.net/feifanzhuli/article/details/90489488)
+
+## 9、scroll-snap-type - 纯样式实现滚动
+
+[scroll-snap-type](https://developer.mozilla.org/zh-CN/docs/Web/CSS/scroll-snap-type)属性定义在滚动容器中的一个临时点（snap point）如何被严格的执行。此属性不能用来指定任何精确的动画或者物理运动效果来执行临时点，而是交给用户代理来处理。
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .box{
+            width: 100vw;
+            height: 100vh;
+            border: 1px solid #0a8cd2;
+            /*display: flex;*/
+            /*white-space: nowrap;*/
+            overflow: auto;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .item{
+            width: 100vw;
+            height: 100vh;
+            margin: 10px 0;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            background: #899;
+            display: inline-block;
+            font: 80px/100vh '';
+            text-align: center;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <div class="item">第一个</div>
+    <div class="item">two</div>
+    <div class="item">3333</div>
+    <div class="item">四</div>
+    <div class="item">this is five</div>
+</div>
+
+</body>
+</html>
+```

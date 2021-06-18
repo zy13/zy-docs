@@ -39,7 +39,7 @@ module.exports = {
         link: '/javascript/'
       },
       {
-        text: 'JavaScript教程-网道',
+        text: 'JavaScript教程(ES5)-网道',
         link: '/javascript-wd/'
       },
       {
@@ -171,6 +171,17 @@ module.exports = {
           children: [
             ['18-mobile/1-mobile.md','第1节 移动端-适配'],
             ['18-mobile/2-mobile-event.md','第2节 移动端-事件'],
+            ['18-mobile/3-mobile.md','第3节 移动端-综合-⭐'],
+          ]
+        },
+        {
+          title: '第二十一章 微信小程序',
+          collapsable: true,
+          children: [
+            ['21-wx/1-wx.md','第1节 小程序基础_1'],
+            ['21-wx/2-wx.md','第2节 小程序基础_2'],
+            ['21-wx/3-wx.md','第3节 应用场景&云开发'],
+            ['21-wx/4-wx.md','第4节 底层框架&性能优化&发布'],
           ]
         }
       ],
@@ -223,6 +234,7 @@ module.exports = {
             ['2-operator/3-boolean.md','第三节 布尔运算符'],
             ['2-operator/4-binary.md','第四节 二进制位运算符'],
             ['2-operator/5-other.md','第五节 其它运算符，运算顺序'],
+            ['2-operator/6-instanceof.md','第六节 instanceof运算符'],
           ]
         },
         {
@@ -233,6 +245,7 @@ module.exports = {
             ['3-syntax/2-error.md','第二节 错误处理机制'],
             ['3-syntax/3-coding-style.md','第三节 编程风格'],
             ['3-syntax/4-console.md','第四节 console 对象与控制台'],
+            ['3-syntax/5-strict.md','第五节 严格模式'],
           ]
         },
         {
@@ -258,17 +271,37 @@ module.exports = {
           children: [
             ['5-oop/1-instance-object.md', '第一节 实例对象和new命令'],
             ['5-oop/2-this.md', '第二节 this关键字 - ♥'],
+            ['5-oop/3-obj-inherit.md', '第三节 对象的继承 - ♥'],
+            ['5-oop/4-obj-methods.md', '第四节 Object对象的相关方法'],
           ]
         },
         {
-          title: '事件',
+          title: '第六章 异步操作',
+          collapsable: true,
+          children: [
+            ['6-async/1-intro.md', '第一节 异步操作概述 - ♥'],
+            ['6-async/2-timer.md', '第二节 定时器 - ♥'],
+            ['6-async/3-Promise.md', '第三节 Promise对象-ES6 - ♥'],
+          ]
+        },
+        {
+          title: '第七章 DOM',
+          collapsable: true,
+          children: [
+            ['7-DOM/1-intro.md', '第1节 DOM概述'],
+            ['7-DOM/2-Node.md', '第2节 Node接口'],
+            ['7-DOM/3-NodeList-HTMLCollection.md', '第4节 NodeList 接口，HTMLCollection 接口'],
+          ]
+        },
+        {
+          title: '第八章 事件',
           collapsable: true,
           children: [
             ['events/1-EventTarget.md', '第1节 EventTarget 接口']
           ]
         },
         {
-          title: '浏览器模型',
+          title: '第九章 浏览器模型',
           collapsable: true,
           children: [
             ['BOM/1-intro.md', '第1节 浏览器模型概述 - ♥'],
@@ -276,7 +309,7 @@ module.exports = {
             ['BOM/3-ns.md', '第3节 Navigator 对象，Screen 对象'],
             ['BOM/4-cookie.md', '第4节 Cookie  - ♥'],
             ['BOM/5-xhr.md', '第5节 XMLHttpRequest 对象 - ♥'],
-            ['BOM/6-corsl.md', '第6节 同源限制 - 跨域解决方案汇总 - ♥'],
+            ['BOM/6-corsl.md', '第6节 同源限制 - 跨域汇总 - ♥'],
             ['BOM/7-cors.md', '第7节 CORS 通信 - 根本解决方法 - ♥'],
             ['BOM/8-storage.md', '第8节 Storage 接口 - ♥'],
             ['BOM/9-history.md', '第9节 History 对象'],
