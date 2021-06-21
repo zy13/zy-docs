@@ -1,1 +1,0 @@
-## jquery.validator.js
