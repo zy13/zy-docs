@@ -290,7 +290,10 @@ module.exports = {
           children: [
             ['7-DOM/1-intro.md', '第1节 DOM概述'],
             ['7-DOM/2-Node.md', '第2节 Node接口'],
-            ['7-DOM/3-NodeList-HTMLCollection.md', '第4节 NodeList 接口，HTMLCollection 接口'],
+            ['7-DOM/3-NodeList-HTMLCollection.md', '第3节 NodeList 接口，HTMLCollection 接口'],
+            ['7-DOM/4-parent-child.md', '第4节 ParentNode 接口，ChildNode 接口'],
+            ['7-DOM/5-document.md', '第5节 Document 节点'],
+            ['7-DOM/6-element.md', '第6节 Element 节点'],
           ]
         },
         {
