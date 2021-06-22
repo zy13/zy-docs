@@ -217,3 +217,475 @@ var mydiv = document.getElementById('mydiv');
 mydiv.dataset.foo = 'bar';
 mydiv.getAttribute('data-foo') // "bar"
 ```
+
+## 7、Element.innerHTML 属性
+
+`Element.innerHTML`属性返回一个字符串，等同于该元素包含的所有 `HTML` 代码。该属性可读写，常用来设置某个节点的内容。它能改写所有元素节点的内容，包括`<HTML>`和`<body>`元素。
+```js
+// 如果将innerHTML属性设为空，等于删除所有它包含的所有节点。
+// 将el节点变成了一个空节点，el原来包含的节点被全部删除
+el.innerHTML = '';
+
+// 读取属性值的时候
+// 如果文本节点包含&、小于号（<）和大于号（>）
+// innerHTML属性会将它们转为实体形式&amp;、&lt;、&gt;
+// 如果想得到原文，建议使用element.textContent属性
+
+// HTML代码如下 <p id="para"> 5 > 3 </p>
+document.getElementById('para').innerHTML // 5 &gt; 3
+
+// 写入的时候，如果插入的文本包含 HTML 标签，会被解析成为节点对象插入 DOM
+// 注意，如果文本之中含有<script>标签，虽然可以生成script节点，但是插入的代码不会执行。
+var name = "<script>alert('haha')</script>";
+el.innerHTML = name; // 将脚本插入内容，脚本并不会执行
+
+// innerHTML还是有安全风险的
+var name = "<img src=x onerror=alert(1)>";
+el.innerHTML = name; // alert方法是会执行的
+
+// 因此为了安全考虑，如果插入的是文本，最好用textContent属性代替innerHTML
+```
+
+## 8、Element.outerHTML 属性
+`Element.outerHTML`属性返回一个字符串，表示当前元素节点的所有 `HTML` 代码，包括该元素本身和所有子元素
+```js
+// HTML 代码如下
+// <div id="d"><p>Hello</p></div>
+var d = document.getElementById('d');
+d.outerHTML // '<div id="d"><p>Hello</p></div>'
+
+// outerHTML属性是可读写的，对它进行赋值，等于替换掉当前元素
+
+// HTML 代码如下
+// <div id="container"><div id="d">Hello</div></div>
+var container = document.getElementById('container');
+var d = document.getElementById('d');
+container.firstChild.nodeName // "DIV"
+d.nodeName // "DIV"
+
+// 变量d代表子节点，它的outerHTML属性重新赋值以后，内层的div元素就不存在了，被p元素替换了
+// 但是，变量d依然指向原来的div元素，这表示被替换的DIV元素还存在于内存中。
+d.outerHTML = '<p>Hello</p>';
+container.firstChild.nodeName // "P"
+d.nodeName // "DIV"
+
+// 注意，如果一个节点没有父节点，设置outerHTML属性会报错。
+// div元素没有父节点，设置outerHTML属性会报错
+var div = document.createElement('div');
+div.outerHTML = '<p>test</p>'; // DOMException: This element has no parent node.
+```
+
+## 9、Element.clientHeight，clientWidth 属性
+### clientHeight
+`Element.clientHeight`属性返回一个整数值，表示元素节点的 `CSS` 高度（单位像素），只对块级元素生效，对于行内元素返回`0`。如果块级元素没有设置 `CSS` 高度，则返回实际高度。
+
+除了元素本身的高度，它还包括`padding`部分，但是不包括`border`、`margin`。如果有水平滚动条，还要减去水平滚动条的高度。注意，**这个值始终是整数，如果是小数会被四舍五入**。
+
+`document.documentElement`的`clientHeight`属性，返回当前视口的高度（即浏览器窗口的高度），等同于`window.innerHeight`属性减去水平滚动条的高度（如果有的话）。`document.body`的高度则是网页的实际高度。一般来说，`document.body.clientHeight`大于`document.documentElement.clientHeight`
+
+```js
+// 视口高度
+document.documentElement.clientHeight 
+// 等同于`window.innerHeight`属性减去水平滚动条的高度（如果有的话）
+
+// 网页总高度
+document.body.clientHeight
+```
+
+### clientWidth
+`Element.clientWidth`属性返回元素节点的 `CSS` 宽度，同样只对块级元素有效，也是只包括元素本身的宽度和`padding`，如果有垂直滚动条，还要减去垂直滚动条的宽度。
+
+## 10、Element.clientLeft，clientTop 属性
+
+### clientLeft
+`Element.clientLeft`属性等于元素节点左边框（`left border`）的宽度（单位像素），不包括左侧的`padding`和`margin`。如果没有设置左边框，或者是行内元素（`display: inline`），该属性返回`0`。该属性总是返回整数值，如果是小数，会四舍五入。
+### clientTop
+`Element.clientTop`属性等于网页元素顶部边框的宽度（单位像素），其他特点都与`clientLeft`相同。
+
+## 11、Element.scrollHeight，scrollWidth 属性
+### scrollHeight
+`Element.scrollHeight`属性返回一个整数值（小数会四舍五入），表示当前元素的总高度（单位像素），包括溢出容器、当前不可见的部分。它包括`padding`，但是不包括`border`、`margin`以及水平滚动条的高度（如果有水平滚动条的话），还包括伪元素（`::before`或`::after`）的高度。
+
+整张网页的总高度可以从`document.documentElement`或`document.body`上读取
+```js
+// 返回网页的总高度
+document.documentElement.scrollHeight
+document.body.scrollHeight
+
+// 注意，如果元素节点的内容出现溢出，即使溢出的内容是隐藏的，
+// scrollHeight属性仍然返回元素的总高度。
+
+// HTML 代码如下
+// <div id="myDiv" style="height: 200px; overflow: hidden;">...<div>
+
+// 即使myDiv元素的 CSS 高度只有200像素，且溢出部分不可见，
+// 但是scrollHeight仍然会返回该元素的原始高度。
+document.getElementById('myDiv').scrollHeight // 356
+```
+### scrollWidth
+`Element.scrollWidth`属性表示当前元素的总宽度（单位像素），其他地方都与`scrollHeight`属性类似。这两个属性只读。
+
+## 12、Element.scrollLeft，scrollTop 属性
+- `Element.scrollLeft`属性表示当前元素的水平滚动条向右侧滚动的像素数量，
+- `Element.scrollTop`属性表示当前元素的垂直滚动条向下滚动的像素数量。对于那些没有滚动条的网页元素，这两个属性总是等于`0`。
+- 这两个属性都可读写，设置该属性的值，会导致浏览器将当前元素自动滚动到相应的位置。
+```js
+// 如果要查看整张网页的水平的和垂直的滚动距离，要从`document.documentElement`元素上读取。
+document.documentElement.scrollLeft
+document.documentElement.scrollTop
+```
+
+## 13、Element.offsetParent 属性
+`Element.offsetParent`属性返回最靠近当前元素的、并且 `CSS` 的`position`属性不等于`static`的上层元素。
+- 该属性主要用于确定子元素位置偏移的计算基准，`Element.offsetTop`和`Element.offsetLeft`就是`offsetParent`元素计算的。
+- 如果该元素是不可见的（`display`属性为`none`），或者位置是固定的（`position`属性为`fixed`），则`offsetParent`属性返回`null`。
+- 如果某个元素的所有上层节点的`position`属性都是`static`，则`Element.offsetParent`属性指向`<body>`元素。
+```html
+<!-- span元素的offsetParent属性就是div元素 -->
+<div style="position: absolute;">
+  <p>
+    <span>Hello</span>
+  </p>
+</div>
+
+<!-- span元素的offsetParent属性是null -->
+<div style="position: absolute;">
+  <p>
+    <span style="display: none;">Hello</span>
+  </p>
+</div>
+```
+
+## 14、Element.offsetHeight，offsetWidth 属性
+`Element.offsetHeight`属性返回一个整数，表示元素的 `CSS` 垂直高度（单位像素），包括元素本身的高度、`padding` 和 `border`，以及水平滚动条的高度（如果存在滚动条）。
+
+`Element.offsetWidth`属性表示元素的 `CSS` 水平宽度（单位像素），其他都与`Element.offsetHeight`一致。
+
+这两个属性都是只读属性，只比`Element.clientHeight`和`Element.clientWidth`多了边框的高度或宽度。如果元素的 `CSS` 设为不可见（比如`display: none`;），则返回`0`。
+
+## 15、Element.offsetLeft，offsetTop 属性
+`Element.offsetLeft`返回当前元素左上角相对于`Element.offsetParent`节点的水平位移，`Element.offsetTop`返回垂直位移，单位为像素。通常，这两个值是指相对于父节点的位移。
+```js
+// 下面的代码可以算出元素左上角相对于整张网页的坐标
+function getElementPosition(e) {
+  var x = 0;
+  var y = 0;
+  while (e !== null)  {
+    x += e.offsetLeft;
+    y += e.offsetTop;
+    e = e.offsetParent;
+  }
+  return {x: x, y: y};
+}
+```
+
+## 16、Element.style 属性
+每个元素节点都有`style`用来读写该元素的行内样式信息，具体介绍参见《`CSS` 操作》一章。
+
+## 17、Element.children，childElementCount 属性
+`Element.children`属性返回一个类似数组的对象（`HTMLCollection`实例），包括当前元素节点的所有子元素。如果当前元素没有子元素，则返回的对象包含零个成员。
+- 这个属性与`Node.childNodes`属性的区别是，它只包括元素类型的子节点，不包括其他类型的子节点。
+```js
+// 遍历para元素的所有子元素
+if (para.children.length) {
+  var children = para.children;
+  for (var i = 0; i < children.length; i++) {
+    // ...
+  }
+}
+```
+`Element.childElementCount`属性返回当前元素节点包含的子元素节点的个数，与`Element.children.length`的值相同。
+
+## 18、Element.firstElementChild，lastElementChild 属性
+`Element.firstElementChild`属性返回当前元素的第一个元素子节点，`Element.lastElementChild`返回最后一个元素子节点。
+
+如果没有元素子节点，这两个属性返回`null`。
+
+## 19、Element.nextElementSibling，previousElementSibling
+
+`Element.nextElementSibling`属性返回当前元素节点的后一个同级元素节点，如果没有则返回`null`。
+```js
+// HTML 代码如下
+// <div id="div-01">Here is div-01</div>
+// <div id="div-02">Here is div-02</div>
+var el = document.getElementById('div-01');
+el.nextElementSibling // <div id="div-02">Here is div-02</div>
+```
+`Element.previousElementSibling`属性返回当前元素节点的前一个同级元素节点，如果没有则返回`null`。
+
+## 20、属性相关的方法
+元素节点提供六个方法，用来操作属性：
+- `getAttribute()`：读取某个属性的值
+- `getAttributeNames()`：返回当前元素的所有属性名
+- `setAttribute()`：写入属性值
+- `hasAttribute()`：某个属性是否存在
+- `hasAttributes()`：当前元素是否有属性
+- `removeAttribute()`：删除属性
+这些方法的介绍请看《属性的操作》一章。
+
+## 21、Element.querySelector() 方法
+`Element.querySelector`方法接受 `CSS` 选择器作为参数，返回父元素的第一个匹配的子元素。如果没有找到匹配的子元素，就返回`null`。
+```js
+// 该方法接受 CSS 选择器作为参数，返回父元素的第一个匹配的子元素
+var content = document.getElementById('content');
+var el = content.querySelector('p'); // 返回content节点的第一个p元素
+
+// 该方法可以接受任何复杂的 CSS 选择器，但是无法选中伪元素
+document.body.querySelector("style[type='text/css'], style:not([type])");
+
+// 它可以接受多个选择器，它们之间使用逗号分隔。
+element.querySelector('div, p') // 返回element的第一个div或p子元素
+```
+需要注意的是，浏览器执行`querySelector`方法时，是先在全局范围内搜索给定的 `CSS` 选择器，然后过滤出哪些属于当前元素的子元素。因此，会有一些违反直觉的结果，下面是一段 `HTML` 代码。
+```js
+<div>
+  <blockquote id="outer">
+    <p>Hello</p>
+    <div id="inner">
+      <p>World</p>
+    </div>
+  </blockquote>
+</div>
+
+var outer = document.getElementById('outer');
+outer.querySelector('div p') // <p>Hello</p> 实际上返回的是第一个p元素，而不是第二个
+```
+
+## 22、Element.querySelectorAll() 方法
+`Element.querySelectorAll`方法接受 `CSS` 选择器作为参数，返回一个`NodeList`实例，包含所有匹配的子元素。
+```js
+// 该方法的执行机制与querySelector方法相同，
+// 也是先在全局范围内查找，再过滤出当前元素的子元素。因此，选择器实际上针对整个文档的。
+var el = document.querySelector('#test');
+var matches = el.querySelectorAll('div.highlighted > p');
+
+// 它也可以接受多个 CSS 选择器，它们之间使用逗号分隔。
+// 如果选择器里面有伪元素的选择器，则总是返回一个空的NodeList实例。
+```
+
+## 23、Element.getElementsByClassName() 方法
+`Element.getElementsByClassName`方法返回一个`HTMLCollection`实例，成员是当前元素节点的所有具有指定 `class` 的子元素节点。
+
+该方法与`document.getElementsByClassName`方法的用法类似，只是搜索范围不是整个文档，而是当前元素节点。
+```js
+// 该方法的参数大小写敏感
+element.getElementsByClassName('red test');
+```
+由于`HTMLCollection`实例是一个活的集合，`document`对象的任何变化会立刻反应到实例，下面的代码不会生效。
+```js
+// HTML 代码如下
+// <div id="example">
+//   <p class="foo"></p>
+//   <p class="foo"></p>
+// </div>
+var element = document.getElementById('example');
+var matches = element.getElementsByClassName('foo');
+
+// matches集合的第一个成员，一旦被拿掉 class 里面的foo，就会立刻从matches里面消失
+for (var i = 0; i< matches.length; i++) {
+  matches[i].classList.remove('foo');
+  matches.item(i).classList.add('bar');
+}
+// 执行后，HTML 代码如下
+// <div id="example">
+//   <p></p>
+//   <p class="foo bar"></p>
+// </div>
+```
+
+## 24、Element.getElementsByTagName() 方法
+`Element.getElementsByTagName()`方法返回一个`HTMLCollection`实例，成员是当前节点的所有匹配指定标签名的子元素节点。该方法与`document.getElementsByClassName()`方法的用法类似，只是搜索范围不是整个文档，而是当前元素节点。
+```js
+// 该方法的参数是大小写不敏感的，因为 HTML 标签名也是大小写不敏感
+var table = document.getElementById('forecast-table');
+var cells = table.getElementsByTagName('td');
+```
+
+## 25、Element.closest() 方法
+`Element.closest`方法接受一个 `CSS` 选择器作为参数，返回匹配该选择器的、最接近当前节点的一个祖先节点（包括当前节点本身）。`Element.closest`方法接受一个 `CSS` 选择器作为参数，返回匹配该选择器的、最接近当前节点的一个祖先节点（包括当前节点本身）
+```js
+// HTML 代码如下
+<article>
+  <div id="div-01">Here is div-01
+    <div id="div-02">Here is div-02
+      <div id="div-03">Here is div-03</div>
+    </div>
+  </div>
+</article>
+
+var div03 = document.getElementById('div-03');
+
+// div-03 最近的祖先节点
+div03.closest("#div-02") // div-02
+div03.closest("div div") // div-03 将当前节点也考虑在内
+div03.closest("article > div") //div-01
+div03.closest(":not(div)") // article
+```
+
+## 26、Element.matches() 方法
+`Element.matches`方法返回一个布尔值，表示当前元素是否匹配给定的 `CSS` 选择器。
+```js
+if (el.matches('.someClass')) {
+  console.log('Match!');
+}
+```
+
+## 27、事件相关方法
+以下三个方法与`Element`节点的事件相关。这些方法都继承自`EventTarget`接口，详见相关章节。
+- `Element.addEventListener()`：添加事件的回调函数
+- `Element.removeEventListener()`：移除事件监听函数
+- `Element.dispatchEvent()`：触发事件
+```js
+element.addEventListener('click', listener, false);
+element.removeEventListener('click', listener, false);
+
+var event = new Event('click');
+element.dispatchEvent(event);
+```
+
+## 28、Element.scrollIntoView() 方法 - ♥
+`Element.scrollIntoView`方法**滚动当前元素，进入浏览器的可见区域**，类似于设置`window.location.hash`的效果。
+```js
+// 该方法可以接受一个布尔值作为参数
+// 如果为true，表示元素的顶部与当前区域的可见部分的顶部对齐（前提是当前区域可滚动）
+// 如果为false，表示元素的底部与当前区域的可见部分的尾部对齐（前提是当前区域可滚动）
+// 如果没有提供该参数，默认为true。
+el.scrollIntoView(); // 等同于el.scrollIntoView(true)
+el.scrollIntoView(false);
+```
+
+## 29、Element.getBoundingClientRect() 方法
+`Element.getBoundingClientRect`方法返回一个对象，提供当前元素节点的大小、位置等信息，基本上就是 `CSS` 盒状模型的所有信息。
+- `x`：元素左上角相对于视口的横坐标
+- `y`：元素左上角相对于视口的纵坐标
+- `height`：元素高度
+- `width`：元素宽度
+- `left`：元素左上角相对于视口的横坐标，与`x`属性相等
+- `right`：元素右边界相对于视口的横坐标（等于`x + width`）
+- `top`：元素顶部相对于视口的纵坐标，与`y`属性相等
+- `bottom`：元素底部相对于视口的纵坐标（等于`y + height`）
+```js
+// 由于元素相对于视口（viewport）的位置，会随着页面滚动变化，
+// 因此表示位置的四个属性值，都不是固定不变的。
+// 如果想得到绝对位置，可以将left属性加上window.scrollX，top属性加上window.scrollY
+var rect = obj.getBoundingClientRect();
+
+// 另外，上面的这些属性，都是继承自原型的属性，
+// Object.keys会返回一个空数组，这一点也需要注意。
+var rect = document.body.getBoundingClientRect(); // rect对象没有自身属性
+Object.keys(rect) // []
+```
+注意，`getBoundingClientRect`方法的所有属性，都把边框（`border`属性）算作元素的一部分。也就是说，都是从边框外缘的各个点来计算。因此，`width`和`height`包括了`元素本身 + padding + border`。
+
+## 30、Element.getClientRects() 方法
+`Element.getClientRects`方法返回一个类似数组的对象，里面是当前元素在页面上形成的所有矩形（所以方法名中的`Rect`用的是复数）。每个矩形都有`bottom`、`height`、`left`、`right`、`top`和`width`六个属性，表示它们相对于视口的四个坐标，以及本身的高度和宽度。**这个方法主要用于判断行内元素是否换行，以及行内元素的每一行的位置偏移。**
+- 对于盒状元素（比如`<div>`和`<p>`），该方法返回的对象中只有该元素一个成员。
+- 对于行内元素（比如`<span>`、`<a>`、`<em>`），该方法返回的对象有多少个成员，取决于该元素在页面上占据多少行。这是它和`Element.getBoundingClientRect()`方法的主要区别，后者对于行内元素总是返回一个矩形。
+```js
+// 一个行内元素<span>，如果它在页面上占据三行
+// getClientRects方法返回的对象就有三个成员
+// 如果它在页面上占据一行，getClientRects方法返回的对象就只有一个成员。
+<span id="inline">Hello World Hello World Hello World</span>
+
+// 判断行内元素是否换行，以及行内元素的每一行的位置偏移
+var el = document.getElementById('inline');
+el.getClientRects().length // 3
+el.getClientRects()[0].left // 8
+el.getClientRects()[0].right // 113.908203125
+el.getClientRects()[0].bottom // 31.200000762939453
+el.getClientRects()[0].height // 23.200000762939453
+el.getClientRects()[0].width // 105.908203125
+
+// 如果行内元素包括换行符，那么该方法会把换行符考虑在内
+// <span>节点内部有三个换行符，
+// 即使 HTML 语言忽略换行符，将它们显示为一行，getClientRects()方法依然会返回三个成员
+// 如果行宽设置得特别窄，上面的<span>元素显示为6行，那么就会返回六个成员。
+<span id="inline">
+  Hello World
+  Hello World
+  Hello World
+</span>
+```
+
+## 31、Element.insertAdjacentElement() 方法
+`Element.insertAdjacentElement`方法在相对于当前元素的指定位置，插入一个新的节点。该方法返回被插入的节点，如果插入失败，返回`null`。第一个参数只可以取如下的值。
+- `beforebegin`：当前元素之前
+- `afterbegin`：当前元素内部的第一个子节点前面
+- `beforeend`：当前元素内部的最后一个子节点后面
+- `afterend`：当前元素之后
+
+注意，`beforebegin`和`afterend`这两个值，只在当前节点有父节点时才会生效。如果当前节点是由脚本创建的，没有父节点，那么插入会失败。
+```js
+// 一共可以接受两个参数
+// 第一个参数是一个字符串，表示插入的位置
+// 第二个参数是将要插入的节点
+element.insertAdjacentElement(position, element);
+
+// p1没有父节点，所以插入p2到它后面就失败了
+var p1 = document.createElement('p')
+var p2 = document.createElement('p')
+p1.insertAdjacentElement('afterend', p2) // null
+```
+**如果插入的节点是一个文档里现有的节点，它会从原有位置删除，放置到新的位置。**
+
+## 33、Element.insertAdjacentHTML()，insertAdjacentText()
+
+### insertAdjacentHTML()
+
+`Element.insertAdjacentHTML`方法用于将一个 `HTML` 字符串，解析生成 `DOM` 结构，插入相对于当前节点的指定位置。**该方法只是在现有的 DOM 结构里面插入节点，这使得它的执行速度比innerHTML方法快得多。**
+```js
+// 该方法接受两个参数
+// 第一个是一个表示指定位置的字符串
+// 第二个是待解析的 HTML 字符串
+element.insertAdjacentHTML(position, text);
+```
+第一个参数只能设置下面四个值之一。
+- `beforebegin`：当前元素之前
+- `afterbegin`：当前元素内部的第一个子节点前面
+- `beforeend`：当前元素内部的最后一个子节点后面
+- `afterend`：当前元素之后
+```js
+// HTML 代码：<div id="one">one</div>
+var d1 = document.getElementById('one');
+d1.insertAdjacentHTML('afterend', '<div id="two">two</div>');
+// 执行后的 HTML 代码：
+// <div id="one">one</div><div id="two">two</div>
+```
+**注意，该方法不会转义 HTML 字符串，这导致它不能用来插入用户输入的内容，否则会有安全风险。**
+
+### insertAdjacentText()
+`Element.insertAdjacentText`方法在相对于当前节点的指定位置，插入一个文本节点，用法与`Element.insertAdjacentHTML`方法完全一致。
+```js
+// HTML 代码：<div id="one">one</div>
+var d1 = document.getElementById('one');
+d1.insertAdjacentText('afterend', 'two');
+// 执行后的 HTML 代码：
+// <div id="one">one</div>two
+```
+
+## 34、Element.remove() 方法
+`Element.remove`方法继承自 `ChildNode` 接口，用于将当前元素节点从它的父节点移除。
+```js
+// 将el节点从 DOM 树里面移除
+var el = document.getElementById('mydiv');
+el.remove();
+```
+
+## 35、Element.focus()，blur() 方法 - ♥
+`Element.focus`方法用于**将当前页面的焦点，转移到指定元素上**。`Element.blur`方法**用于将焦点从当前元素移除**。**参数对象的preventScroll属性是一个布尔值，指定是否将当前元素停留在原始位置，而不是滚动到可见区域。**
+```js
+// focus方法可以接受一个对象作为参数
+// 参数对象的preventScroll属性是一个布尔值
+// 指定是否将当前元素停留在原始位置，而不是滚动到可见区域。
+document.getElementById('my-span').focus();
+
+// 让btn元素获得焦点，并滚动到可见区域。
+function getFocus() {
+  document.getElementById('btn').focus({preventScroll:false});
+}
+
+// 最后，从document.activeElement属性可以得到当前获得焦点的元素
+```
+
+## 36、Element.click() 方法
+`Element.click`方法用于在当前元素上模拟一次鼠标点击，相当于触发了`click`事件。

@@ -294,6 +294,10 @@ module.exports = {
             ['7-DOM/4-parent-child.md', '第4节 ParentNode 接口，ChildNode 接口'],
             ['7-DOM/5-document.md', '第5节 Document 节点'],
             ['7-DOM/6-element.md', '第6节 Element 节点'],
+            ['7-DOM/7-attribute.md', '第7节 属性的操作'],
+            ['7-DOM/8-txt-df.md', '第8节 Text节点和DocumentFragment节点'],
+            ['7-DOM/9-css.md', '第9节 CSS 操作'],
+            ['7-DOM/10-mutation-observer.md', '第10节 Mutation Observer API - ♥'],
           ]
         },
         {
