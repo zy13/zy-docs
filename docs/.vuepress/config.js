@@ -304,7 +304,12 @@ module.exports = {
           title: '第八章 事件',
           collapsable: true,
           children: [
-            ['events/1-EventTarget.md', '第1节 EventTarget 接口']
+            ['8-events/1-EventTarget.md', '第1节 EventTarget 接口'],
+            ['8-events/2-mode.md', '第2节 事件模型'],
+            ['8-events/3-event.md', '第3节 Event对象'],
+            ['8-events/4-mouse-event.md', '第4节 鼠标事件'],
+            ['8-events/5-keyboard.md', '第5节 键盘事件'],
+            ['8-events/6-progress.md', '第6节 进度事件'],
           ]
         },
         {
