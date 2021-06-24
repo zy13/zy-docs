@@ -310,6 +310,15 @@ module.exports = {
             ['8-events/4-mouse-event.md', '第4节 鼠标事件'],
             ['8-events/5-keyboard.md', '第5节 键盘事件'],
             ['8-events/6-progress.md', '第6节 进度事件'],
+            ['8-events/7-form.md', '第7节 表单事件'],
+            ['8-events/8-touch.md', '第8节 触摸事件'],
+            ['8-events/9-drag.md', '第9节 拖拉事件'],
+            ['8-events/10-source.md', '第10节 资源事件'],
+            ['8-events/11-session.md', '第11节 session 历史事件'],
+            ['8-events/12-page.md', '第12节 网页状态事件'],
+            ['8-events/13-window.md', '第13节 窗口事件'],
+            ['8-events/14-other.md', '第14节 其他事件'],
+            ['8-events/15-global.md', '第15节 GlobalEventHandlers 接口'],
           ]
         },
         {
