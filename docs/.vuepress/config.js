@@ -346,11 +346,18 @@ module.exports = {
       ],
       '/http/': [
         {
-          title: '第一章 HTTP 概述',
+          title: '第一部分 HTTP：Web 的基础',
           collapsable: true,
           children: [
-            ['1-web-base/1-http-intro.md','第1节 HTTP - 因特网的多媒体信使'],
-            // ['2-http-struct']
+            ['part-1/1-base.md','第1章 Web 的基础'],
+            ['part-1/4-connect.md','第4章 连接管理 - ♥'],
+          ]
+        },
+        {
+          title: '第二部分 HTTP 结构',
+          collapsable: true,
+          children: [
+            ['part-2/8-gateway.md','第8章 集成点：网关、隧道及中继'],
           ]
         }
       ],
